@@ -677,3 +677,10 @@ html, body { overflow-x: clip; }
   .hero-sub { font-size: 16.5px; }
   .hero.photo .hero-cta .wbtn { height: 58px; font-size: 18px; padding: 0 24px 0 26px; }
 }
+@media (max-width: 400px) {
+  .site-top .wrap { gap: 10px; }
+  .site-top .lockup { gap: 8px; }
+  .site-top .lockup img { height: 30px; }
+  .site-top .lockup .wm { font-size: 18px !important; }
+}
+@media (max-width: 340px) { .site-top .lockup .wm { display: none; } }

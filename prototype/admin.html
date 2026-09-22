@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E8EEEB">
+<title>Хишиг ус · Admin · Өнөөдөр</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="phone">
+
+  <header class="rise" style="padding:20px 16px 6px 20px;display:flex;align-items:flex-start;justify-content:space-between">
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#1E7F5C"><span class="live"></span>Шууд шинэчлэгдэнэ</div>
+      <h1 class="disp" style="margin:8px 0 0;font-size:26px;font-weight:600">Өнөөдөр</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:3px">9-р сарын 22, Мягмар</div>
+    </div>
+    <button class="wbtn" id="addOrder" style="height:48px;padding:0 16px;border-radius:16px;font-size:14px;gap:8px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg>
+      Захиалга
+    </button>
+  </header>
+
+  <section class="rise d1 mx grid2" style="margin-top:14px">
+    <div class="tile deep">
+      <div style="position:absolute;left:0;right:0;bottom:0;height:34px;overflow:hidden;pointer-events:none">
+        <svg class="run-mid" viewBox="0 0 400 34" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:200%;height:34px" aria-hidden="true"><path d="M0 14 Q25 6 50 14 T100 14 T150 14 T200 14 T250 14 T300 14 T350 14 T400 14 V34 H0 Z" fill="#185679"/></svg>
+      </div>
+      <div class="lbl">Хүргэх баллон</div>
+      <div class="val disp" id="sDeliver"></div>
+    </div>
+    <div class="tile card"><div class="lbl">Захиалга</div><div class="val disp" id="sCount"></div></div>
+    <div class="tile card"><div class="lbl">Орлого</div><div class="val disp" id="sRevenue" style="color:#17654A"></div></div>
+    <div class="tile card"><div class="lbl">Өр (өнөөдөр)</div><div class="val disp" id="sDebt" style="color:#B4441F"></div></div>
+  </section>
+
+  <div class="segbox white rise d2 mx" id="filterSeg" style="margin-top:16px">
+    <div class="pill"></div>
+    <button class="seg on" data-f="all">Бүгд</button>
+    <button class="seg" data-f="new">Шинэ</button>
+    <button class="seg" data-f="out">Замдаа</button>
+    <button class="seg" data-f="delivered">Хүргэсэн</button>
+  </div>
+
+  <div id="list"></div>
+</main>
+
+<nav class="tb glass five" data-liquid aria-label="Admin цэс">
+  <div class="goo"><div class="blob trail"></div><div class="blob lead"></div></div>
+  <a href="admin.html" class="tab cur" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3"/></svg>Өнөөдөр</a>
+  <a href="#" class="tab" data-nav data-soon="Бүх захиалгын жагсаалт загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="4" width="15" height="16.5" rx="3"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg>Захиалга</a>
+  <a href="admin-customer.html" class="tab" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19.5c.9-3 3.2-4.6 6-4.6s5.1 1.6 6 4.6"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.8.5 3 1.9 3.5 4.6"/></svg>Хэрэглэгч</a>
+  <a href="#" class="tab" data-nav data-soon="Гүйлгээний хуудас загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg>Гүйлгээ</a>
+  <a href="#" class="tab" data-nav data-soon="Тохиргоо загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg>Тохиргоо</a>
+</nav>
+
+<div id="sheetRoot" hidden>
+  <div class="veil dim" id="veil"></div>
+  <div class="sheet enter" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="grab"></div>
+    <div class="muted" id="sheetTitle" style="font-size:13px;font-weight:600"></div>
+    <div class="disp" id="sheetTotal" style="font-size:32px;font-weight:600;margin:6px 0 18px"></div>
+    <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px">Төлбөр</div>
+    <div class="grid3" id="payOpts">
+      <button class="payopt on" data-pay="cash"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6.5" width="18" height="11" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Бэлэн</button>
+      <button class="payopt" data-pay="transfer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5 12 4.5l8.5 5"/><path d="M5.5 10v7M10 10v7M14 10v7M18.5 10v7M3.5 19.5h17"/></svg>Данс</button>
+      <button class="payopt is-debt" data-pay="debt"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4.5v4h4"/><path d="M12 8v4.5l3 1.5"/></svg>Дараа төлнө</button>
+    </div>
+    <div id="debtNote"></div>
+    <div class="grid2" style="margin-top:18px">
+      <button class="btn-plain" id="sheetCancel">Болих</button>
+      <button class="wbtn" id="sheetOk" style="height:54px;border-radius:18px;font-size:15px">Батлах</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  const K = KHISHIG;
+  const $ = (id) => document.getElementById(id);
+  const orders = [
+    { id: 1047, name: 'Батбаяр Г.', phone: '99112233', addr: '3-р баг, 7-р байр, 21 тоот', note: 'Орц 2, код 1234', qty: 3, slot: 'asap', status: 'new', pay: null },
+    { id: 1046, name: 'Оюунчимэг Б.', phone: '88445566', addr: '8-р баг, 14-р гудамж, 3-р хашаа', note: 'Цэнхэр хаалгатай', qty: 2, slot: 'asap', status: 'out', pay: null },
+    { id: 1039, name: 'Ууганбаяр Э.', phone: '88776655', addr: '2-р баг, 5-р байр, 12 тоот', note: '', qty: 4, slot: '09-12', status: 'delivered', pay: 'cash' },
+    { id: 1038, name: 'Энхтуяа Л.', phone: '91234455', addr: '7-р баг, 22-р гудамж, 9-р хашаа', note: '', qty: 2, slot: '09-12', status: 'delivered', pay: 'debt' },
+    { id: 1043, name: 'Сарангэрэл Д.', phone: '95127788', addr: '5-р баг, 12-р байр, 34 тоот', note: '', qty: 3, slot: '12-15', status: 'new', pay: null },
+    { id: 1041, name: 'Ган-Эрдэнэ Т.', phone: '80994411', addr: '1-р баг, 2-р байр, 8 тоот', note: '', qty: 1, slot: '12-15', status: 'out', pay: null },
+    { id: 1040, name: 'Нарангэрэл С.', phone: '94001122', addr: '6-р баг, 3-р гудамж, 17-р хашаа', note: 'Нохойтой — ирэхээсээ өмнө залгаарай', qty: 6, slot: '15-17', status: 'new', pay: null }
+  ];
+  const GROUPS = [['asap', 'Аль болох хурдан'], ['09-12', '09:00–12:00'], ['12-15', '12:00–15:00'], ['15-17', '15:00–17:00']];
+  const STATUS = { new: 'Шинэ', out: 'Замдаа', delivered: 'Хүргэсэн' };
+  const PAY = { cash: 'Бэлэн', transfer: 'Данс', debt: 'Өр' };
+  const st = { filter: 'all', sheetId: null, pay: 'cash' };
+  const totalOf = (o) => o.qty * K.price + K.fee;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function cardHTML(o, anim) {
+    const f = K.bonus(o.qty);
+    let action = '';
+    if (o.status === 'new') action = '<button class="wbtn" data-act="out" style="height:44px;padding:0 16px;border-radius:14px;font-size:14px">Гарлаа</button>';
+    else if (o.status === 'out') action = '<button class="wbtn green" data-act="deliver" style="height:44px;padding:0 16px;border-radius:14px;font-size:14px">Хүргэсэн</button>';
+    else action = '<span class="paytag pay-' + o.pay + '">' + PAY[o.pay] + '</span>';
+    return '<article class="ocard' + (anim ? ' anim' : '') + (o.status === 'delivered' ? ' is-done' : '') + '" data-id="' + o.id + '">' +
+      '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">' +
+        '<div style="min-width:0"><a href="admin-customer.html" class="oname">' + esc(o.name) + '</a>' +
+        '<div class="muted" style="font-size:13px;margin-top:3px;line-height:1.4">#' + o.id + ' · ' + esc(o.addr) + '</div></div>' +
+        '<span class="pill-s st-' + o.status + '">' + STATUS[o.status] + '</span>' +
+      '</div>' +
+      (o.note ? '<div style="font-size:12.5px;color:#6E4204;background:#FDF6EA;border-radius:10px;padding:7px 10px">' + esc(o.note) + '</div>' : '') +
+      '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px">' +
+        '<div style="display:flex;align-items:center;gap:8px;min-width:0">' +
+          '<span class="qty">' + (o.qty + f) + ' баллон' + (f ? ' · ' + f + ' бэлэг' : '') + '</span>' +
+          '<span class="disp" style="font-size:14px;font-weight:600">' + K.fmt(totalOf(o)) + '</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:8px">' +
+          '<a href="tel:' + o.phone + '" class="callbtn" aria-label="' + esc(o.name) + ' руу залгах"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h2.8l1.5 4.3-2 1.4a11 11 0 0 0 5.9 5.9l1.4-2 4.3 1.5v2.8a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg></a>' +
+          action +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function renderList() {
+    const want = st.filter === 'all' ? null : st.filter;
+    let html = '';
+    let i = 0;
+    GROUPS.forEach(([slot, label]) => {
+      const list = orders.filter((o) => o.slot === slot && (!want || o.status === want));
+      if (!list.length) return;
+      html += '<div class="ghead"><span>' + label + '</span><b>' + list.length + '</b></div>';
+      list.forEach((o) => { html += cardHTML(o, true).replace('class="ocard anim', 'style="animation-delay:' + (i++ * 0.05) + 's" class="ocard anim'); });
+    });
+    $('list').innerHTML = html || '<div class="muted" style="text-align:center;padding:40px 20px;font-size:14px">Энэ төлөвт захиалга алга</div>';
+    K.enhance($('list'));
+  }
+
+  function updateCard(o) {
+    const el = document.querySelector('.ocard[data-id="' + o.id + '"]');
+    const want = st.filter === 'all' ? null : st.filter;
+    if (!el) return;
+    if (want && o.status !== want) { renderList(); return; }
+    el.outerHTML = cardHTML(o, false);
+    K.enhance($('list'));
+  }
+
+  let prev = {};
+  function renderStats() {
+    const vals = {
+      sDeliver: String(orders.filter((o) => o.status !== 'delivered').reduce((a, o) => a + o.qty + K.bonus(o.qty), 0)),
+      sCount: String(orders.length),
+      sRevenue: K.fmt(orders.filter((o) => o.status === 'delivered' && o.pay !== 'debt').reduce((a, o) => a + totalOf(o), 0)),
+      sDebt: K.fmt(orders.filter((o) => o.status === 'delivered' && o.pay === 'debt').reduce((a, o) => a + totalOf(o), 0))
+    };
+    Object.keys(vals).forEach((k) => {
+      if (prev[k] !== undefined && prev[k] !== vals[k]) K.bump($(k));
+      $(k).textContent = vals[k];
+    });
+    prev = vals;
+  }
+
+  const placeFilter = K.seg($('filterSeg'));
+  document.querySelectorAll('#filterSeg .seg').forEach((b) => b.addEventListener('click', () => {
+    st.filter = b.dataset.f;
+    document.querySelectorAll('#filterSeg .seg').forEach((x) => x.classList.toggle('on', x === b));
+    placeFilter();
+    renderList();
+  }));
+
+  $('list').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    const o = orders.find((x) => x.id === +btn.closest('.ocard').dataset.id);
+    if (btn.dataset.act === 'out') {
+      o.status = 'out';
+      updateCard(o);
+      renderStats();
+      K.toast('#' + o.id + ' хүргэлтэнд гарлаа');
+    } else {
+      openSheet(o);
+    }
+  });
+
+  function setPay(p) {
+    st.pay = p;
+    document.querySelectorAll('#payOpts .payopt').forEach((b) => b.classList.toggle('on', b.dataset.pay === p));
+    const o = orders.find((x) => x.id === st.sheetId);
+    $('debtNote').innerHTML = p === 'debt' && o ? '<div class="note-debt">' + esc(o.name) + '-ийн өрөнд <b>' + K.fmt(totalOf(o)) + '</b> нэмэгдэнэ.</div>' : '';
+  }
+
+  function openSheet(o) {
+    st.sheetId = o.id;
+    $('sheetTitle').textContent = 'Хүргэсэн · #' + o.id + ' · ' + o.name;
+    $('sheetTotal').textContent = K.fmt(totalOf(o));
+    setPay('cash');
+    $('sheetRoot').hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => $('sheet').classList.remove('enter')));
+    $('sheetOk').focus({ preventScroll: true });
+  }
+  function closeSheet() {
+    $('sheet').classList.add('enter');
+    setTimeout(() => { $('sheetRoot').hidden = true; }, 420);
+    st.sheetId = null;
+  }
+
+  document.querySelectorAll('#payOpts .payopt').forEach((b) => b.addEventListener('click', () => setPay(b.dataset.pay)));
+  $('veil').addEventListener('click', closeSheet);
+  $('sheetCancel').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('sheetRoot').hidden) closeSheet(); });
+  $('sheetOk').addEventListener('click', () => {
+    const o = orders.find((x) => x.id === st.sheetId);
+    if (!o) return;
+    o.status = 'delivered';
+    o.pay = st.pay;
+    closeSheet();
+    updateCard(o);
+    renderStats();
+    K.toast('#' + o.id + ' хүргэгдлээ · ' + PAY[o.pay]);
+  });
+  $('addOrder').addEventListener('click', () => K.toast('«Захиалга нэмэх» форм загварт хараахан ороогүй'));
+
+  renderList();
+  renderStats();
+})();
+</script>
+</body>
+</html>

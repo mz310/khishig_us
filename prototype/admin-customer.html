@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E8EEEB">
+<title>Хишиг ус · Admin · Хэрэглэгч</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="phone">
+
+  <header class="pagehead rise">
+    <a href="admin.html" class="iconbtn" aria-label="Буцах"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+    <h1 class="disp">Хэрэглэгч</h1>
+  </header>
+
+  <section class="card rise d1 mx" style="padding:18px;display:flex;align-items:center;gap:14px">
+    <div class="disp" style="width:54px;height:54px;border-radius:18px;background:#D8EAF2;color:#0F3B57;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0">СД</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:17px;font-weight:600">Сарангэрэл Д.</div>
+      <div class="muted" style="font-size:13px;margin-top:3px">95127788 · 5-р баг, 12-р байр, 34 тоот</div>
+      <div style="display:inline-flex;margin-top:7px;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:#EAF4F9;color:#0F4E76">Gmail-ээр захиалдаг</div>
+    </div>
+    <a href="tel:95127788" class="wbtn" aria-label="Залгах" style="width:48px;height:48px;border-radius:16px;flex-shrink:0">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h2.8l1.5 4.3-2 1.4a11 11 0 0 0 5.9 5.9l1.4-2 4.3 1.5v2.8a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>
+    </a>
+  </section>
+
+  <section class="card rise d2 mx" style="margin-top:14px;padding:20px 18px 18px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px">
+      <div>
+        <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Үлдэгдэл өр</div>
+        <div class="disp" id="debt" style="font-size:32px;font-weight:600;margin-top:6px;transition:color .5s"></div>
+      </div>
+      <div class="muted" style="text-align:right;font-size:12px;line-height:1.6">Хүргэсэн <b style="color:#0E2433" id="delivered"></b><br>Төлсөн <b style="color:#17654A" id="paid"></b></div>
+    </div>
+    <div class="paid-track"><div class="paid-fill" id="paidFill"><svg class="run" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q12.5 1 25 6 T50 6 T75 6 T100 6 T125 6 T150 6 T175 6 T200 6 V12 H0 Z" fill="#46B48A"/></svg></div></div>
+    <button class="wbtn" id="openPay" style="display:flex;width:100%;height:52px;border-radius:17px;font-size:15px;margin-top:16px">Төлбөр бүртгэх</button>
+  </section>
+
+  <section class="rise d3 mx" style="margin-top:14px;display:flex;gap:10px">
+    <div class="mini"><div class="v disp" id="cOrders"></div><div class="l">Захиалга</div></div>
+    <div class="mini"><div class="v disp" id="cBottles"></div><div class="l">Баллон</div></div>
+    <div class="mini"><div class="v disp" id="cGifts" style="color:#B06A07"></div><div class="l">Бэлэг</div></div>
+  </section>
+
+  <div class="segbox white rise d4 mx" id="tabSeg" style="margin-top:16px">
+    <div class="pill"></div>
+    <button class="seg on" data-tab="orders">Захиалгууд</button>
+    <button class="seg" data-tab="tx">Гүйлгээ</button>
+  </div>
+  <section class="card rise d4 mx" style="margin-top:12px;padding:2px 16px" id="listBox"></section>
+</main>
+
+<nav class="tb glass five" data-liquid aria-label="Admin цэс">
+  <div class="goo"><div class="blob trail"></div><div class="blob lead"></div></div>
+  <a href="admin.html" class="tab" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3"/></svg>Өнөөдөр</a>
+  <a href="#" class="tab" data-nav data-soon="Бүх захиалгын жагсаалт загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="4" width="15" height="16.5" rx="3"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg>Захиалга</a>
+  <a href="admin-customer.html" class="tab cur" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19.5c.9-3 3.2-4.6 6-4.6s5.1 1.6 6 4.6"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.8.5 3 1.9 3.5 4.6"/></svg>Хэрэглэгч</a>
+  <a href="#" class="tab" data-nav data-soon="Гүйлгээний хуудас загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg>Гүйлгээ</a>
+  <a href="#" class="tab" data-nav data-soon="Тохиргоо загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg>Тохиргоо</a>
+</nav>
+
+<div id="sheetRoot" hidden>
+  <div class="veil dim" id="veil"></div>
+  <div class="sheet enter" id="sheet" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+    <div class="grab"></div>
+    <h2 class="disp" id="payTitle" style="margin:0;font-size:19px;font-weight:600">Төлбөр бүртгэх</h2>
+    <div class="muted" style="font-size:13px;margin-top:4px">Сарангэрэл Д. · өр <span id="sheetDebt"></span></div>
+    <label for="amount" style="display:block;font-size:12.5px;font-weight:600;color:#4A6272;margin:18px 0 6px">Дүн (₮)</label>
+    <input id="amount" class="inp amount-inp" inputmode="numeric" autocomplete="off">
+    <div style="display:flex;gap:8px;margin-top:10px"><button class="chip-debt" id="fillAll"></button></div>
+    <div class="grid2" id="methods" style="margin-top:16px">
+      <button class="payopt row on" data-m="cash"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6.5" width="18" height="11" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Бэлэн</button>
+      <button class="payopt row" data-m="transfer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5 12 4.5l8.5 5"/><path d="M5.5 10v7M10 10v7M14 10v7M18.5 10v7M3.5 19.5h17"/></svg>Данс</button>
+    </div>
+    <div class="grid2" style="margin-top:18px">
+      <button class="btn-plain" id="payCancel">Болих</button>
+      <button class="wbtn" id="paySave" style="height:54px;border-radius:18px;font-size:15px">Хадгалах</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  const K = KHISHIG;
+  const $ = (id) => document.getElementById(id);
+  const ORD = [
+    { id: 1043, d: '22', m: '9 сар', qty: 3, status: 'new' },
+    { id: 1029, d: '18', m: '9 сар', qty: 3, status: 'delivered', pay: 'debt' },
+    { id: 1011, d: '14', m: '9 сар', qty: 2, status: 'delivered', pay: 'transfer' },
+    { id: 987, d: '09', m: '9 сар', qty: 6, status: 'delivered', pay: 'cash' },
+    { id: 962, d: '03', m: '9 сар', qty: 3, status: 'delivered', pay: 'debt' },
+    { id: 931, d: '28', m: '8 сар', qty: 1, status: 'cancelled' }
+  ];
+  const tx = [
+    { d: '14', m: '9 сар', amount: 2 * K.price, method: 'transfer', ref: 'Захиалга #1011' },
+    { d: '09', m: '9 сар', amount: 6 * K.price, method: 'cash', ref: 'Захиалга #0987' },
+    { d: '05', m: '9 сар', amount: 1 * K.price, method: 'cash', ref: 'Өр төлөлт' }
+  ];
+  const METHOD = { cash: 'Бэлэн', transfer: 'Данс' };
+  const TAG = { new: ['Шинэ', 'tag new'], cancelled: ['Цуцалсан', 'tag cancelled'], debt: ['Өр', 'tag pay-debt'], cash: ['Бэлэн', 'tag pay-cash'], transfer: ['Данс', 'tag pay-transfer'] };
+  const totalOf = (o) => o.qty * K.price + K.fee;
+  const delivered = ORD.filter((o) => o.status === 'delivered');
+  const deliveredSum = delivered.reduce((a, o) => a + totalOf(o), 0);
+  const st = { tab: 'orders', method: 'cash' };
+
+  function debt() { return Math.max(0, deliveredSum - tx.reduce((a, t) => a + t.amount, 0)); }
+
+  function renderSummary(first) {
+    const paid = tx.reduce((a, t) => a + t.amount, 0);
+    const d = debt();
+    $('debt').textContent = K.fmt(d);
+    $('debt').style.color = d > 0 ? '#B4441F' : '#17654A';
+    $('delivered').textContent = K.fmt(deliveredSum);
+    $('paid').textContent = K.fmt(paid);
+    const pct = deliveredSum ? Math.min(100, Math.round((paid / deliveredSum) * 100)) : 0;
+    setTimeout(() => { $('paidFill').style.width = pct + '%'; }, first ? 200 : 0);
+    $('cOrders').textContent = ORD.filter((o) => o.status !== 'cancelled').length;
+    $('cBottles').textContent = delivered.reduce((a, o) => a + o.qty + K.bonus(o.qty), 0);
+    $('cGifts').textContent = delivered.reduce((a, o) => a + K.bonus(o.qty), 0);
+  }
+
+  function renderList() {
+    let html = '';
+    if (st.tab === 'orders') {
+      ORD.forEach((o, i) => {
+        const f = K.bonus(o.qty);
+        const key = o.status === 'delivered' ? o.pay : o.status;
+        html += '<div class="li" style="animation-delay:' + i * 0.04 + 's"><div class="date"><b>' + o.d + '</b>' + o.m + '</div>' +
+          '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:600">' + (f ? o.qty + ' + ' + f + ' бэлэг · ' + (o.qty + f) + ' баллон' : o.qty + ' баллон') + '</div>' +
+          '<div class="muted" style="font-size:12.5px;margin-top:2px">#' + String(o.id).padStart(4, '0') + '</div></div>' +
+          '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span class="disp" style="font-size:14px;font-weight:600">' + K.fmt(totalOf(o)) + '</span>' +
+          '<span class="' + TAG[key][1] + '">' + TAG[key][0] + '</span></div></div>';
+      });
+    } else {
+      tx.forEach((t, i) => {
+        html += '<div class="li" style="animation-delay:' + i * 0.04 + 's"><div class="date"><b>' + t.d + '</b>' + t.m + '</div>' +
+          '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:600">' + t.ref + '</div>' +
+          '<div style="margin-top:5px"><span class="tag pay-' + t.method + '">' + METHOD[t.method] + '</span></div></div>' +
+          '<span class="disp" style="font-size:15px;font-weight:600;color:#17654A">+' + K.fmt(t.amount) + '</span></div>';
+      });
+    }
+    $('listBox').innerHTML = html;
+  }
+
+  const placeTab = K.seg($('tabSeg'));
+  function setTab(t) {
+    st.tab = t;
+    document.querySelectorAll('#tabSeg .seg').forEach((x) => x.classList.toggle('on', x.dataset.tab === t));
+    placeTab();
+    renderList();
+  }
+  document.querySelectorAll('#tabSeg .seg').forEach((b) => b.addEventListener('click', () => setTab(b.dataset.tab)));
+
+  function setMethod(m) {
+    st.method = m;
+    document.querySelectorAll('#methods .payopt').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+  }
+  document.querySelectorAll('#methods .payopt').forEach((b) => b.addEventListener('click', () => setMethod(b.dataset.m)));
+
+  function amount() { return parseInt($('amount').value.replace(/\D/g, ''), 10) || 0; }
+  function syncSave() { $('paySave').disabled = amount() <= 0; }
+  $('amount').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); syncSave(); });
+
+  function openSheet() {
+    const d = debt();
+    $('sheetDebt').textContent = K.fmt(d);
+    $('fillAll').textContent = 'Бүх өр · ' + K.fmt(d);
+    $('amount').value = d ? String(d) : '';
+    setMethod('cash');
+    syncSave();
+    $('sheetRoot').hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => $('sheet').classList.remove('enter')));
+  }
+  function closeSheet() {
+    $('sheet').classList.add('enter');
+    setTimeout(() => { $('sheetRoot').hidden = true; }, 420);
+  }
+  $('openPay').addEventListener('click', openSheet);
+  $('fillAll').addEventListener('click', () => { $('amount').value = String(debt()); syncSave(); });
+  $('veil').addEventListener('click', closeSheet);
+  $('payCancel').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('sheetRoot').hidden) closeSheet(); });
+  $('paySave').addEventListener('click', () => {
+    const a = amount();
+    if (a <= 0) return;
+    tx.unshift({ d: '22', m: '9 сар', amount: a, method: st.method, ref: 'Өр төлөлт' });
+    closeSheet();
+    renderSummary(false);
+    setTab('tx');
+    K.toast(K.fmt(a) + ' бүртгэгдлээ');
+  });
+
+  renderSummary(true);
+  renderList();
+})();
+</script>
+</body>
+</html>

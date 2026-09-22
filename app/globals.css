@@ -763,3 +763,36 @@ html, body { overflow-x: clip; }
   .phone-pill { padding: 0 12px; }
   .site-top .lockup .tag { letter-spacing: .06em; }
 }
+@media (max-width: 760px) {
+  /* One full screen: copy spread evenly down the left, the jug rising from the bottom right (owner's phone mockup). */
+  .hero.photo { min-height: 100svh; display: flex; flex-direction: column; }
+  .hero.photo .hero-grid { flex: 1; display: flex; flex-direction: column; min-height: 0; padding-top: 70px; }
+  .hero.photo .hero-text { flex: 1; justify-content: space-evenly; padding: 8px 0 max(88px, 15svh); gap: 10px; }
+  .hero.photo .hero-bg, .hero.photo .hero-bg img { height: 62%; }
+  .hero.photo .hero-bg img { object-position: 64% 100%; }
+  .hero.photo .hero-shade { background: linear-gradient(180deg, #0A1E5C 0%, #0A1E5C 30%, rgba(10,30,92,.92) 37%, rgba(10,30,92,.5) 45%, rgba(10,30,92,.1) 53%, rgba(10,30,92,0) 60%), linear-gradient(90deg, rgba(10,30,92,.5) 0%, rgba(10,30,92,0) 55%); }
+  .hero.photo .hero-cta .wbtn { height: 54px; font-size: 16.5px; padding: 0 24px 0 26px; }
+  .hero-stats { max-width: 48%; gap: 8px; padding: 10px 12px; }
+  .hero-stats i { width: 36px; height: 36px; }
+  .hero-stats b { font-size: 21px; }
+  .hero-stats small { font-size: 12px; margin-top: 3px; }
+  .hero-stats .two { font-size: 13.5px; }
+  .hero-stats .pill { font-size: 13px; padding: 4px 9px; }
+}
+@media (max-width: 760px) {
+  /* The <img> fills its <picture>; the picture is the lower ~68% of the hero (capped so the jug stays ~40% of the width). */
+  .hero.photo .hero-bg { height: min(68%, 123vw); }
+  .hero.photo .hero-bg img { height: 100%; top: 0; bottom: 0; object-position: 63% 100%; }
+  .hero.photo .hero-shade { background: linear-gradient(180deg, #0A1E5C 0%, #0A1E5C 34%, rgba(10,30,92,.85) 41%, rgba(10,30,92,.4) 49%, rgba(10,30,92,.08) 56%, rgba(10,30,92,0) 62%), linear-gradient(90deg, rgba(10,30,92,.45) 0%, rgba(10,30,92,0) 50%); }
+  .hero.photo .hero-text { padding: 14px 0 max(96px, 19svh); }
+  .hero-stats .st.fee { display: none; }
+  .hero-stats { max-width: 46%; gap: 10px; padding: 12px 14px; }
+  .hero-stats i { width: 40px; height: 40px; }
+  .hero-stats b { font-size: 24px; }
+  .hero.photo .hero-cta .wbtn { height: 54px; padding: 0 22px 0 24px; font-size: 16px; }
+  .hero-phone { font-size: 20px; }
+}
+@media (max-width: 760px) {
+  /* Keep the mockup's proportions on tall phones: the hero is one screen or 1.72× the width, whichever is shorter. */
+  .hero.photo { min-height: min(100svh, 172vw); }
+}

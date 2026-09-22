@@ -14,6 +14,10 @@ async function create(): Promise<DB> {
     const { drizzle } = await import("drizzle-orm/neon-http");
     return drizzle(neon(url), { schema }) as unknown as DB;
   }
+  // Serverless filesystems are read-only, so PGlite cannot stand in for a missing DATABASE_URL there.
+  if (process.env.NODE_ENV === "production" && process.env.VERCEL) {
+    throw new Error("DATABASE_URL is not set. Add the Neon connection string to the Vercel project's environment variables.");
+  }
   const { PGlite } = await import("@electric-sql/pglite");
   const { drizzle } = await import("drizzle-orm/pglite");
   const { migrate } = await import("drizzle-orm/pglite/migrator");

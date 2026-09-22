@@ -335,7 +335,7 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .hero .vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(90% 80% at 50% 45%, transparent 55%, rgba(8,8,36,.45) 100%); }
 .jug-wrap { display: flex; flex-direction: column; align-items: center; animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
 .jug-wrap .jug { animation: none; }
-.jug-reflect { width: min(370px, 86%); aspect-ratio: 260 / 420; transform: scaleY(-1); margin-top: -104px; opacity: .45; filter: blur(1.5px); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); pointer-events: none; }
+.jug-reflect { width: min(470px, 92%); aspect-ratio: 260 / 420; transform: scaleY(-1); margin-top: -128px; opacity: .45; filter: blur(1.5px); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); pointer-events: none; }
 @keyframes drift { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .6; } 100% { transform: translateY(-560px); opacity: 0; } }
 .drift { animation: drift 12s linear infinite; }
 .drift.e2 { animation-delay: 3s; animation-duration: 15s; }
@@ -343,8 +343,8 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .drift.e4 { animation-delay: 1.5s; animation-duration: 17s; }
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-12px) rotate(1.2deg); } }
 .bob { animation: bob 6.5s ease-in-out infinite; }
-.hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px; min-height: 740px; padding-top: 84px; }
-.hero-text { padding: 64px 0 150px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+.hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px; min-height: 760px; padding-top: 84px; align-items: start; }
+.hero-text { padding: 56px 0 170px; display: flex; flex-direction: column; justify-content: flex-start; gap: 24px; }
 .hero-text h1 { margin: 0; font-size: clamp(42px, 5.2vw, 72px); line-height: 1.02; font-weight: 800; letter-spacing: -0.035em; color: #fff; }
 .hero-text h1 .w { display: inline-block; animation: wordin .8s var(--ease-out) both; }
 .chip-glass { align-self: flex-start; display: inline-flex; align-items: center; gap: 9px; height: 40px; padding: 0 16px; border-radius: 20px; color: #fff; font-size: 14px; font-weight: 600; }
@@ -353,8 +353,8 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .hero-price .sep { width: 1px; height: 38px; background: rgba(255,255,255,.22); }
 .hero-price .k { font-size: 12.5px; color: #C9CBEA; font-weight: 600; }
 .hero-price .v { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; margin-top: 2px; }
-.hero-product { position: relative; display: flex; align-items: center; justify-content: center; min-height: 520px; padding-bottom: 120px; }
-.hero-product .jug { width: min(370px, 86%); aspect-ratio: 260 / 420; filter: drop-shadow(0 30px 40px rgba(0,0,30,.45)); animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
+.hero-product { position: relative; display: flex; align-items: flex-start; justify-content: center; min-height: 520px; padding: 8px 0 120px; }
+.hero-product .jug { width: min(470px, 92%); aspect-ratio: 260 / 420; filter: drop-shadow(0 30px 40px rgba(0,0,30,.45)); animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
 .fbadge { position: absolute; z-index: 6; display: flex; align-items: center; gap: 12px; padding: 12px 20px 12px 12px; border-radius: 20px; color: #fff; animation: fade .6s ease 1.2s both; }
 .fbadge .ico { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; }
 .fbadge b { display: block; font-size: 15px; font-weight: 700; }

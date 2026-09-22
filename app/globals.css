@@ -665,3 +665,15 @@ body:has(.bottombar) .tb.glass { display: none; }
   .hero-phone { font-size: 18px; }
   .vsep { display: none; }
 }
+/* Phones: nothing may widen the page. `clip` (not hidden) also stops iOS Safari's sideways scroll. */
+html, body { overflow-x: clip; }
+.site { overflow-x: clip; }
+.site-top .wrap > * { min-width: 0; }
+.hero.photo h1 { overflow-wrap: anywhere; }
+.hero-bubble { max-width: calc(100% - 28px); }
+@media (max-width: 760px) {
+  .hero.photo h1 { font-size: clamp(34px, 10.5vw, 46px); }
+  .hero.photo h1 .w { display: inline; }
+  .hero-sub { font-size: 16.5px; }
+  .hero.photo .hero-cta .wbtn { height: 58px; font-size: 18px; padding: 0 24px 0 26px; }
+}

@@ -3,8 +3,8 @@ import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getDb, schema } from "@/db";
-import { canOrder, canTransition, MAX_OPEN_ORDERS, orderTotals } from "@/lib/domain";
-import { countOpenOrders, getOrder, getSettings, PhoneOwnedByOther, toDomainSettings, upsertCustomer } from "@/lib/queries";
+import { canOrder, canTransition, fmtPhone, MAX_OPEN_ORDERS, MAX_OPEN_ORDERS_PER_USER, MAX_ORDERS_PER_USER_PER_DAY, MAX_PHONES_PER_USER, orderTotals } from "@/lib/domain";
+import { countOpenOrders, findCustomerByPhone, getOrder, getSettings, PhoneOwnedByOther, toDomainSettings, upsertCustomer, userOrderLoad } from "@/lib/queries";
 import { getSessionUser } from "@/lib/session";
 import { notifyNewOrder } from "@/lib/telegram";
 import { isSlotAllowed } from "@/lib/time";
@@ -21,14 +21,24 @@ export async function createOrder(_prev: ActionState, formData: FormData): Promi
 
   const settingsRow = await getSettings();
   const s = toDomainSettings(settingsRow);
-  if (!canOrder(s)) return { error: "Захиалга түр хаалттай байна. 8802 7971 руу залгана уу." };
+  const call = fmtPhone(settingsRow.phone1);
+  if (!canOrder(s)) return { error: `Захиалга түр хаалттай байна. ${call} руу залгана уу.` };
   if (!isSlotAllowed(new Date(), input.date, input.slot)) return { error: "Сонгосон цагийн хүрээ өнгөрсөн байна. Дахин сонгоно уу." };
+
+  // Limits per account (not just per phone), so one sign-in cannot flood the owner or claim other people's numbers.
+  const load = await userOrderLoad(user.id, new Date(Date.now() - 24 * 3600 * 1000));
+  if (load.open >= MAX_OPEN_ORDERS_PER_USER) return { error: `Нэг зэрэг ${MAX_OPEN_ORDERS_PER_USER}-аас олон нээлттэй захиалга өгөх боломжгүй. Өмнөх захиалгууд хүргэгдсэний дараа захиална уу.` };
+  if (load.recent >= MAX_ORDERS_PER_USER_PER_DAY) return { error: "Өнөөдөр хэт олон захиалга өгсөн байна. Маргааш дахин оролдох эсвэл утсаар захиална уу." };
+  const existing = await findCustomerByPhone(input.phone);
+  if ((!existing || !existing.userId) && load.phones >= MAX_PHONES_PER_USER) {
+    return { error: `Нэг бүртгэлээр ${MAX_PHONES_PER_USER}-аас олон утасны дугаараар захиалах боломжгүй. Өмнө захиалсан дугаараа ашиглана уу.` };
+  }
 
   let customer;
   try {
     customer = await upsertCustomer({ phone: input.phone, name: input.name, bag: input.bag, street: input.street, unit: input.unit, note: input.note }, user.id);
   } catch (e) {
-    if (e instanceof PhoneOwnedByOther) return { error: "Энэ утасны дугаар өөр хэрэглэгчийн бүртгэлд байна. Өөрийн дугаараа оруулна уу, эсвэл 8802 7971 руу залгана уу." };
+    if (e instanceof PhoneOwnedByOther) return { error: `Энэ утасны дугаар өөр хэрэглэгчийн бүртгэлд байна. Өөрийн дугаараа оруулна уу, эсвэл ${call} руу залгана уу.` };
     throw e;
   }
   if ((await countOpenOrders(customer.id)) >= MAX_OPEN_ORDERS) {

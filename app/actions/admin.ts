@@ -1,5 +1,5 @@
 "use server";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, isNull } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getDb, schema } from "@/db";
@@ -96,6 +96,8 @@ export async function addPayment(_prev: ActionState, formData: FormData): Promis
   if (!parsed.success) return { error: firstIssue(parsed.error) };
   const p = parsed.data;
   const db = await getDb();
+  const [exists] = await db.select({ id: schema.customers.id }).from(schema.customers).where(eq(schema.customers.id, p.customerId));
+  if (!exists) return { error: "Хэрэглэгч олдсонгүй" };
   await db.insert(schema.payments).values({ customerId: p.customerId, amount: p.amount, method: p.method, note: p.note || "Өр төлөлт" });
   revalidatePath(`/admin/customers/${p.customerId}`);
   revalidatePath("/admin/customers");
@@ -108,7 +110,8 @@ export async function deletePayment(id: number): Promise<ActionState> {
   await requireAdmin();
   if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
-  const rows = await db.delete(schema.payments).where(eq(schema.payments.id, id)).returning({ customerId: schema.payments.customerId });
+  // Only standalone debt repayments: a payment tied to an order is undone by reverting that order.
+  const rows = await db.delete(schema.payments).where(and(eq(schema.payments.id, id), isNull(schema.payments.orderId))).returning({ customerId: schema.payments.customerId });
   if (!rows.length) return { error: "Гүйлгээ олдсонгүй" };
   revalidatePath(`/admin/customers/${rows[0].customerId}`);
   revalidatePath("/admin/customers");
@@ -119,7 +122,7 @@ export async function deletePayment(id: number): Promise<ActionState> {
 
 export async function lookupCustomer(phone: string) {
   await requireAdmin();
-  if (typeof phone !== "string") return null;
+  if (typeof phone !== "string" || phone.length > 20) return null;
   const c = await findCustomerByPhone(phone.replace(/\D/g, "").slice(-8));
   return c ? { name: c.name, bag: c.bag, street: c.street, unit: c.unit, note: c.note } : null;
 }

@@ -57,6 +57,17 @@ export async function countOpenOrders(customerId: number): Promise<number> {
   return r?.n ?? 0;
 }
 
+// Abuse limits for web orders, counted per signed-in account.
+export async function userOrderLoad(userId: string, since: Date): Promise<{ open: number; recent: number; phones: number }> {
+  const db = await getDb();
+  const [o] = await db.select({
+    open: sql<number>`count(*) filter (where ${orders.status} in ('new', 'out'))::int`,
+    recent: sql<number>`count(*) filter (where ${orders.createdAt} >= ${since.toISOString()}::timestamptz)::int`,
+  }).from(orders).where(eq(orders.userId, userId));
+  const [c] = await db.select({ n: sql<number>`count(*)::int` }).from(customers).where(eq(customers.userId, userId));
+  return { open: o?.open ?? 0, recent: o?.recent ?? 0, phones: c?.n ?? 0 };
+}
+
 export type OrderWithCustomer = Order & { customer: Customer };
 
 function join(rows: { o: Order; c: Customer }[]): OrderWithCustomer[] {

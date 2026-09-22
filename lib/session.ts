@@ -1,6 +1,9 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAuth, isAdminEmail } from "./auth";
+import { safeNext } from "./safe-next";
+
+export { safeNext };
 
 export type SessionUser = { id: string; name: string; email: string; image?: string | null; isAdmin: boolean };
 
@@ -14,7 +17,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
 
 export async function requireUser(next?: string): Promise<SessionUser> {
   const u = await getSessionUser();
-  if (!u) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
+  if (!u) redirect(next ? `/login?next=${encodeURIComponent(safeNext(next))}` : "/login");
   return u;
 }
 

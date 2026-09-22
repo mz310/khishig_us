@@ -16,6 +16,10 @@ export type Actor = "customer" | "admin";
 export const MIN_QTY = 1;
 export const MAX_QTY = 20;
 export const MAX_OPEN_ORDERS = 3;
+// Per signed-in account, across every phone it orders for: caps spam and number squatting.
+export const MAX_OPEN_ORDERS_PER_USER = 5;
+export const MAX_ORDERS_PER_USER_PER_DAY = 10;
+export const MAX_PHONES_PER_USER = 3;
 
 export function freeBottles(qtyPaid: number, s: Settings): number {
   if (!s.bonusEnabled || s.bonusBuy <= 0 || s.bonusFree <= 0) return 0;
@@ -85,4 +89,9 @@ export const PAYMENT_LABEL: Record<Payment, string> = {
 
 export function fmtMoney(n: number): string {
   return Math.round(n).toLocaleString("en-US") + "₮";
+}
+
+// 88027971 -> "8802 7971"; anything that is not a plain 8-digit number is shown as entered.
+export function fmtPhone(p: string): string {
+  return /^\d{8}$/.test(p) ? `${p.slice(0, 4)} ${p.slice(4)}` : p;
 }

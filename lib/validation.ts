@@ -29,13 +29,13 @@ export const paymentInput = z.object({
 });
 
 export const settingsInput = z.object({
-  price: z.coerce.number().int().min(0),
-  deliveryFee: z.coerce.number().int().min(0),
+  price: z.coerce.number().int("Үнэ бүхэл тоо байна").min(0).max(10_000_000),
+  deliveryFee: z.coerce.number().int("Хүргэлтийн төлбөр бүхэл тоо байна").min(0).max(10_000_000),
   bonusEnabled: z.coerce.boolean(),
   bonusBuy: z.coerce.number().int().min(1).max(50),
   bonusFree: z.coerce.number().int().min(0).max(50),
-  phone1: z.string().trim().max(20),
-  phone2: z.string().trim().max(20),
+  phone1: z.string().trim().max(20).regex(/^[0-9+ -]*$/, "Утасны дугаарт зөвхөн тоо бичнэ"),
+  phone2: z.string().trim().max(20).regex(/^[0-9+ -]*$/, "Утасны дугаарт зөвхөн тоо бичнэ"),
   bankName: z.string().trim().max(60),
   bankAccount: z.string().trim().max(40),
   acceptingOrders: z.coerce.boolean(),
@@ -48,3 +48,9 @@ export function firstIssue(err: z.ZodError): string {
 
 // Ids arrive from client components as plain JSON: accept only positive integers.
 export const isId = (v: unknown): v is number => Number.isInteger(v) && (v as number) > 0;
+
+// Route params arrive as strings: only plain positive integers are ids ("1e3", "12abc", " 7" are not).
+export function parseId(v: string): number | null {
+  if (!/^[1-9][0-9]{0,8}$/.test(v)) return null;
+  return Number(v);
+}

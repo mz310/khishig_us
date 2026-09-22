@@ -46,6 +46,15 @@ curl -X POST localhost:3000/api/auth/sign-up/email -H 'content-type: application
 5. Deploy дууссаны дараа `/admin/settings` дээр үнэ, хүргэлтийн төлбөр, утас, дансаа оруулж
    "Захиалга хүлээн авч байна"-г идэвхжүүлнэ. Үнэ 0 байвал сайт "Удахгүй нээгдэнэ" гэж харуулна.
 
+## Хамгаалалт
+
+- `proxy.ts` — session cookie байхгүй бол `/admin`, `/app`, `/order`, `/orders`, `/profile` руу оруулахгүй, `/login` руу чиглүүлнэ.
+- `requireAdmin()` — admin layout, admin хуудас бүр, admin server action бүр дээр `ADMIN_EMAILS`-д байгаа Gmail эсэхийг сервер талд шалгана. Бусад хэрэглэгч `/app?denied=1` руу буцна.
+- Хэрэглэгч зөвхөн өөрийн захиалгыг харж, цуцална (`orders.user_id`). Утасны дугаарыг анх захиалсан Gmail бүртгэл эзэмшинэ (`customers.user_id`); өөр бүртгэл тэр дугаараар захиалж, хаягийг нь өөрчилж чадахгүй. Эзний гараар бүртгэсэн захиалга энэ дүрэмд хамаарахгүй.
+- Client-ээс ирсэн бүх утга zod-оор шалгагдана; id-ууд бүхэл эерэг тоо байх ёстой.
+- HTTP толгой: `Content-Security-Policy` (production), `X-Frame-Options: DENY`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS; `X-Powered-By` унтраасан.
+- Google-ээр л нэвтэрнэ; `DEV_LOGIN` зөвхөн локал (production build дээр идэвхгүй).
+
 ## Схем өөрчлөх
 
 `db/schema.ts`-ийг засаад `npm run db:generate` ажиллуулбал `drizzle/` дотор шинэ SQL migration үүснэ. Локал PGlite болон production build хоёулаа тэр хавтаснаас migration-уудыг автоматаар ажиллуулна.

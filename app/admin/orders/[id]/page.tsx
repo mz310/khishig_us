@@ -5,10 +5,12 @@ import { IconBack, IconPhone } from "@/components/icons";
 import { fmtMoney, PAYMENT_LABEL, STATUS_LABEL, type Payment, type Status } from "@/lib/domain";
 import { getOrder } from "@/lib/queries";
 import { humanDate, humanDateTime, slotLabel, type Slot } from "@/lib/time";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminOrderDetail({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
   const { id } = await params;
   const o = await getOrder(Number(id));
   if (!o) notFound();

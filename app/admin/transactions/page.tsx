@@ -5,6 +5,7 @@ import { fmtMoney, PAYMENT_LABEL } from "@/lib/domain";
 import { GRANS, type Gran } from "@/lib/period";
 import { buildReport } from "@/lib/report";
 import { humanDate, ubDateStr, ubTime } from "@/lib/time";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Гүйлгээ" };
@@ -12,6 +13,7 @@ export const metadata = { title: "Гүйлгээ" };
 type Filter = "all" | "cash" | "transfer" | "debt";
 
 export default async function Transactions({ searchParams }: { searchParams: Promise<{ g?: string; ref?: string; f?: string; q?: string }> }) {
+  await requireAdmin();
   const sp = await searchParams;
   const gran: Gran = GRANS.includes(sp.g as Gran) ? (sp.g as Gran) : "month";
   const today = ubDateStr(new Date());

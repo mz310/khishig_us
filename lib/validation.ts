@@ -45,3 +45,6 @@ export const settingsInput = z.object({
 export function firstIssue(err: z.ZodError): string {
   return err.issues[0]?.message ?? "Оруулсан мэдээлэл буруу байна";
 }
+
+// Ids arrive from client components as plain JSON: accept only positive integers.
+export const isId = (v: unknown): v is number => Number.isInteger(v) && (v as number) > 0;

@@ -4,6 +4,7 @@ import { IconPlus, IconSearch } from "@/components/icons";
 import { WaterLink } from "@/components/WaterButton";
 import { STATUS_LABEL, type Status } from "@/lib/domain";
 import { listOrders } from "@/lib/queries";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Захиалгууд" };
@@ -11,6 +12,7 @@ export const metadata = { title: "Захиалгууд" };
 const STATUSES: (Status | "all")[] = ["all", "new", "out", "delivered", "cancelled"];
 
 export default async function AdminOrders({ searchParams }: { searchParams: Promise<{ s?: string; q?: string }> }) {
+  await requireAdmin();
   const { s, q } = await searchParams;
   const status = STATUSES.includes(s as Status) && s !== "all" ? (s as Status) : undefined;
   const orders = await listOrders({ status, q, limit: 300 });

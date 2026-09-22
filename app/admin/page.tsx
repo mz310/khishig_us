@@ -5,11 +5,13 @@ import { WaterLink } from "@/components/WaterButton";
 import { fmtMoney } from "@/lib/domain";
 import { ordersForDate, overdueOpenOrders } from "@/lib/queries";
 import { humanDate, slotLabel, ubDateStr, weekdayName, type Slot, SLOTS } from "@/lib/time";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Өнөөдөр" };
 
 export default async function AdminToday({ searchParams }: { searchParams: Promise<{ d?: string }> }) {
+  await requireAdmin();
   const { d } = await searchParams;
   const today = ubDateStr(new Date());
   const date = d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : today;

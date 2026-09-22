@@ -6,6 +6,7 @@ import { GRANS, type Gran } from "@/lib/period";
 import { debtSummary } from "@/lib/queries";
 import { buildReport } from "@/lib/report";
 import { humanDate, ubDateStr, ubTime } from "@/lib/time";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Тайлан" };
@@ -15,6 +16,7 @@ export const avatarStyle = (id: number) => ({ background: PALETTE[id % PALETTE.l
 export const initials = (name: string) => name.split(" ").map((s) => s.charAt(0)).join("").slice(0, 2).toUpperCase();
 
 export default async function Reports({ searchParams }: { searchParams: Promise<{ g?: string; ref?: string }> }) {
+  await requireAdmin();
   const sp = await searchParams;
   const gran: Gran = GRANS.includes(sp.g as Gran) ? (sp.g as Gran) : "month";
   const today = ubDateStr(new Date());

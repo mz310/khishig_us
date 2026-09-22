@@ -51,6 +51,8 @@ export const verification = pgTable("verification", {
 export const customers = pgTable("customers", {
   id: serial("id").primaryKey(),
   phone: text("phone").notNull(),
+  // The signed-in account that first ordered with this phone; null for customers the owner added by hand.
+  userId: text("user_id"),
   name: text("name").notNull(),
   bag: integer("bag").notNull().default(1),
   street: text("street").notNull().default(""),

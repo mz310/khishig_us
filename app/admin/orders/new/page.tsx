@@ -3,11 +3,13 @@ import { AdminOrderForm } from "@/components/AdminOrderForm";
 import { IconBack } from "@/components/icons";
 import { getSettings, toDomainSettings } from "@/lib/queries";
 import { addDays, ubDateStr } from "@/lib/time";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Захиалга нэмэх" };
 
 export default async function NewAdminOrder() {
+  await requireAdmin();
   const s = await getSettings();
   const today = ubDateStr(new Date());
   return (

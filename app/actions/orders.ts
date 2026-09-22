@@ -4,11 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getDb, schema } from "@/db";
 import { canOrder, canTransition, MAX_OPEN_ORDERS, orderTotals } from "@/lib/domain";
-import { countOpenOrders, getOrder, getSettings, toDomainSettings, upsertCustomer } from "@/lib/queries";
+import { countOpenOrders, getOrder, getSettings, PhoneOwnedByOther, toDomainSettings, upsertCustomer } from "@/lib/queries";
 import { getSessionUser } from "@/lib/session";
 import { notifyNewOrder } from "@/lib/telegram";
 import { isSlotAllowed } from "@/lib/time";
-import { firstIssue, orderInput } from "@/lib/validation";
+import { firstIssue, isId, orderInput } from "@/lib/validation";
 
 export type ActionState = { error?: string; ok?: boolean };
 
@@ -24,7 +24,13 @@ export async function createOrder(_prev: ActionState, formData: FormData): Promi
   if (!canOrder(s)) return { error: "Захиалга түр хаалттай байна. 8802 7971 руу залгана уу." };
   if (!isSlotAllowed(new Date(), input.date, input.slot)) return { error: "Сонгосон цагийн хүрээ өнгөрсөн байна. Дахин сонгоно уу." };
 
-  const customer = await upsertCustomer({ phone: input.phone, name: input.name, bag: input.bag, street: input.street, unit: input.unit, note: input.note });
+  let customer;
+  try {
+    customer = await upsertCustomer({ phone: input.phone, name: input.name, bag: input.bag, street: input.street, unit: input.unit, note: input.note }, user.id);
+  } catch (e) {
+    if (e instanceof PhoneOwnedByOther) return { error: "Энэ утасны дугаар өөр хэрэглэгчийн бүртгэлд байна. Өөрийн дугаараа оруулна уу, эсвэл 8802 7971 руу залгана уу." };
+    throw e;
+  }
   if ((await countOpenOrders(customer.id)) >= MAX_OPEN_ORDERS) {
     return { error: `Нэг зэрэг ${MAX_OPEN_ORDERS}-аас олон нээлттэй захиалга байж болохгүй. Өмнөх захиалга хүргэгдсэний дараа дахин захиална уу.` };
   }
@@ -56,6 +62,7 @@ export async function createOrder(_prev: ActionState, formData: FormData): Promi
 export async function cancelMyOrder(id: number): Promise<ActionState> {
   const user = await getSessionUser();
   if (!user) return { error: "Нэвтэрнэ үү" };
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const order = await getOrder(id);
   if (!order || order.userId !== user.id) return { error: "Захиалга олдсонгүй" };
   if (!canTransition(order.status as "new", "cancelled", "customer")) {

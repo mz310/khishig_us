@@ -31,17 +31,22 @@ export async function findCustomerByPhone(phone: string): Promise<Customer | nul
 
 export type CustomerInput = { phone: string; name: string; bag: number; street: string; unit: string; note: string };
 
+export class PhoneOwnedByOther extends Error {}
+
 // One customer per phone number; a repeat order refreshes the name and address on file.
-export async function upsertCustomer(c: CustomerInput): Promise<Customer> {
+// A web order claims the phone for its account (userId); another account may not edit or order under it.
+// Phone orders taken by the owner pass no userId and never change the claim.
+export async function upsertCustomer(c: CustomerInput, userId?: string): Promise<Customer> {
   const db = await getDb();
   const existing = await findCustomerByPhone(c.phone);
   if (existing) {
+    if (userId && existing.userId && existing.userId !== userId) throw new PhoneOwnedByOther();
     const [row] = await db.update(customers)
-      .set({ name: c.name, bag: c.bag, street: c.street, unit: c.unit, note: c.note, updatedAt: new Date() })
+      .set({ name: c.name, bag: c.bag, street: c.street, unit: c.unit, note: c.note, userId: existing.userId ?? userId ?? null, updatedAt: new Date() })
       .where(eq(customers.id, existing.id)).returning();
     return row;
   }
-  const [row] = await db.insert(customers).values(c).returning();
+  const [row] = await db.insert(customers).values({ ...c, userId: userId ?? null }).returning();
   return row;
 }
 
@@ -67,6 +72,7 @@ export async function myOrders(userId: string, limit = 50): Promise<OrderWithCus
 }
 
 export async function getOrder(id: number): Promise<OrderWithCustomer | null> {
+  if (!Number.isInteger(id) || id <= 0) return null;
   const db = await getDb();
   const rows = await db.select({ o: orders, c: customers }).from(orders)
     .innerJoin(customers, eq(orders.customerId, customers.id)).where(eq(orders.id, id));
@@ -153,6 +159,7 @@ export async function customersWithStats(): Promise<CustomerStats[]> {
 }
 
 export async function customerDetail(id: number) {
+  if (!Number.isInteger(id) || id <= 0) return null;
   const db = await getDb();
   const [customer] = await db.select().from(customers).where(eq(customers.id, id));
   if (!customer) return null;

@@ -4,6 +4,7 @@ import { fmtMoney } from "@/lib/domain";
 import { customersWithStats } from "@/lib/queries";
 import { ubDateStr } from "@/lib/time";
 import { avatarStyle, initials } from "../reports/page";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Хэрэглэгчид" };
@@ -21,6 +22,7 @@ function ago(d: Date | null, now: Date) {
 }
 
 export default async function Customers({ searchParams }: { searchParams: Promise<{ q?: string; sort?: string }> }) {
+  await requireAdmin();
   const sp = await searchParams;
   const sort: Sort = (["debt", "top", "recent", "name"] as Sort[]).includes(sp.sort as Sort) ? (sp.sort as Sort) : "recent";
   const q = (sp.q ?? "").trim().toLowerCase();

@@ -5,10 +5,12 @@ import { IconBack, IconPhone } from "@/components/icons";
 import { fmtMoney } from "@/lib/domain";
 import { customerDetail } from "@/lib/queries";
 import { avatarStyle, initials } from "../../reports/page";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export default async function CustomerPage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
   const { id } = await params;
   const d = await customerDetail(Number(id));
   if (!d) notFound();

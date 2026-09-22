@@ -8,7 +8,7 @@ import { findCustomerByPhone, getOrder, getSettings, toDomainSettings, upsertCus
 import { requireAdmin } from "@/lib/session";
 import { notifyNewOrder } from "@/lib/telegram";
 import { addDays, SLOTS, ubDateStr } from "@/lib/time";
-import { firstIssue, orderInput, paymentInput, settingsInput } from "@/lib/validation";
+import { firstIssue, isId, orderInput, paymentInput, settingsInput } from "@/lib/validation";
 import type { ActionState } from "./orders";
 
 function revalidateOrder(id: number, customerId?: number) {
@@ -26,6 +26,7 @@ function revalidateOrder(id: number, customerId?: number) {
 
 export async function markOut(id: number): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
   const rows = await db.update(schema.orders).set({ status: "out", outAt: new Date() })
     .where(and(eq(schema.orders.id, id), eq(schema.orders.status, "new"))).returning({ customerId: schema.orders.customerId });
@@ -36,6 +37,7 @@ export async function markOut(id: number): Promise<ActionState> {
 
 export async function deliver(id: number, payment: Payment): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   if (!["cash", "transfer", "debt"].includes(payment)) return { error: "Төлбөрийн хэлбэр буруу" };
   const db = await getDb();
   const now = new Date();
@@ -55,6 +57,7 @@ export async function deliver(id: number, payment: Payment): Promise<ActionState
 
 export async function cancelByAdmin(id: number): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
   const rows = await db.update(schema.orders).set({ status: "cancelled", cancelledAt: new Date() })
     .where(and(eq(schema.orders.id, id), inArray(schema.orders.status, ["new", "out"]))).returning({ customerId: schema.orders.customerId });
@@ -66,6 +69,7 @@ export async function cancelByAdmin(id: number): Promise<ActionState> {
 // Undo a mistaken "delivered": back to "out" and drop the payment that was auto-recorded for it.
 export async function revertDelivered(id: number): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
   const rows = await db.update(schema.orders).set({ status: "out", deliveredAt: null, payment: null })
     .where(and(eq(schema.orders.id, id), eq(schema.orders.status, "delivered"))).returning({ customerId: schema.orders.customerId });
@@ -77,6 +81,7 @@ export async function revertDelivered(id: number): Promise<ActionState> {
 
 export async function reopenCancelled(id: number): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
   const rows = await db.update(schema.orders).set({ status: "new", cancelledAt: null })
     .where(and(eq(schema.orders.id, id), eq(schema.orders.status, "cancelled"))).returning({ customerId: schema.orders.customerId });
@@ -101,6 +106,7 @@ export async function addPayment(_prev: ActionState, formData: FormData): Promis
 
 export async function deletePayment(id: number): Promise<ActionState> {
   await requireAdmin();
+  if (!isId(id)) return { error: "Буруу хүсэлт" };
   const db = await getDb();
   const rows = await db.delete(schema.payments).where(eq(schema.payments.id, id)).returning({ customerId: schema.payments.customerId });
   if (!rows.length) return { error: "Гүйлгээ олдсонгүй" };
@@ -113,6 +119,7 @@ export async function deletePayment(id: number): Promise<ActionState> {
 
 export async function lookupCustomer(phone: string) {
   await requireAdmin();
+  if (typeof phone !== "string") return null;
   const c = await findCustomerByPhone(phone.replace(/\D/g, "").slice(-8));
   return c ? { name: c.name, bag: c.bag, street: c.street, unit: c.unit, note: c.note } : null;
 }
@@ -156,5 +163,6 @@ export async function saveSettings(_prev: ActionState, formData: FormData): Prom
 
 export async function getOrderForAdmin(id: number) {
   await requireAdmin();
+  if (!isId(id)) return null;
   return getOrder(id);
 }

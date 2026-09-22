@@ -1,10 +1,12 @@
 import { SettingsForm } from "@/components/SettingsForm";
 import { getSettings } from "@/lib/queries";
+import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Тохиргоо" };
 
 export default async function AdminSettings() {
+  await requireAdmin();
   const s = await getSettings();
   return (
     <>

@@ -9,3 +9,7 @@ out/
 .claude/settings.local.json
 next-env.d.ts
 *.tsbuildinfo
+
+# Agent skill files installed by the Vercel/Neon CLI
+.agents/
+skills-lock.json

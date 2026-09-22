@@ -4,5 +4,8 @@ out/
 .vercel
 .env*
 !.env.example
+.pglite/
 .DS_Store
 .claude/settings.local.json
+next-env.d.ts
+*.tsbuildinfo

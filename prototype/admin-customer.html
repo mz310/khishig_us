@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#E8EEEB">
+<meta name="theme-color" content="#F2F5F7">
 <title>Хишиг ус · Admin · Хэрэглэгч</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%275%27 fill=%27%2312314A%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%23BFE0F2%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -20,13 +20,13 @@
   </header>
 
   <section class="card rise d1 mx" style="padding:18px;display:flex;align-items:center;gap:14px">
-    <div class="avatar" id="cAvatar" style="width:54px;height:54px;border-radius:18px;font-size:17px"></div>
+    <div class="avatar" id="cAvatar" style="width:54px;height:54px;border-radius:10px;font-size:17px"></div>
     <div style="flex:1;min-width:0">
       <div style="font-size:17px;font-weight:600" id="cName"></div>
       <div class="muted" style="font-size:13px;margin-top:3px" id="cLine"></div>
-      <div id="cGmail" style="display:inline-flex;margin-top:7px;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:#EAF4F9;color:#0F4E76">Gmail-ээр захиалдаг</div>
+      <div id="cGmail" style="display:inline-flex;margin-top:7px;font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--ice-2);color:var(--deep-2)">Gmail-ээр захиалдаг</div>
     </div>
-    <a href="#" id="cTel" class="wbtn" aria-label="Залгах" style="width:48px;height:48px;border-radius:16px;flex-shrink:0">
+    <a href="#" id="cTel" class="wbtn" aria-label="Залгах" style="width:48px;height:48px;border-radius:10px;flex-shrink:0">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h2.8l1.5 4.3-2 1.4a11 11 0 0 0 5.9 5.9l1.4-2 4.3 1.5v2.8a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>
     </a>
   </section>
@@ -34,19 +34,19 @@
   <section class="card rise d2 mx" style="margin-top:14px;padding:20px 18px 18px">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px">
       <div>
-        <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Үлдэгдэл өр</div>
+        <div class="muted" style="font-size:12px;font-weight:600;">Үлдэгдэл өр</div>
         <div class="hero-fig" id="debt" style="font-size:34px;margin-top:6px;transition:color .5s"></div>
       </div>
-      <div class="muted" style="text-align:right;font-size:12px;line-height:1.6">Хүргэсэн <b style="color:#0E2433" id="delivered"></b><br>Төлсөн <b style="color:#17654A" id="paid"></b></div>
+      <div class="muted" style="text-align:right;font-size:12px;line-height:1.6">Хүргэсэн <b style="color:var(--ink)" id="delivered"></b><br>Төлсөн <b style="color:var(--ok-ink)" id="paid"></b></div>
     </div>
     <div class="paid-track" role="meter" aria-label="Төлсөн хувь" aria-valuemin="0" aria-valuemax="100" id="paidTrack"><div class="paid-fill" id="paidFill"><svg class="run" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q12.5 1 25 6 T50 6 T75 6 T100 6 T125 6 T150 6 T175 6 T200 6 V12 H0 Z" fill="#46B48A"/></svg></div></div>
-    <button class="wbtn" id="openPay" style="display:flex;width:100%;height:52px;border-radius:17px;font-size:15px;margin-top:16px">Төлбөр бүртгэх</button>
+    <button class="wbtn" id="openPay" style="display:flex;width:100%;height:52px;border-radius:10px;font-size:15px;margin-top:16px">Төлбөр бүртгэх</button>
   </section>
 
   <section class="rise d3 mx" style="margin-top:14px;display:flex;gap:10px">
     <div class="mini"><div class="v" id="cOrders"></div><div class="l">Захиалга</div></div>
     <div class="mini"><div class="v" id="cBottles"></div><div class="l">Баллон</div></div>
-    <div class="mini"><div class="v" id="cGifts" style="color:#B06A07"></div><div class="l">Бэлэг</div></div>
+    <div class="mini"><div class="v" id="cGifts" style="color:var(--saffron-ink)"></div><div class="l">Бэлэг</div></div>
   </section>
 
   <div class="segbox white rise d4 mx" id="tabSeg" style="margin-top:16px">
@@ -72,7 +72,7 @@
     <div class="grab"></div>
     <h2 class="disp" id="payTitle" style="margin:0;font-size:19px;font-weight:600">Төлбөр бүртгэх</h2>
     <div class="muted" style="font-size:13px;margin-top:4px"><span id="sheetName"></span> · өр <span id="sheetDebt"></span></div>
-    <label for="amount" style="display:block;font-size:12.5px;font-weight:600;color:#4A6272;margin:18px 0 6px">Дүн (₮)</label>
+    <label for="amount" style="display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:18px 0 6px">Дүн (₮)</label>
     <input id="amount" class="inp amount-inp" inputmode="numeric" autocomplete="off">
     <div style="display:flex;gap:8px;margin-top:10px"><button class="chip-debt" id="fillAll"></button></div>
     <div class="grid2" id="methods" style="margin-top:16px">
@@ -81,7 +81,7 @@
     </div>
     <div class="grid2" style="margin-top:18px">
       <button class="btn-plain" id="payCancel">Болих</button>
-      <button class="wbtn" id="paySave" style="height:54px;border-radius:18px;font-size:15px">Хадгалах</button>
+      <button class="wbtn" id="paySave" style="height:54px;border-radius:10px;font-size:15px">Хадгалах</button>
     </div>
   </div>
 </div>
@@ -141,7 +141,7 @@
         html += '<div class="li" style="animation-delay:' + i * 0.03 + 's"><div class="date"><b>' + x.d + '</b>' + x.m + '</div>' +
           '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:600">' + (o.free ? o.qty + ' + ' + o.free + ' бэлэг · ' + (o.qty + o.free) + ' баллон' : o.qty + ' баллон') + '</div>' +
           '<div class="muted" style="font-size:12.5px;margin-top:2px">#' + o.id + '</div></div>' +
-          '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="font-size:14px;font-weight:700;font-variant-numeric:tabular-nums">' + K.fmt(D.orderTotal(o)) + '</span>' +
+          '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">' + K.fmt(D.orderTotal(o)) + '</span>' +
           '<span class="' + TAG[key][1] + '">' + TAG[key][0] + '</span></div></div>';
       });
     } else {
@@ -150,7 +150,7 @@
         html += '<div class="li" style="animation-delay:' + i * 0.03 + 's"><div class="date"><b>' + x.d + '</b>' + x.m + '</div>' +
           '<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:600">' + t.ref + '</div>' +
           '<div style="margin-top:5px"><span class="tag pay-' + t.method + '">' + METHOD[t.method] + '</span></div></div>' +
-          '<span style="font-size:15px;font-weight:700;color:#17654A;font-variant-numeric:tabular-nums">+' + K.fmt(t.amount) + '</span></div>';
+          '<span style="font-size:15px;font-weight:600;color:var(--ok-ink);font-variant-numeric:tabular-nums">+' + K.fmt(t.amount) + '</span></div>';
       });
     }
     $('listBox').innerHTML = html || '<div class="muted" style="text-align:center;padding:26px 0;font-size:14px">Одоогоор бүртгэл алга</div>';

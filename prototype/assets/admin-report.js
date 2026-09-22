@@ -12,7 +12,7 @@
   };
   const UP = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
   const DOWN = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
-  const PALETTE = [['#D8EAF2', '#0F3B57'], ['#FDF1DC', '#6E4204'], ['#DDF1E7', '#17654A'], ['#EDE9F7', '#43327F'], ['#FBEDE7', '#8C3517']];
+  const PALETTE = [['#E3EFF6', '#12314A'], ['#FBF1E0', '#6E4A0F'], ['#E2F1EA', '#1E5F45'], ['#ECEAF5', '#3E3A78'], ['#FAECE6', '#86341A']];
 
   K.avatarStyle = (id) => { const p = PALETTE[id % PALETTE.length]; return 'background:' + p[0] + ';color:' + p[1]; };
 
@@ -88,7 +88,7 @@
         $('txList').innerHTML = shown.map((p) => {
           const c = D.byId.get(p.cust);
           return '<tr><td style="white-space:nowrap">' + D.md(p.day) + ' · ' + D.timeOf(p.id) + '</td>' +
-            '<td><a href="admin-customer.html?id=' + c.id + '" style="color:#0E2433;font-weight:600">' + esc(c.name) + '</a></td>' +
+            '<td><a href="admin-customer.html?id=' + c.id + '" style="color:#14283A;font-weight:600">' + esc(c.name) + '</a></td>' +
             '<td class="muted">' + refText(p) + '</td>' +
             '<td><span class="tag pay-' + p.method + '">' + METHOD[p.method] + '</span></td>' +
             '<td class="num" style="font-weight:700">' + K.fmt(D.amount(p)) + '</td></tr>';

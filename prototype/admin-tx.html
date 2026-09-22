@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#E8EEEB">
+<meta name="theme-color" content="#F2F5F7">
 <title>Хишиг ус · Admin · Гүйлгээ</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%275%27 fill=%27%2312314A%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%23BFE0F2%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -36,12 +36,12 @@
   </div>
 
   <section class="card rise d2 mx" style="margin-top:12px;padding:18px 16px 12px">
-    <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Орлого</div>
+    <div class="muted" style="font-size:12px;font-weight:600;">Орлого</div>
     <div class="hero-fig" id="hero" style="font-size:40px;margin-top:6px"></div>
     <div class="delta" id="delta" style="margin-top:8px"></div>
     <div class="legend" style="margin-top:14px">
-      <span><i style="background:#1F7FB8"></i>Данс <b id="lgT"></b></span>
-      <span><i style="background:#D9892B"></i>Бэлэн <b id="lgC"></b></span>
+      <span><i style="background:var(--water)"></i>Данс <b id="lgT"></b></span>
+      <span><i style="background:#C58A2B"></i>Бэлэн <b id="lgC"></b></span>
     </div>
     <div id="chart" style="margin-top:14px"></div>
     <button class="linkbtn" id="tblBtn" aria-expanded="false">Хүснэгтээр харах</button>
@@ -51,8 +51,8 @@
   <section class="rise d3 mx grid2" style="margin-top:12px">
     <div class="kpi"><div class="l">Захиалга</div><div class="v" id="kOrders"></div><div class="delta" id="kOrdersD"></div></div>
     <div class="kpi"><div class="l">Хүргэсэн баллон</div><div class="v" id="kBottles"></div><div class="delta" id="kBottlesD"></div></div>
-    <div class="kpi"><div class="l">Шинэ өр</div><div class="v" id="kDebt" style="color:#B4441F"></div><div class="delta" id="kDebtD"></div></div>
-    <div class="kpi"><div class="l">Өр төлөлт</div><div class="v" id="kRepaid" style="color:#17654A"></div><div class="delta" id="kRepaidD"></div></div>
+    <div class="kpi"><div class="l">Шинэ өр</div><div class="v" id="kDebt" style="color:var(--debt)"></div><div class="delta" id="kDebtD"></div></div>
+    <div class="kpi"><div class="l">Өр төлөлт</div><div class="v" id="kRepaid" style="color:var(--ok-ink)"></div><div class="delta" id="kRepaidD"></div></div>
   </section>
 
   <div class="rise d4" style="padding:24px 20px 10px;display:flex;align-items:baseline;justify-content:space-between">

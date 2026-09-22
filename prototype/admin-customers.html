@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#E8EEEB">
+<meta name="theme-color" content="#F2F5F7">
 <title>Хишиг ус · Admin · Хэрэглэгчид</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%275%27 fill=%27%2312314A%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%23BFE0F2%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -21,18 +21,18 @@
     </div>
   </header>
 
-  <section class="rise d1 mx" style="margin-top:10px;border-radius:26px;background:#0F3B57;color:#fff;padding:18px 18px 16px;position:relative;overflow:hidden">
+  <section class="rise d1 mx" style="margin-top:10px;border-radius:14px;background:var(--deep);color:#fff;padding:18px 18px 16px;position:relative;overflow:hidden">
     <div style="position:absolute;left:0;right:0;bottom:0;height:56px;overflow:hidden;pointer-events:none">
       <svg class="run-slow" viewBox="0 0 800 56" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:200%;height:56px" aria-hidden="true"><path d="M0 26 Q50 14 100 26 T200 26 T300 26 T400 26 T500 26 T600 26 T700 26 T800 26 V56 H0 Z" fill="#12445F"/></svg>
     </div>
     <div style="position:relative">
-      <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#7CC6E8">Нийт авлага (өр)</div>
+      <div style="font-size:12px;font-weight:600;color:#BFE0F2">Нийт авлага (өр)</div>
       <div class="hero-fig" id="totalDebt" style="font-size:38px;margin-top:6px"></div>
-      <div style="font-size:13px;color:#BFDDEB;margin-top:6px" id="debtorsLine"></div>
+      <div style="font-size:13px;color:#CFE2EE;margin-top:6px" id="debtorsLine"></div>
       <div class="grid3" style="margin-top:16px;gap:8px">
-        <div style="padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sAll"></div><div style="font-size:11.5px;color:#BFDDEB;margin-top:2px">Бүгд</div></div>
-        <div style="padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sActive"></div><div style="font-size:11.5px;color:#BFDDEB;margin-top:2px">30 хоногт</div></div>
-        <div style="padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sNew"></div><div style="font-size:11.5px;color:#BFDDEB;margin-top:2px">Энэ сар шинэ</div></div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sAll"></div><div style="font-size:11.5px;color:#CFE2EE;margin-top:2px">Бүгд</div></div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sActive"></div><div style="font-size:11.5px;color:#CFE2EE;margin-top:2px">30 хоногт</div></div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08)"><div style="font-size:18px;font-weight:600" id="sNew"></div><div style="font-size:11.5px;color:#CFE2EE;margin-top:2px">Энэ сар шинэ</div></div>
       </div>
     </div>
   </section>
@@ -98,7 +98,7 @@
     $('list').innerHTML = list.slice(0, st.limit).map((c) => {
       let right;
       if (st.sort === 'debt') right = '<span class="debtbadge">' + K.fmt(c.debt) + '</span>';
-      else if (st.sort === 'top') right = '<div style="text-align:right"><div style="font-weight:700;font-variant-numeric:tabular-nums">' + c.bottles + '</div><div class="muted" style="font-size:12px">баллон</div></div>';
+      else if (st.sort === 'top') right = '<div style="text-align:right"><div style="font-weight:600;font-variant-numeric:tabular-nums">' + c.bottles + '</div><div class="muted" style="font-size:12px">баллон</div></div>';
       else right = '<div class="muted" style="font-size:12.5px;text-align:right;white-space:nowrap">' + (c.last >= 0 ? D.ago(c.last) : '—') + '</div>';
       return '<a class="custrow" href="admin-customer.html?id=' + c.id + '">' +
         '<div class="avatar" style="' + K.avatarStyle(c.id) + '">' + esc(D.initials(c.name)) + '</div>' +

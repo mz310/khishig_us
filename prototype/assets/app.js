@@ -53,12 +53,11 @@
       return '<svg viewBox="0 0 200 300" style="width:100%;height:100%;overflow:visible" aria-hidden="true">' +
         '<g clip-path="url(#bc)"><rect width="200" height="300" fill="#EAF4F9"/>' +
           '<g class="fillup">' +
-            '<g class="run-mid"><path d="' + wave(116, 8, 50, 400, 300) + '" fill="#7CC6E8"/></g>' +
-            '<g class="run"><path d="' + wave(124, 7, 50, 400, 300) + '" fill="#2B8AC2"/></g>' +
+            '<g class="run-mid"><path d="' + wave(116, 8, 50, 400, 300) + '" fill="#BFE0F2"/></g>' +
+            '<g class="run"><path d="' + wave(124, 7, 50, 400, 300) + '" fill="#2A75A6"/></g>' +
           '</g></g>' +
-        '<path d="' + BOTTLE + '" fill="none" stroke="#0F3B57" stroke-width="5"/>' +
-        '<rect x="80" y="30" width="40" height="9" rx="3" fill="#0F3B57"/>' +
-        '<rect x="84" y="8" width="32" height="24" rx="5" fill="#1F7FB8"/>' +
+        '<path d="' + BOTTLE + '" fill="none" stroke="#12314A" stroke-width="3"/>' +
+        '<rect x="82" y="28" width="36" height="10" rx="3" fill="#12314A"/>' +
       '</svg>';
     }
     return '<svg viewBox="0 0 200 300" style="width:100%;height:100%;overflow:visible" aria-hidden="true">' +
@@ -77,11 +76,11 @@
       '<path d="M32 150 Q100 160 168 150" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.6"/>' +
       '<path d="M32 246 Q100 256 168 246" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.6"/>' +
       '<rect x="48" y="170" width="104" height="54" rx="10" fill="rgba(255,255,255,.94)"/>' +
-      '<text x="100" y="196" text-anchor="middle" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:15px;fill:#0F3B57">ХИШИГ</text>' +
-      '<text x="100" y="213" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:600;font-size:10px;fill:#1F7FB8;letter-spacing:1px">ЦЭВЭР УС · 5Л</text>' +
+      '<text x="100" y="196" text-anchor="middle" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:15px;fill:#12314A">ХИШИГ</text>' +
+      '<text x="100" y="213" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:600;font-size:10px;fill:#1B5E8A;letter-spacing:1px">ЦЭВЭР УС · 5Л</text>' +
       '<path d="M120 42 C158 40 166 70 148 96" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="7" stroke-linecap="round"/>' +
-      '<rect x="80" y="32" width="40" height="8" rx="3" fill="#2B8AC2"/>' +
-      '<rect x="84" y="10" width="32" height="24" rx="5" fill="#2B8AC2"/>' +
+      '<rect x="80" y="32" width="40" height="8" rx="3" fill="#2A75A6"/>' +
+      '<rect x="84" y="10" width="32" height="24" rx="5" fill="#2A75A6"/>' +
       '<path d="M90 14V30M96 14V30M102 14V30M108 14V30" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>' +
     '</svg>';
   }

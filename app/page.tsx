@@ -237,12 +237,21 @@ export default async function Landing() {
   );
 }
 
-// The lake photo: a jug-centred crop for phones, the full scene elsewhere; AVIF first, WebP/JPEG fallbacks.
+// The lake photo. Phones get a jug-centred crop drawn for 1–3× screens; wider screens get the full scene,
+// which covers a hero at least 2050px wide (820px tall at 2.5:1). AVIF first, WebP next, JPEG last.
+const HERO = "/hero-v2";
+const set = (name: string, ext: string, widths: number[]) => widths.map((w) => `${HERO}-${name}-${w}.${ext} ${w}w`).join(", ");
+const PHONE = { media: "(max-width: 760px)", sizes: "146vw", widths: [1000, 1400, 1800] };
+const WIDE = { sizes: "(max-width: 960px) max(100vw, 165vh), max(100vw, 2050px)", widths: [1400, 2200, 3000] };
+
 function HeroPicture() {
   return (
     <picture className="hero-bg" aria-hidden="true">
-      <source srcSet="/hero-bg.webp" type="image/webp" />
-      <img src="/hero-bg.jpg" alt="" fetchPriority="high" />
+      <source media={PHONE.media} type="image/avif" srcSet={set("phone", "avif", PHONE.widths)} sizes={PHONE.sizes} />
+      <source media={PHONE.media} type="image/webp" srcSet={set("phone", "webp", PHONE.widths)} sizes={PHONE.sizes} />
+      <source type="image/avif" srcSet={set("wide", "avif", WIDE.widths)} sizes={WIDE.sizes} />
+      <source type="image/webp" srcSet={set("wide", "webp", WIDE.widths)} sizes={WIDE.sizes} />
+      <img src={`${HERO}-wide-2200.jpg`} alt="" width={2200} height={880} fetchPriority="high" />
     </picture>
   );
 }

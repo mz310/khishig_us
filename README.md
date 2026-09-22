@@ -50,10 +50,22 @@ curl -X POST localhost:3000/api/auth/sign-up/email -H 'content-type: application
 
 - `proxy.ts` — session cookie байхгүй бол `/admin`, `/app`, `/order`, `/orders`, `/profile` руу оруулахгүй, `/login` руу чиглүүлнэ.
 - `requireAdmin()` — admin layout, admin хуудас бүр, admin server action бүр дээр `ADMIN_EMAILS`-д байгаа Gmail эсэхийг сервер талд шалгана. Бусад хэрэглэгч `/app?denied=1` руу буцна.
+- `/login?next=` зөвхөн сайтын доторх замыг хүлээн авна (`//host`, `/\host` зэрэг гадагш чиглүүлэлтийг хаана).
+- Нэг Gmail бүртгэл: нэг зэрэг 5-аас олон нээлттэй захиалга, 24 цагт 10-аас олон захиалга, 3-аас олон утасны дугаар эзэмших боломжгүй (`lib/domain.ts`-д тохируулна).
 - Хэрэглэгч зөвхөн өөрийн захиалгыг харж, цуцална (`orders.user_id`). Утасны дугаарыг анх захиалсан Gmail бүртгэл эзэмшинэ (`customers.user_id`); өөр бүртгэл тэр дугаараар захиалж, хаягийг нь өөрчилж чадахгүй. Эзний гараар бүртгэсэн захиалга энэ дүрэмд хамаарахгүй.
 - Client-ээс ирсэн бүх утга zod-оор шалгагдана; id-ууд бүхэл эерэг тоо байх ёстой.
-- HTTP толгой: `Content-Security-Policy` (production), `X-Frame-Options: DENY`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS; `X-Powered-By` унтраасан.
+- `Content-Security-Policy` хүсэлт бүрт шинэ nonce-той (`proxy.ts`): зөвхөн тухайн nonce-той script ажиллана, `unsafe-inline` script байхгүй. Бусад толгой (`next.config.ts`): `X-Frame-Options: DENY`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, HSTS; `X-Powered-By` унтраасан.
 - Google-ээр л нэвтэрнэ; `DEV_LOGIN` зөвхөн локал (production build дээр идэвхгүй).
+
+## Нүүрний зураг
+
+Нүүр хуудасны фото `public/hero-v2-*` файлуудаас бүрдэнэ: өргөн дэлгэцэнд бүтэн зураг (1400/2200/3000px), утсанд лонхыг голлосон тайралт (1000/1400/1800px), AVIF + WebP. Зургийг солих бол lossless эх (PNG) бэлдээд:
+
+```bash
+node scripts/hero-images.mjs path/to/master.png
+```
+
+Зураг өөрчлөгдвөл script доторх `VERSION`-ийг ахиулж, `app/page.tsx`-ийн `HERO`-г тааруулна (файлууд immutable cache-тэй).
 
 ## Схем өөрчлөх
 

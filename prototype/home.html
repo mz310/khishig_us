@@ -8,14 +8,16 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  .phero-water { margin: 0 16px; border-radius: 14px; overflow: hidden; position: relative; background: #0E3A5A; color: #fff; height: 330px; }
+  .phero-water { margin: 0 16px; border-radius: 24px; overflow: hidden; position: relative; background: #0B4F82; color: #fff; height: 340px; box-shadow: var(--shadow-lg); }
   .phero-water .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .phero-water .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,34,54,.15), rgba(9,34,54,.3) 45%, rgba(9,34,54,.85)); }
-  .phero-water .bottle { position: absolute; right: -6px; top: 14px; width: 200px; filter: drop-shadow(0 18px 24px rgba(3,20,36,.5)); }
+  .phero-water .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,50,88,.2), rgba(6,50,88,.25) 45%, rgba(6,50,88,.82)); }
+  .phero-water .bottle { position: absolute; right: -6px; top: 14px; width: 205px; filter: drop-shadow(0 18px 24px rgba(3,20,36,.5)); }
   .phero-water .body { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .phero-water .pill { position: absolute; left: 14px; top: 14px; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 6px; border-radius: 17px; font-size: 12.5px; font-weight: 700; }
+  .phero-water .pill i { width: 24px; height: 24px; border-radius: 50%; background: var(--saffron); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 11px; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -35,14 +37,15 @@
   </section>
 
   <section class="phero-water" aria-label="Хишиг байгалийн цэвэр ус">
-    <img class="bg" src="assets/img/water.jpg" alt="">
+    <img class="bg" src="assets/img/water2.jpg" alt="">
     <div class="shade"></div>
     <img class="bottle" src="assets/img/bottle-sm.webp" alt="">
+    <span class="pill glass dark"><i>+1</i>3 авбал 1 нь бэлэг</span>
     <div class="body">
       <div>
-        <div style="font-size:12.5px;color:#CFE2EE">Нэг баллон</div>
-        <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;line-height:1.05;margin-top:2px" data-price></div>
-        <div style="font-size:13px;color:#CFE2EE;margin-top:6px">3 авбал 1 бэлэг</div>
+        <div style="font-size:12.5px;color:#CFE6F7;font-weight:600">Нэг баллон</div>
+        <div style="font-size:34px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-top:2px" data-price></div>
+        <div style="font-size:13px;color:#CFE6F7;margin-top:6px">Хүргэлт <span data-fee></span></div>
       </div>
     </div>
   </section>

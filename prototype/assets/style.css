@@ -326,8 +326,15 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .site-top .phone-link { color: #fff; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
 .site-top .phone-link:hover { color: var(--sky); }
 .hero { position: relative; overflow: hidden; color: #fff; background: radial-gradient(120% 90% at 78% 18%, #3B3A80 0%, #26265A 45%, #1C1C45 100%); }
-.hero .ridge { position: absolute; left: 0; right: 0; bottom: 120px; width: 100%; height: 420px; pointer-events: none; }
+.hero .ridge { position: absolute; left: 0; right: 0; bottom: 120px; width: 100%; height: 420px; pointer-events: none; opacity: .5; }
 .hero .bubbles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hero .tex { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .22; mix-blend-mode: screen; filter: saturate(.5); pointer-events: none; }
+.hero .rays { position: absolute; inset: -25% -10% 0 -10%; pointer-events: none; background: linear-gradient(112deg, transparent 18%, rgba(255,255,255,.06) 28%, transparent 35%, transparent 46%, rgba(255,255,255,.08) 54%, transparent 62%, transparent 70%, rgba(255,255,255,.05) 77%, transparent 84%); filter: blur(22px); animation: rays 16s ease-in-out infinite alternate; }
+@keyframes rays { from { transform: translateX(-2.5%); } to { transform: translateX(2.5%); } }
+.hero .vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(85% 75% at 50% 42%, transparent 50%, rgba(8,8,36,.6) 100%); }
+.jug-wrap { display: flex; flex-direction: column; align-items: center; animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
+.jug-wrap .jug { animation: none; }
+.jug-reflect { width: min(370px, 86%); aspect-ratio: 260 / 420; transform: scaleY(-1); margin-top: -104px; opacity: .45; filter: blur(1.5px); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); pointer-events: none; }
 @keyframes drift { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .6; } 100% { transform: translateY(-560px); opacity: 0; } }
 .drift { animation: drift 12s linear infinite; }
 .drift.e2 { animation-delay: 3s; animation-duration: 15s; }
@@ -346,7 +353,7 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .hero-price .k { font-size: 12.5px; color: #C9CBEA; font-weight: 600; }
 .hero-price .v { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; margin-top: 2px; }
 .hero-product { position: relative; display: flex; align-items: center; justify-content: center; min-height: 520px; padding-bottom: 120px; }
-.hero-product .jug { width: min(330px, 80%); aspect-ratio: 260 / 420; filter: drop-shadow(0 30px 40px rgba(0,0,30,.45)); animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
+.hero-product .jug { width: min(370px, 86%); aspect-ratio: 260 / 420; filter: drop-shadow(0 30px 40px rgba(0,0,30,.45)); animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
 .fbadge { position: absolute; z-index: 6; display: flex; align-items: center; gap: 12px; padding: 12px 20px 12px 12px; border-radius: 20px; color: #fff; animation: fade .6s ease 1.2s both; }
 .fbadge .ico { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; }
 .fbadge b { display: block; font-size: 15px; font-weight: 700; }

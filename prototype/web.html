@@ -41,9 +41,11 @@
 </header>
 
 <section class="hero">
+  <img class="tex" src="assets/img/water.jpg" alt="">
+  <div class="rays"></div>
   <svg class="ridge" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400 Z" fill="rgba(255,255,255,.05)"/>
-    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3" stroke-linejoin="round"/>
   </svg>
   <svg class="bubbles" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <circle class="drift" cx="180" cy="780" r="5" fill="rgba(124,196,236,.5)"/>
@@ -53,6 +55,7 @@
     <circle class="drift e2" cx="1330" cy="780" r="2.5" fill="rgba(124,196,236,.5)"/>
     <circle class="drift e3" cx="760" cy="810" r="3" fill="rgba(124,196,236,.4)"/>
   </svg>
+  <div class="vig"></div>
 
   <div class="wrap hero-grid">
     <div class="hero-text">
@@ -81,7 +84,10 @@
     </div>
 
     <div class="hero-product">
-      <div class="jug bob" data-bottle="hero"></div>
+      <div class="jug-wrap">
+        <div class="jug" data-bottle="hero"></div>
+        <div class="jug-reflect" data-bottle="plain"></div>
+      </div>
       <div class="fbadge glass dark float" style="left:-30px;top:120px">
         <span class="ico" style="background:var(--leaf-2);color:#fff;font-size:15px">+1</span>
         <span><b>3 авбал 1 нь бэлэг</b><small>Нэг захиалга дотор</small></span>

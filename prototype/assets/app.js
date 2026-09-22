@@ -126,6 +126,7 @@
       '<svg class="run-rev" viewBox="0 0 200 56" preserveAspectRatio="none" aria-hidden="true"><path class="w2" d="' + wave(38, 6, 50, 200, 56) + '"/></svg>' +
       '<span class="shine"></span>');
     const items = Array.from(nav.querySelectorAll('[data-nav]'));
+    const vertical = nav.classList.contains('vnav');
     let cur = Math.max(0, items.findIndex((i) => i.classList.contains('cur')));
 
     function place(i, instant) {
@@ -133,8 +134,13 @@
       if (!el) return;
       [lead, trail].forEach((b) => {
         if (instant) b.style.transition = 'none';
-        b.style.left = el.offsetLeft + 'px';
-        b.style.width = el.offsetWidth + 'px';
+        if (vertical) {
+          b.style.top = el.offsetTop + 'px';
+          b.style.height = el.offsetHeight + 'px';
+        } else {
+          b.style.left = el.offsetLeft + 'px';
+          b.style.width = el.offsetWidth + 'px';
+        }
       });
       if (instant) {
         void lead.offsetWidth;

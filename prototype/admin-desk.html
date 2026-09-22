@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Хишиг ус · Admin · Тайлан</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .span-2 { grid-column: span 2; }
+  .split { display: flex; gap: 2px; height: 10px; margin-top: 12px; }
+  .split i { display: block; height: 100%; border-radius: 3px; transition: flex-grow .8s cubic-bezier(.2,.8,.2,1); }
+  .kpi.tall { height: 100%; display: flex; flex-direction: column; min-height: 150px; }
+  .kpi.tall .v { font-size: 26px; margin-top: auto; }
+  @media (max-width: 1100px) { .span-2 { grid-column: span 6; } }
+</style>
+</head>
+<body>
+<div class="desk">
+  <aside class="side">
+    <a href="web.html" style="display:flex;align-items:center;gap:12px;color:#fff;padding:0 6px">
+      <span style="width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8c3.7 4.4 6.2 7.8 6.2 10.9a6.2 6.2 0 0 1-12.4 0c0-3.1 2.5-6.5 6.2-10.9z" fill="#7CC6E8"/><path d="M9 14.3a3.1 3.1 0 0 0 2.9 2.7" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </span>
+      <span><span class="disp" style="display:block;font-size:17px;font-weight:700">Хишиг ус</span><span style="font-size:12px;color:#BFDDEB">Admin</span></span>
+    </a>
+
+    <nav class="vnav" data-liquid aria-label="Admin цэс">
+      <div class="goo"><div class="blob trail"></div><div class="blob lead"></div></div>
+      <a href="admin.html" class="vitem" data-nav><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3"/></svg>Өнөөдөр</a>
+      <a href="#" class="vitem" data-nav data-soon="Бүх захиалгын жагсаалт загварт хараахан ороогүй"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="4" width="15" height="16.5" rx="3"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg>Захиалгууд</a>
+      <a href="admin-customers.html" class="vitem" data-nav><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19.5c.9-3 3.2-4.6 6-4.6s5.1 1.6 6 4.6"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.8.5 3 1.9 3.5 4.6"/></svg>Хэрэглэгчид</a>
+      <a href="admin-desk.html" class="vitem cur" data-nav><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Тайлан</a>
+      <a href="#" class="vitem" data-nav data-soon="Тохиргоо загварт хараахан ороогүй"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg>Тохиргоо</a>
+    </nav>
+
+    <div style="margin-top:auto;position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:12px;border-radius:18px;background:rgba(255,255,255,.08)">
+      <div class="avatar" style="width:38px;height:38px;border-radius:12px;background:#7CC6E8;color:#0E2433;font-size:13px">Э</div>
+      <div style="min-width:0"><div style="font-size:14px;font-weight:600">Эзэн</div><div style="font-size:12px;color:#BFDDEB">Gmail-ээр нэвтэрсэн</div></div>
+    </div>
+    <div class="side-waves">
+      <svg class="run-slow" viewBox="0 0 800 120" preserveAspectRatio="none" style="height:120px" aria-hidden="true"><path d="M0 60 Q50 44 100 60 T200 60 T300 60 T400 60 T500 60 T600 60 T700 60 T800 60 V120 H0 Z" fill="#12445F"/></svg>
+      <svg class="run-mid" viewBox="0 0 800 120" preserveAspectRatio="none" style="height:80px" aria-hidden="true"><path d="M0 60 Q50 46 100 60 T200 60 T300 60 T400 60 T500 60 T600 60 T700 60 T800 60 V120 H0 Z" fill="#164F6F"/></svg>
+    </div>
+  </aside>
+
+  <main class="dmain">
+    <header class="dhead rise">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#1E7F5C"><span class="live"></span>Шууд шинэчлэгдэнэ</div>
+        <h1 class="disp" style="margin:8px 0 0;font-size:30px;font-weight:600">Тайлан</h1>
+        <div class="muted" style="font-size:14px;margin-top:4px">Орлого, гүйлгээ, хэрэглэгчийн өр</div>
+      </div>
+      <a href="admin.html" class="wbtn" style="height:48px;padding:0 20px;border-radius:16px;font-size:14px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg>
+        Захиалга нэмэх
+      </a>
+    </header>
+
+    <div class="filterrow rise d1">
+      <div class="segbox white" id="granSeg">
+        <div class="pill"></div>
+        <button class="seg" data-g="week">7 хоног</button>
+        <button class="seg on" data-g="month">Сар</button>
+        <button class="seg" data-g="quarter">Улирал</button>
+        <button class="seg" data-g="year">Жил</button>
+      </div>
+      <div class="perbar">
+        <button class="navbtn" id="prev" aria-label="Өмнөх"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="plabel" id="plabel" aria-live="polite"></div>
+        <button class="navbtn" id="next" aria-label="Дараах"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <div class="dgrid">
+      <section class="panel span-4 rise d2">
+        <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Орлого</div>
+        <div class="hero-fig" id="hero" style="font-size:50px;margin-top:8px"></div>
+        <div class="delta" id="delta" style="margin-top:10px"></div>
+        <div class="split" aria-hidden="true"><i id="splitT" style="background:#1F7FB8;flex-grow:1"></i><i id="splitC" style="background:#D9892B;flex-grow:1"></i></div>
+        <div class="legend" style="margin-top:12px">
+          <span><i style="background:#1F7FB8"></i>Данс <b id="lgT"></b></span>
+          <span><i style="background:#D9892B"></i>Бэлэн <b id="lgC"></b></span>
+        </div>
+      </section>
+      <div class="kpi tall span-2 rise d2"><div class="l">Захиалга</div><div class="v" id="kOrders"></div><div class="delta" id="kOrdersD"></div></div>
+      <div class="kpi tall span-2 rise d3"><div class="l">Хүргэсэн баллон</div><div class="v" id="kBottles"></div><div class="delta" id="kBottlesD"></div></div>
+      <div class="kpi tall span-2 rise d3"><div class="l">Шинэ өр</div><div class="v" id="kDebt" style="color:#B4441F"></div><div class="delta" id="kDebtD"></div></div>
+      <div class="kpi tall span-2 rise d4"><div class="l">Өр төлөлт</div><div class="v" id="kRepaid" style="color:#17654A"></div><div class="delta" id="kRepaidD"></div></div>
+
+      <section class="panel span-12 rise d4">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <h3>Орлого хугацаагаар</h3>
+          <button class="linkbtn" id="tblBtn" aria-expanded="false">Хүснэгтээр харах</button>
+        </div>
+        <div id="chart" style="margin-top:14px"></div>
+        <div id="tbl" hidden style="max-height:320px;overflow:auto"></div>
+      </section>
+
+      <section class="panel span-8 rise d5">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+          <h3>Гүйлгээнүүд <span class="muted" id="txCount" style="font-weight:500;font-size:13px;margin-left:6px"></span></h3>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <div class="chips" id="chips" role="group" aria-label="Шүүлтүүр">
+              <button class="chip on" data-f="all">Бүгд</button>
+              <button class="chip" data-f="cash">Бэлэн</button>
+              <button class="chip" data-f="transfer">Данс</button>
+              <button class="chip" data-f="debt">Өр төлөлт</button>
+            </div>
+            <div class="search" style="width:240px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+              <input class="inp" id="q" type="search" placeholder="Нэр эсвэл утас" aria-label="Гүйлгээ хайх" style="height:40px;font-size:14px">
+            </div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;margin-top:10px">
+          <table class="dtable">
+            <thead><tr><th>Огноо</th><th>Хэрэглэгч</th><th>Утга</th><th>Хэлбэр</th><th class="num">Дүн</th></tr></thead>
+            <tbody id="txList" class="fade-swap"></tbody>
+          </table>
+        </div>
+        <div style="text-align:center;margin-top:6px"><button class="linkbtn" id="more" hidden>Цааш үзэх</button></div>
+      </section>
+
+      <section class="panel span-4 rise d6">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <h3>Өртэй хэрэглэгчид</h3>
+          <a href="admin-customers.html" style="font-size:13px;font-weight:600">Бүгдийг харах</a>
+        </div>
+        <div class="hero-fig" id="totalDebt" style="font-size:30px;margin-top:12px;color:#B4441F"></div>
+        <div class="muted" id="debtorsLine" style="font-size:13px;margin-top:4px"></div>
+        <div id="debtors" style="margin-top:8px"></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="assets/app.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/report.js"></script>
+<script src="assets/admin-report.js"></script>
+<script>
+(function () {
+  const K = KHISHIG;
+  const D = K.data;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  K.mountReport({
+    chartHeight: 300,
+    pageSize: 12,
+    table: true,
+    onRender: (rep) => {
+      $('splitT').style.flexGrow = String(rep.now.transfer || 0.0001);
+      $('splitC').style.flexGrow = String(rep.now.cash || 0.0001);
+    }
+  });
+
+  const debtors = D.customers.filter((c) => c.debt > 0).sort((a, b) => b.debt - a.debt);
+  $('totalDebt').textContent = K.fmt(debtors.reduce((a, c) => a + c.debt, 0));
+  $('debtorsLine').textContent = debtors.length + ' хэрэглэгч · нийт авлага';
+  $('debtors').innerHTML = debtors.slice(0, 7).map((c) =>
+    '<a class="custrow" href="admin-customer.html?id=' + c.id + '">' +
+      '<div class="avatar" style="width:38px;height:38px;border-radius:12px;font-size:12px;' + K.avatarStyle(c.id) + '">' + esc(D.initials(c.name)) + '</div>' +
+      '<div style="flex:1;min-width:0"><div class="cname" style="font-size:14px">' + esc(c.name) + '</div>' +
+      '<div class="muted" style="font-size:12px;margin-top:2px">' + c.phone + ' · сүүлд ' + (c.last >= 0 ? D.ago(c.last) : '—') + '</div></div>' +
+      '<span class="debtbadge">' + K.fmt(c.debt) + '</span></a>').join('');
+})();
+</script>
+</body>
+</html>

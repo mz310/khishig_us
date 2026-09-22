@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E8EEEB">
+<title>Хишиг ус · Admin · Гүйлгээ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%230F3B57%27/%3E%3Cpath d=%27M12 4.5c3 3.6 5 6.4 5 8.9a5 5 0 0 1-10 0c0-2.5 2-5.3 5-8.9z%27 fill=%27%237CC6E8%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="phone">
+
+  <header class="pagehead rise" style="padding-bottom:6px">
+    <div>
+      <h1 class="disp">Гүйлгээ</h1>
+      <div class="muted" style="font-size:13px;margin-top:3px">Орлого ба төлбөрүүд</div>
+    </div>
+  </header>
+
+  <div class="segbox white rise d1 mx" id="granSeg" style="margin-top:10px">
+    <div class="pill"></div>
+    <button class="seg" data-g="week">7 хоног</button>
+    <button class="seg on" data-g="month">Сар</button>
+    <button class="seg" data-g="quarter">Улирал</button>
+    <button class="seg" data-g="year">Жил</button>
+  </div>
+
+  <div class="perbar rise d1 mx" style="margin-top:12px">
+    <button class="navbtn" id="prev" aria-label="Өмнөх"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="plabel" id="plabel" aria-live="polite"></div>
+    <button class="navbtn" id="next" aria-label="Дараах"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <section class="card rise d2 mx" style="margin-top:12px;padding:18px 16px 12px">
+    <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">Орлого</div>
+    <div class="hero-fig" id="hero" style="font-size:40px;margin-top:6px"></div>
+    <div class="delta" id="delta" style="margin-top:8px"></div>
+    <div class="legend" style="margin-top:14px">
+      <span><i style="background:#1F7FB8"></i>Данс <b id="lgT"></b></span>
+      <span><i style="background:#D9892B"></i>Бэлэн <b id="lgC"></b></span>
+    </div>
+    <div id="chart" style="margin-top:14px"></div>
+    <button class="linkbtn" id="tblBtn" aria-expanded="false">Хүснэгтээр харах</button>
+    <div id="tbl" hidden></div>
+  </section>
+
+  <section class="rise d3 mx grid2" style="margin-top:12px">
+    <div class="kpi"><div class="l">Захиалга</div><div class="v" id="kOrders"></div><div class="delta" id="kOrdersD"></div></div>
+    <div class="kpi"><div class="l">Хүргэсэн баллон</div><div class="v" id="kBottles"></div><div class="delta" id="kBottlesD"></div></div>
+    <div class="kpi"><div class="l">Шинэ өр</div><div class="v" id="kDebt" style="color:#B4441F"></div><div class="delta" id="kDebtD"></div></div>
+    <div class="kpi"><div class="l">Өр төлөлт</div><div class="v" id="kRepaid" style="color:#17654A"></div><div class="delta" id="kRepaidD"></div></div>
+  </section>
+
+  <div class="rise d4" style="padding:24px 20px 10px;display:flex;align-items:baseline;justify-content:space-between">
+    <h2 class="disp" style="margin:0;font-size:16px;font-weight:600">Гүйлгээнүүд</h2>
+    <span class="muted" id="txCount" style="font-size:13px"></span>
+  </div>
+  <div class="rise d4 mx" style="display:flex;flex-direction:column;gap:10px">
+    <div class="chips" id="chips" role="group" aria-label="Шүүлтүүр">
+      <button class="chip on" data-f="all">Бүгд</button>
+      <button class="chip" data-f="cash">Бэлэн</button>
+      <button class="chip" data-f="transfer">Данс</button>
+      <button class="chip" data-f="debt">Өр төлөлт</button>
+    </div>
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input class="inp" id="q" type="search" placeholder="Нэр эсвэл утасны дугаар" aria-label="Хайх">
+    </div>
+  </div>
+  <section class="card mx fade-swap" id="txList" style="margin-top:12px;padding:0 16px 6px"></section>
+  <div class="mx" style="text-align:center;margin-top:8px"><button class="linkbtn" id="more" hidden>Цааш үзэх</button></div>
+</main>
+
+<nav class="tb glass five" data-liquid aria-label="Admin цэс">
+  <div class="goo"><div class="blob trail"></div><div class="blob lead"></div></div>
+  <a href="admin.html" class="tab" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3"/></svg>Өнөөдөр</a>
+  <a href="#" class="tab" data-nav data-soon="Бүх захиалгын жагсаалт загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="4" width="15" height="16.5" rx="3"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg>Захиалга</a>
+  <a href="admin-customers.html" class="tab" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19.5c.9-3 3.2-4.6 6-4.6s5.1 1.6 6 4.6"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.8.5 3 1.9 3.5 4.6"/></svg>Хэрэглэгч</a>
+  <a href="admin-tx.html" class="tab cur" data-nav><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg>Гүйлгээ</a>
+  <a href="#" class="tab" data-nav data-soon="Тохиргоо загварт хараахан ороогүй"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg>Тохиргоо</a>
+</nav>
+
+<script src="assets/app.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/report.js"></script>
+<script src="assets/admin-report.js"></script>
+<script>
+  KHISHIG.mountReport({ chartHeight: 200, pageSize: 30 });
+</script>
+</body>
+</html>

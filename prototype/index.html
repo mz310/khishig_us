@@ -84,8 +84,29 @@
       <div class="device"><iframe src="admin.html" title="Admin Өнөөдөр"></iframe></div>
     </div>
     <div class="frame">
+      <div class="frame-label"><span>Гүйлгээ, орлого</span><a href="admin-tx.html" target="_blank" rel="noopener">Нээх ↗</a></div>
+      <div class="device"><iframe src="admin-tx.html" title="Admin гүйлгээ"></iframe></div>
+    </div>
+    <div class="frame">
+      <div class="frame-label"><span>Хэрэглэгчид</span><a href="admin-customers.html" target="_blank" rel="noopener">Нээх ↗</a></div>
+      <div class="device"><iframe src="admin-customers.html" title="Admin хэрэглэгчид"></iframe></div>
+    </div>
+    <div class="frame">
       <div class="frame-label"><span>Хэрэглэгч, өр</span><a href="admin-customer.html" target="_blank" rel="noopener">Нээх ↗</a></div>
       <div class="device"><iframe src="admin-customer.html" title="Admin хэрэглэгч"></iframe></div>
+    </div>
+  </div>
+
+  <h2 class="disp">Admin — компьютер</h2>
+  <ul class="try">
+    <li>7 хоног / Сар / Улирал / Жил сонгож, ‹ › товчоор өмнөх үе рүү шилжинэ. Орлого өмнөх үетэйгээ харьцуулагдана.</li>
+    <li>Баганан дээр хулгана аваачихад тухайн өдрийн Данс, Бэлэн орлого гарна. «Хүснэгтээр харах» — бүх тоо хүснэгтээр.</li>
+    <li>Зүүн талын цэсэн дээр хулганаа гүйлгэ — ус дээрээс доош урсана.</li>
+  </ul>
+  <div class="frames">
+    <div class="frame" style="flex:1;min-width:0">
+      <div class="frame-label"><span>Тайлан</span><a href="admin-desk.html" target="_blank" rel="noopener">Бүтэн дэлгэцээр нээх ↗</a></div>
+      <div class="web-frame"><iframe src="admin-desk.html" title="Admin тайлан" loading="lazy"></iframe></div>
     </div>
   </div>
 </div>
@@ -96,10 +117,11 @@
   const K = KHISHIG;
   const $ = (id) => document.getElementById(id);
 
-  const wf = $('webFrame');
-  const fit = () => { wf.querySelector('iframe').style.transform = 'scale(' + wf.clientWidth / 1440 + ')'; };
-  fit();
-  if (window.ResizeObserver) new ResizeObserver(fit).observe(wf); else addEventListener('resize', fit);
+  document.querySelectorAll('.web-frame').forEach((wf) => {
+    const fit = () => { wf.querySelector('iframe').style.transform = 'scale(' + wf.clientWidth / 1440 + ')'; };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(wf); else addEventListener('resize', fit);
+  });
 
   document.querySelectorAll('#statusDemo button').forEach((b) => b.addEventListener('click', () => {
     document.querySelectorAll('#statusDemo button').forEach((x) => x.classList.toggle('on', x === b));

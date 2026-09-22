@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  .phero { margin: 0 16px; border-radius: 26px; overflow: hidden; position: relative; color: #fff; height: 330px; box-shadow: var(--shadow-lg); background: radial-gradient(120% 90% at 80% 10%, #3B3A80 0%, #26265A 50%, #1C1C45 100%); }
+  .phero { margin: 0 16px; border-radius: 26px; overflow: hidden; position: relative; color: #fff; height: 330px; box-shadow: var(--shadow-lg); background: #232B66; }
   .phero .ridge { position: absolute; left: 0; right: 0; bottom: 60px; width: 100%; height: 200px; pointer-events: none; }
   .phero .jug { position: absolute; right: 14px; top: 22px; width: 150px; aspect-ratio: 260 / 420; filter: drop-shadow(0 18px 26px rgba(0,0,30,.5)); animation: bob 6.5s ease-in-out infinite; }
   .phero .hcopy { position: absolute; left: 20px; top: 20px; width: 55%; display: flex; flex-direction: column; gap: 12px; z-index: 3; }
@@ -38,8 +38,19 @@
   </section>
 
   <section class="phero" aria-label="Хишиг байгалийн цэвэр ус">
-    <img src="assets/img/water.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:screen;filter:saturate(.5)">
-    <svg class="ridge" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 190 L60 130 L90 150 L160 70 L200 115 L260 50 L300 100 L350 75 L400 150 V200 H0 Z" fill="rgba(255,255,255,.06)"/></svg>
+    <svg viewBox="0 0 400 330" preserveAspectRatio="xMidYMax slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+      <defs>
+        <linearGradient id="ps-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2A5C"/><stop offset=".6" stop-color="#232B66"/><stop offset="1" stop-color="#1D3A78"/></linearGradient>
+        <linearGradient id="ps-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E6BB0"/><stop offset="1" stop-color="#16376B"/></linearGradient>
+        <radialGradient id="ps-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8CC6F2" stop-opacity=".5"/><stop offset="1" stop-color="#8CC6F2" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="400" height="330" fill="url(#ps-sky)"/>
+      <ellipse cx="290" cy="232" rx="150" ry="60" fill="url(#ps-glow)"/>
+      <path d="M0 250 L50 200 L90 218 L150 160 L200 192 L260 150 L310 178 L360 160 L400 200 V270 H0 Z" fill="#343C86" opacity=".85"/>
+      <path d="M0 262 L70 214 L110 236 L170 186 L210 210 L270 168 L320 194 L400 232 V280 H0 Z" fill="#1E2358"/>
+      <rect y="240" width="400" height="90" fill="url(#ps-water)"/>
+      <g stroke="rgba(255,255,255,.09)" stroke-width="1.5" fill="none" stroke-linecap="round"><path d="M30 268 Q70 264 110 268 T190 268"/><path d="M220 290 Q270 286 320 290 T400 290"/></g>
+    </svg>
     <div class="hcopy">
       <span class="chip-glass" style="height:32px;font-size:12px;padding:0 12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28)">18.9 л баллон</span>
       <div>

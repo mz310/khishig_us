@@ -325,13 +325,14 @@ textarea.inp { height: 76px; padding: 12px 14px; resize: none; line-height: 1.4;
 .site-top .wrap { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .site-top .phone-link { color: #fff; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
 .site-top .phone-link:hover { color: var(--sky); }
-.hero { position: relative; overflow: hidden; color: #fff; background: radial-gradient(120% 90% at 78% 18%, #3B3A80 0%, #26265A 45%, #1C1C45 100%); }
+.hero { position: relative; overflow: hidden; color: #fff; background: #232B66; }
+.hero .scene { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero .ridge { position: absolute; left: 0; right: 0; bottom: 120px; width: 100%; height: 420px; pointer-events: none; opacity: .5; }
 .hero .bubbles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero .tex { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .22; mix-blend-mode: screen; filter: saturate(.5); pointer-events: none; }
 .hero .rays { position: absolute; inset: -25% -10% 0 -10%; pointer-events: none; background: linear-gradient(112deg, transparent 18%, rgba(255,255,255,.06) 28%, transparent 35%, transparent 46%, rgba(255,255,255,.08) 54%, transparent 62%, transparent 70%, rgba(255,255,255,.05) 77%, transparent 84%); filter: blur(22px); animation: rays 16s ease-in-out infinite alternate; }
 @keyframes rays { from { transform: translateX(-2.5%); } to { transform: translateX(2.5%); } }
-.hero .vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(85% 75% at 50% 42%, transparent 50%, rgba(8,8,36,.6) 100%); }
+.hero .vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(90% 80% at 50% 45%, transparent 55%, rgba(8,8,36,.45) 100%); }
 .jug-wrap { display: flex; flex-direction: column; align-items: center; animation: wordin 1s var(--ease-out) .2s both, bob 6.5s ease-in-out 1.2s infinite; }
 .jug-wrap .jug { animation: none; }
 .jug-reflect { width: min(370px, 86%); aspect-ratio: 260 / 420; transform: scaleY(-1); margin-top: -104px; opacity: .45; filter: blur(1.5px); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); mask-image: linear-gradient(to top, rgba(0,0,0,.55), transparent 48%); pointer-events: none; }

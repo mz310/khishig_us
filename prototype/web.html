@@ -41,11 +41,29 @@
 </header>
 
 <section class="hero">
-  <img class="tex" src="assets/img/water.jpg" alt="">
-  <div class="rays"></div>
-  <svg class="ridge" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400 Z" fill="rgba(255,255,255,.05)"/>
-    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3" stroke-linejoin="round"/>
+  <svg class="scene" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="hs-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2A5C"/><stop offset=".55" stop-color="#232B66"/><stop offset="1" stop-color="#1D3A78"/></linearGradient>
+      <linearGradient id="hs-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E6BB0"/><stop offset=".5" stop-color="#22508F"/><stop offset="1" stop-color="#16376B"/></linearGradient>
+      <radialGradient id="hs-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8CC6F2" stop-opacity=".55"/><stop offset="1" stop-color="#8CC6F2" stop-opacity="0"/></radialGradient>
+      <linearGradient id="hs-beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".12"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+      <filter id="hs-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    </defs>
+    <rect width="1440" height="800" fill="url(#hs-sky)"/>
+    <g filter="url(#hs-soft)">
+      <path d="M260 -40 L470 -40 L860 620 L560 620 Z" fill="url(#hs-beam)"/>
+      <path d="M560 -40 L640 -40 L1040 620 L900 620 Z" fill="url(#hs-beam)" opacity=".7"/>
+    </g>
+    <ellipse cx="1030" cy="540" rx="420" ry="150" fill="url(#hs-glow)"/>
+    <path d="M0 560 L120 480 L220 515 L360 410 L470 470 L600 372 L700 430 L820 390 L940 462 L1060 412 L1180 480 L1300 444 L1440 512 V600 H0 Z" fill="#343C86" opacity=".85"/>
+    <path d="M0 580 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552 V620 H0 Z" fill="#1E2358"/>
+    <path d="M0 580 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-linejoin="round"/>
+    <rect y="540" width="1440" height="260" fill="url(#hs-water)"/>
+    <path d="M0 540 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552 V540 Z" fill="#1E2358" opacity=".35" transform="translate(0 1080) scale(1 -1)"/>
+    <g stroke="rgba(255,255,255,.09)" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M120 600 Q220 592 320 600 T520 600"/><path d="M700 640 Q820 632 940 640 T1180 640"/><path d="M60 700 Q160 692 260 700 T460 700"/>
+      <path d="M980 700 Q1080 692 1180 700 T1380 700"/><path d="M420 760 Q540 752 660 760 T900 760"/><path d="M1100 590 Q1180 584 1260 590"/>
+    </g>
   </svg>
   <svg class="bubbles" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <circle class="drift" cx="180" cy="780" r="5" fill="rgba(124,196,236,.5)"/>

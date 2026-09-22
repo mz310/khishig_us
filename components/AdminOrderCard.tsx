@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { deliver, markOut } from "@/app/actions/admin";
 import { fmtMoney, PAYMENT_LABEL, STATUS_LABEL, type Payment, type Status } from "@/lib/domain";
 import type { OrderWithCustomer } from "@/lib/queries";
@@ -22,28 +22,28 @@ export function AdminOrderCard({ order: o, showDate = false }: { order: OrderWit
   }
 
   return (
-    <article className={`ocard${status === "delivered" || status === "cancelled" ? " is-done" : ""}`}>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
+    <article className={`ocard${status === "delivered" || status === "cancelled" ? " is-done" : ""}`} aria-busy={pending || undefined}>
+      <div className="top">
         <div style={{ minWidth: 0 }}>
           <Link href={`/admin/orders/${o.id}`} className="oname">{o.customer.name}</Link>
-          <div className="muted" style={{ fontSize: 13, marginTop: 3, lineHeight: 1.4 }}>#{o.id} · {o.bag}-р баг, {o.street}, {o.unit}{showDate ? ` · ${humanDate(o.deliveryDate)}, ${slotLabel(o.slot as Slot)}` : ""}</div>
+          <div className="addr">#{o.id} · {o.bag}-р баг, {o.street}, {o.unit}{showDate ? ` · ${humanDate(o.deliveryDate)}, ${slotLabel(o.slot as Slot)}` : ""}</div>
         </div>
-        <span className={`pill-s st-${status === "cancelled" ? "new" : status}`} style={status === "cancelled" ? { background: "#EEF0EF", color: "#56605C" } : undefined}>{STATUS_LABEL[status]}</span>
+        <span className={`pill-s st-${status}`}>{STATUS_LABEL[status]}</span>
       </div>
-      {o.note && <div style={{ fontSize: 12.5, color: "var(--saffron-ink)", background: "var(--saffron-bg)", borderRadius: 10, padding: "7px 10px" }}>{o.note}</div>}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginTop: 4 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+      {o.note && <div className="note">{o.note}</div>}
+      <div className="bottom">
+        <div>
           <span className="qty">{o.qtyPaid + free} баллон{free ? ` · ${free} бэлэг` : ""}</span>
-          <span style={{ fontSize: 14, fontWeight: 700, whiteSpace: "nowrap" }}>{fmtMoney(o.total)}</span>
+          <span className="sum">{fmtMoney(o.total)}</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: "auto" }}>
+        <div className="acts">
           <a href={`tel:${o.customer.phone}`} className="callbtn" aria-label={`${o.customer.name} руу залгах`}><IconPhone /></a>
-          {status === "new" && <button className="wbtn" disabled={pending} onClick={() => run(() => markOut(o.id))} style={{ height: 44, padding: "0 16px", fontSize: 14 }}><Fill />Гарлаа</button>}
-          {(status === "out" || status === "new") && <button className="wbtn green" disabled={pending} onClick={() => setSheet(true)} style={{ height: 44, padding: "0 16px", fontSize: 14 }}><Fill />Хүргэсэн</button>}
+          {status === "new" && <button type="button" className="wbtn" disabled={pending} onClick={() => run(() => markOut(o.id))}><Fill />Гарлаа</button>}
+          {(status === "out" || status === "new") && <button type="button" className="wbtn green" disabled={pending} onClick={() => setSheet(true)}><Fill />Хүргэсэн</button>}
           {status === "delivered" && o.payment && <span className={`paytag pay-${o.payment}`}>{PAYMENT_LABEL[o.payment as Payment]}</span>}
         </div>
       </div>
-      {error && <div className="err">{error}</div>}
+      {error && <div className="err" role="alert">{error}</div>}
       {sheet && (
         <DeliverSheet
           title={`Хүргэсэн · #${o.id} · ${o.customer.name}`}
@@ -58,21 +58,37 @@ export function AdminOrderCard({ order: o, showDate = false }: { order: OrderWit
   );
 }
 
+// Closes on Escape or a tap on the veil; focus starts on the default payment and returns to the page afterwards.
+export function useSheet<T extends HTMLElement>(onClose: () => void) {
+  const ref = useRef<T>(null);
+  const close = useRef(onClose);
+  close.current = onClose;
+  useEffect(() => {
+    const before = document.activeElement as HTMLElement | null;
+    ref.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close.current(); };
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("keydown", onKey); before?.focus?.({ preventScroll: true }); };
+  }, []);
+  return ref;
+}
+
 export function DeliverSheet({ title, total, name, pending, onClose, onConfirm }: { title: string; total: number; name: string; pending: boolean; onClose: () => void; onConfirm: (p: Payment) => void }) {
   const [pay, setPay] = useState<Payment>("cash");
+  const ref = useSheet<HTMLDivElement>(onClose);
   const opt = (k: Payment) => `payopt${pay === k ? " on" : ""}${k === "debt" ? " is-debt" : ""}`;
   return (
     <>
       <div className="veil dim" onClick={onClose} />
-      <div className="sheet" role="dialog" aria-modal="true" aria-label="Төлбөр">
+      <div ref={ref} className="sheet" role="dialog" aria-modal="true" aria-label="Төлбөр">
         <div className="grab" />
         <div className="muted" style={{ fontSize: 13, fontWeight: 600 }}>{title}</div>
-        <div style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.02em", margin: "6px 0 18px" }}>{fmtMoney(total)}</div>
+        <div className="amt">{fmtMoney(total)}</div>
         <div className="muted" style={{ fontSize: 12, fontWeight: 700, marginBottom: 10 }}>Төлбөр</div>
-        <div className="grid3">
-          <button type="button" className={opt("cash")} onClick={() => setPay("cash")}><IconCash size={24} />Бэлэн</button>
-          <button type="button" className={opt("transfer")} onClick={() => setPay("transfer")}><IconBank size={24} />Данс</button>
-          <button type="button" className={opt("debt")} onClick={() => setPay("debt")}><IconLater size={24} />Дараа төлнө</button>
+        <div className="grid3" role="radiogroup" aria-label="Төлбөрийн хэлбэр">
+          <button type="button" role="radio" aria-checked={pay === "cash"} data-autofocus className={opt("cash")} onClick={() => setPay("cash")}><IconCash size={24} />Бэлэн</button>
+          <button type="button" role="radio" aria-checked={pay === "transfer"} className={opt("transfer")} onClick={() => setPay("transfer")}><IconBank size={24} />Данс</button>
+          <button type="button" role="radio" aria-checked={pay === "debt"} className={opt("debt")} onClick={() => setPay("debt")}><IconLater size={24} />Дараа төлнө</button>
         </div>
         {pay === "debt" && <div className="note-debt">{name}-ийн өрөнд <b>{fmtMoney(total)}</b> нэмэгдэнэ.</div>}
         <div className="grid2" style={{ marginTop: 18 }}>

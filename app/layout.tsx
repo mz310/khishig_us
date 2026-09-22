@@ -1,31 +1,31 @@
 import type { Metadata, Viewport } from "next";
+import { Onest } from "next/font/google";
+import { headers } from "next/headers";
 import { SvgDefs } from "@/components/SvgDefs";
 import "./globals.css";
+
+// Self-hosted at build time: no request to Google at runtime, no layout shift while the font loads.
+const onest = Onest({ subsets: ["latin", "cyrillic"], variable: "--font-onest", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "Хишиг ус", template: "%s · Хишиг ус" },
   description: "Арвайхээр сум дотор байгалийн цэвэр ус хаалган дээр тань хүргэнэ.",
-  icons: { icon: "/logo.svg" },
+  applicationName: "Хишиг ус",
+  // Bank accounts and ids must not turn into tap-to-call links on iOS; real phone links are explicit tel: anchors.
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = { themeColor: "#22224F", viewportFit: "cover" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // suppressHydrationWarning: the inline script below may add a class to <html> before React hydrates.
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Reading the request headers renders every route per request, which the nonce-based CSP set in proxy.ts needs
+  // (Next.js stamps that nonce on its own scripts during rendering).
+  await headers();
   return (
-    <html lang="mn" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="mn" className={onest.variable}>
       <body>
         <SvgDefs />
         {children}
-        <script
-          // Real refraction only where it is supported and cheap enough (desktop Chromium).
-          dangerouslySetInnerHTML={{ __html: "if(/Chrome\\//.test(navigator.userAgent)&&matchMedia('(hover: hover)').matches)document.documentElement.classList.add('refract')" }}
-        />
       </body>
     </html>
   );

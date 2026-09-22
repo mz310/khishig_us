@@ -3,7 +3,7 @@ import { JUG, LABEL } from "./SvgDefs";
 
 type Props = { kind?: "hero" | "plain" | "fill"; phone?: string; className?: string };
 
-const font = { fontFamily: "Onest, sans-serif" } as const;
+const font = { fontFamily: "var(--font-onest), Onest, sans-serif" } as const;
 
 function Label({ phone }: { phone: string }) {
   return (
@@ -18,7 +18,7 @@ function Label({ phone }: { phone: string }) {
         <path d="M40 308Q130 312 220 308V328Q130 338 40 328Z" fill="#2B2A5C" />
         <path transform="translate(86 315) scale(.5)" d="M6.6 3.5h2.8l1.5 4.3-2 1.4a11 11 0 0 0 5.9 5.9l1.4-2 4.3 1.5v2.8a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinejoin="round" />
         <text x="136" y="326" textAnchor="middle" style={{ ...font, fontWeight: 700, fontSize: 11, fill: "#fff", letterSpacing: ".6px" }}>{phone}</text>
-        <image href="/logo.svg" x="99" y="204" width="62" height="24" />
+        <image href="/logo.svg" x="108" y="206" width="44" height="18.4" />
         <text x="130" y="252" textAnchor="middle" style={{ ...font, fontWeight: 800, fontSize: 24, fill: "#2B2A5C", letterSpacing: "2.5px" }}>ХИШИГ</text>
         <text x="130" y="265" textAnchor="middle" style={{ ...font, fontWeight: 700, fontSize: 7.5, fill: "#3E8E2A", letterSpacing: "1.7px" }}>БАЙГАЛИЙН ЦЭВЭР УС</text>
         <path d={LABEL} fill="url(#lblCurve)" />
@@ -29,6 +29,7 @@ function Label({ phone }: { phone: string }) {
 }
 
 // Polycarbonate 18.9 l jug: tinted body, water with a meniscus, wrapped label, edge darkening, specular streaks, ribbed cap.
+// The water inside is still: animating it would repaint the blur filters on every frame.
 export function Bottle({ kind = "hero", phone = "8802 7971", className }: Props) {
   const fill = kind === "fill";
   return (
@@ -41,8 +42,8 @@ export function Bottle({ kind = "hero", phone = "8802 7971", className }: Props)
           <rect width="260" height="420" fill="url(#jgBody)" />
           <g className={fill ? "fillup" : undefined}>
             <rect x="0" y="150" width="260" height="270" fill="url(#wg)" opacity=".95" />
-            <g className="run-mid"><path d={wave(152, 7, 65, 520, 420)} fill="#62B5EC" opacity=".9" /></g>
-            <g className="run"><path d={wave(158, 5, 65, 520, 420)} fill="#3D93DA" opacity=".85" /></g>
+            <path d={wave(152, 7, 65, 520, 420)} fill="#62B5EC" opacity=".9" />
+            <path transform="translate(-32 0)" d={wave(158, 5, 65, 520, 420)} fill="#3D93DA" opacity=".85" />
             <ellipse cx="130" cy="153" rx="99" ry="9" fill="url(#wsurf)" opacity=".85" />
             <path d="M44 151Q130 141 216 151" fill="none" stroke="rgba(255,255,255,.75)" strokeWidth="1.8" />
             <ellipse cx="108" cy="296" rx="42" ry="14" fill="#FFFFFF" opacity=".16" filter="url(#b8)" />

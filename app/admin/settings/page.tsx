@@ -10,7 +10,7 @@ export default async function AdminSettings() {
   const s = await getSettings();
   return (
     <>
-      <header className="pagehead" style={{ paddingBottom: 6 }}><div><h1>Тохиргоо</h1><div className="muted" style={{ fontSize: 13, marginTop: 3 }}>Үнэ, урамшуулал, холбоо барих</div></div></header>
+      <header className="pagehead" style={{ paddingBottom: 6 }}><div><h1>Тохиргоо</h1><div className="sub">Үнэ, урамшуулал, холбоо барих</div></div></header>
       <SettingsForm s={s} />
     </>
   );

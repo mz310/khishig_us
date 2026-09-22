@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Bottle } from "@/components/Bottle";
-import { IconPhone } from "@/components/icons";
+import { IconPhone, IconRight } from "@/components/icons";
 import { Lockup } from "@/components/Lockup";
 import { WaterLink } from "@/components/WaterButton";
-import { fmtMoney, STATUS_LABEL, type Status } from "@/lib/domain";
+import { fmtMoney, fmtPhone, STATUS_LABEL, type Status } from "@/lib/domain";
 import { getSettings, myOrders } from "@/lib/queries";
 import { requireUser } from "@/lib/session";
 import { humanDate, slotLabel, type Slot } from "@/lib/time";
@@ -11,10 +11,11 @@ import { humanDate, slotLabel, type Slot } from "@/lib/time";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ denied?: string }> }) {
-  const [user, s, orders, { denied }] = await Promise.all([requireUser(), getSettings(), myOrders(await (async () => (await requireUser()).id)(), 5), searchParams]);
+  const user = await requireUser("/app");
+  const [s, orders, { denied }] = await Promise.all([getSettings(), myOrders(user.id, 5), searchParams]);
   const last = orders[0];
   const open = orders.find((o) => o.status === "new" || o.status === "out");
-  const firstName = user.name.split(" ")[0];
+  const firstName = user.name.trim().split(/\s+/)[0] || "та";
   const price = s.price > 0 ? fmtMoney(s.price) : "Удахгүй";
   const fee = s.deliveryFee > 0 ? `хүргэлт ${fmtMoney(s.deliveryFee)}` : "хүргэлт үнэгүй";
 
@@ -22,12 +23,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ d
     <>
       <header className="topbar">
         <Lockup href="/" size={19} />
-        <Link href="/profile" aria-label="Профайл" style={{ width: 40, height: 40, borderRadius: "50%", background: "#fff", boxShadow: "var(--shadow)", color: "var(--brand)", fontWeight: 800, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          {firstName.charAt(0).toUpperCase()}
-        </Link>
+        <Link href="/profile" aria-label="Профайл" className="avatar-btn">{firstName.charAt(0).toUpperCase()}</Link>
       </header>
 
-      {denied && <div className="mx note-debt" style={{ marginTop: 10 }}>Энэ Gmail хаягт эзний хэсэгт нэвтрэх эрх байхгүй.</div>}
+      {denied && <div className="mx notice bad" style={{ marginTop: 10 }}>Энэ Gmail хаягт эзний хэсэгт нэвтрэх эрх байхгүй.</div>}
 
       <section style={{ padding: "16px 20px 14px" }}>
         <div className="muted" style={{ fontSize: 14 }}>Сайн байна уу, {firstName}</div>
@@ -48,14 +47,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ d
           <rect y="240" width="400" height="90" fill="url(#ps-water)" />
         </svg>
         <div className="hcopy">
-          <span className="chip-glass" style={{ height: 32, fontSize: 12, padding: "0 12px", background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.28)" }}>{s.bottleLabel} баллон</span>
+          <span className="chip-glass lbl">{s.bottleLabel} баллон</span>
           <div>
-            <div style={{ fontSize: 34, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1 }}>{price}</div>
-            <div style={{ fontSize: 12.5, color: "#C9CBEA", marginTop: 6 }}>нэг баллон, {fee}</div>
+            <div className="price">{price}</div>
+            <div className="per">нэг баллон, {fee}</div>
           </div>
-          <div style={{ fontSize: 13, lineHeight: 1.5, color: "#C9CBEA" }}>Арвайхээр сум дотор хаалган дээр тань хүргэнэ</div>
+          <p>Арвайхээр сум дотор хаалган дээр тань хүргэнэ</p>
         </div>
-        <Bottle className="jug" kind="hero" />
+        <Bottle className="jug" kind="hero" phone={fmtPhone(s.phone1)} />
         <div className="waves">
           <svg className="run-slow" viewBox="0 0 800 90" preserveAspectRatio="none" style={{ height: 84 }} aria-hidden="true"><path d="M0 40 Q50 22 100 40 T200 40 T300 40 T400 40 T500 40 T600 40 T700 40 T800 40 V90 H0 Z" fill="#2F7FC1" opacity=".6" /></svg>
           <svg className="run-mid" viewBox="0 0 800 90" preserveAspectRatio="none" style={{ height: 60 }} aria-hidden="true"><path d="M0 44 Q50 30 100 44 T200 44 T300 44 T400 44 T500 44 T600 44 T700 44 T800 44 V90 H0 Z" fill="#4A9FDB" opacity=".8" /></svg>
@@ -64,22 +63,22 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ d
       </section>
 
       {open && (
-        <Link href={`/orders/${open.id}`} className="card mx" style={{ marginTop: 14, padding: 16, display: "flex", gap: 14, alignItems: "center", color: "inherit" }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 13, color: "var(--muted)" }}>Идэвхтэй захиалга #{open.id}</div>
-            <div style={{ fontSize: 15.5, fontWeight: 700, marginTop: 2 }}>{STATUS_LABEL[open.status as Status]} · {humanDate(open.deliveryDate)}, {slotLabel(open.slot as Slot)}</div>
-            <div className="muted" style={{ fontSize: 13, marginTop: 2 }}>{open.qtyPaid + open.qtyFree} баллон · {fmtMoney(open.total)}</div>
+        <Link href={`/orders/${open.id}`} className="card mx linkcard" style={{ marginTop: 14 }}>
+          <div className="main">
+            <div className="s">Идэвхтэй захиалга #{open.id}</div>
+            <div className="t">{STATUS_LABEL[open.status as Status]} · {humanDate(open.deliveryDate)}, {slotLabel(open.slot as Slot)}</div>
+            <div className="s">{open.qtyPaid + open.qtyFree} баллон · {fmtMoney(open.total)}</div>
           </div>
-          <span className="pill-s st-new">Харах</span>
+          <span className={`pill-s st-${open.status}`}>Харах<IconRight size={14} /></span>
         </Link>
       )}
 
       {last && !open && (
-        <section className="card mx" style={{ marginTop: 14, padding: 16, display: "flex", gap: 14, alignItems: "center" }}>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
-            <div style={{ fontSize: 13, color: "var(--muted)" }}>Сүүлийн захиалга</div>
-            <div style={{ fontSize: 15.5, fontWeight: 700 }}>{last.qtyFree ? `${last.qtyPaid} + ${last.qtyFree} бэлэг, ${last.qtyPaid + last.qtyFree} баллон` : `${last.qtyPaid} баллон`}</div>
-            <div className="muted" style={{ fontSize: 13 }}>{last.bag}-р баг, {last.street}, {last.unit}</div>
+        <section className="card mx linkcard" style={{ marginTop: 14 }}>
+          <div className="main">
+            <div className="s">Сүүлийн захиалга</div>
+            <div className="t">{last.qtyFree ? `${last.qtyPaid} + ${last.qtyFree} бэлэг, ${last.qtyPaid + last.qtyFree} баллон` : `${last.qtyPaid} баллон`}</div>
+            <div className="s">{last.bag}-р баг, {last.street}, {last.unit}</div>
           </div>
           <WaterLink href={`/order?qty=${last.qtyPaid}`} style={{ height: 44, padding: "0 16px", fontSize: 14, flexShrink: 0 }}>Дахин захиалах</WaterLink>
         </section>
@@ -87,19 +86,19 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ d
 
       <WaterLink href="/order" className="mx" style={{ display: "flex", marginTop: 10, height: 54, fontSize: 15.5 }}>Шинэ захиалга өгөх</WaterLink>
 
-      <div style={{ padding: "26px 20px 8px", display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
+      <div style={{ padding: "26px 20px 8px", display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
         <h2 style={{ margin: 0, fontSize: 16.5 }}>Хэрхэн ажилладаг</h2>
         <span className="muted" style={{ fontSize: 13 }}>09:00–17:00</span>
       </div>
       <section className="card mx" style={{ padding: "2px 16px" }}>
-        <div className="step-row"><div className="stepnum">1</div><div><div style={{ fontSize: 15, fontWeight: 700 }}>Захиалгаа өгнө</div><div className="muted" style={{ fontSize: 13, marginTop: 2 }}>Тоо, хаяг, хүргүүлэх цагаа сонгоно</div></div></div>
-        <div className="step-row"><div className="stepnum">2</div><div><div style={{ fontSize: 15, fontWeight: 700 }}>Хоосон баллоноо бэлдэнэ</div><div className="muted" style={{ fontSize: 13, marginTop: 2 }}>Хуучин баллоныг тань аваад дүүрэнээр солино</div></div></div>
-        <div className="step-row"><div className="stepnum">3</div><div><div style={{ fontSize: 15, fontWeight: 700 }}>Хүргэлтээр төлнө</div><div className="muted" style={{ fontSize: 13, marginTop: 2 }}>Бэлнээр эсвэл дансаар</div></div></div>
+        <div className="step-row"><div className="stepnum">1</div><div><b>Захиалгаа өгнө</b><span>Тоо, хаяг, хүргүүлэх цагаа сонгоно</span></div></div>
+        <div className="step-row"><div className="stepnum">2</div><div><b>Хоосон баллоноо бэлдэнэ</b><span>Хуучин баллоныг тань аваад дүүрэнээр солино</span></div></div>
+        <div className="step-row"><div className="stepnum">3</div><div><b>Хүргэлтээр төлнө</b><span>Бэлнээр эсвэл дансаар</span></div></div>
       </section>
 
-      <section className="mx" style={{ marginTop: 12, padding: 16, borderRadius: 20, background: "var(--brand)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-        <div style={{ fontSize: 14, lineHeight: 1.5, color: "#C9CBEA" }}>Асуух зүйл байвал шууд залгаарай. Захиалгыг эзэн нь өөрөө хүргэдэг.</div>
-        <a href={`tel:${s.phone1}`} className="gbtn" style={{ height: 44, padding: "0 14px", fontSize: 14.5, flexShrink: 0 }}><IconPhone size={16} />{s.phone1.slice(0, 4)} {s.phone1.slice(4)}</a>
+      <section className="mx callcard" style={{ marginTop: 12 }}>
+        <p>Асуух зүйл байвал шууд залгаарай. Захиалгыг эзэн нь өөрөө хүргэдэг.</p>
+        <a href={`tel:${s.phone1}`} className="gbtn" style={{ height: 44, padding: "0 14px", fontSize: 14.5, flexShrink: 0 }}><IconPhone size={16} />{fmtPhone(s.phone1)}</a>
       </section>
     </>
   );

@@ -11,11 +11,6 @@ export function SvgDefs() {
           <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" />
           <feComposite in="SourceGraphic" in2="goo" operator="atop" />
         </filter>
-        <filter id="lg" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.011 0.016" numOctaves="2" seed="5" result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="1.5" result="soft" />
-          <feDisplacementMap in="SourceGraphic" in2="soft" scale="26" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
         <clipPath id="jc"><path d={JUG} /></clipPath>
         <clipPath id="lc"><path d={LABEL} /></clipPath>
         <linearGradient id="jgBody" x1="0" x2="1">

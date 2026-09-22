@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { wave } from "@/lib/wave";
 
 // prefix: the item is current for every path under its href (e.g. /orders/12). Kept serializable: server components pass these.
@@ -9,29 +9,41 @@ export type NavItem = { href: string; label: string; icon?: ReactNode; prefix?: 
 
 type Props = {
   items: NavItem[];
-  className: string;       // "tb glass" (phone bar), "dnav glass dark" (desktop pill), "vnav" (admin sidebar)
+  className: string;       // "tb glass" (phone bar), "dnav bare" (landing), "vnav" (admin sidebar)
   itemClass: string;       // "tab" | "navi" | "vitem"
   vertical?: boolean;
   ariaLabel: string;
   current?: string;        // override the current href (defaults to pathname match)
 };
 
-// A droplet (lead + lagging trail, merged by the goo filter) flows to the hovered / current item.
+// Longest travel of the trailing droplet; the goo filter stays on until it has landed.
+const SETTLE_MS = 900;
+const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+// A droplet (lead + lagging trail, merged by the goo filter while it moves) flows to the hovered / current item.
 export function LiquidNav({ items, className, itemClass, vertical = false, ariaLabel, current }: Props) {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
   const leadRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
+  const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const path = current ?? pathname;
   const curIndex = Math.max(0, items.findIndex((it) => path === it.href || (it.prefix && path.startsWith(it.href + "/"))));
   const [hover, setHover] = useState<number | null>(null);
+  const [canHover, setCanHover] = useState(false);
   const active = hover ?? curIndex;
+  const activeRef = useRef(active);
+  activeRef.current = active;
 
   const place = useCallback((i: number, instant: boolean) => {
     const nav = navRef.current;
-    if (!nav) return;
-    const el = nav.querySelectorAll<HTMLElement>("[data-nav]")[i];
-    if (!el) return;
+    const el = nav?.querySelectorAll<HTMLElement>("[data-nav]")[i];
+    if (!nav || !el) return;
+    if (!instant) {
+      nav.classList.add("moving");
+      if (settle.current) clearTimeout(settle.current);
+      settle.current = setTimeout(() => nav.classList.remove("moving"), SETTLE_MS);
+    }
     for (const b of [leadRef.current, trailRef.current]) {
       if (!b) continue;
       if (instant) b.style.transition = "none";
@@ -41,16 +53,24 @@ export function LiquidNav({ items, className, itemClass, vertical = false, ariaL
     }
   }, [vertical]);
 
-  useEffect(() => { place(active, false); }, [active, place]);
-  useEffect(() => {
-    place(curIndex, true);
-    const again = () => place(hover ?? curIndex, true);
-    if (document.fonts) document.fonts.ready.then(again);
-    window.addEventListener("resize", again);
-    return () => window.removeEventListener("resize", again);
-  }, [curIndex, hover, place]);
+  // First paint: drop the droplet under the current item before the browser shows the bar.
+  const placed = useRef(false);
+  useIsoLayoutEffect(() => {
+    place(active, !placed.current);
+    placed.current = true;
+  }, [active, place]);
 
-  const canHover = typeof window !== "undefined" && window.matchMedia?.("(hover: hover)").matches;
+  // Re-measure (without animating) when the bar or its fonts change size.
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const again = () => place(activeRef.current, true);
+    const ro = new ResizeObserver(again);
+    ro.observe(nav);
+    document.fonts?.ready.then(again);
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+    return () => { ro.disconnect(); if (settle.current) clearTimeout(settle.current); };
+  }, [place]);
 
   return (
     <nav ref={navRef} className={className} data-liquid aria-label={ariaLabel} onMouseLeave={() => setHover(null)}>
@@ -67,6 +87,7 @@ export function LiquidNav({ items, className, itemClass, vertical = false, ariaL
           key={it.href + it.label}
           href={it.href}
           data-nav
+          aria-current={i === curIndex ? "page" : undefined}
           className={`${itemClass}${i === active ? " on" : ""}`}
           onMouseEnter={canHover ? () => setHover(i) : undefined}
           onFocus={() => setHover(i)}

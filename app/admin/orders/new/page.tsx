@@ -16,7 +16,7 @@ export default async function NewAdminOrder() {
     <>
       <header className="pagehead">
         <Link href="/admin" className="iconbtn" aria-label="Буцах"><IconBack /></Link>
-        <div><h1>Захиалга нэмэх</h1><div className="muted" style={{ fontSize: 12.5, marginTop: 3 }}>Утсаар ирсэн захиалгыг бүртгэх</div></div>
+        <div><h1>Захиалга нэмэх</h1><div className="sub">Утсаар ирсэн захиалгыг бүртгэх</div></div>
       </header>
       <AdminOrderForm settings={toDomainSettings(s)} today={today} tomorrow={addDays(today, 1)} />
     </>

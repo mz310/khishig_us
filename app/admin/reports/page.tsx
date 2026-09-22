@@ -6,14 +6,12 @@ import { GRANS, type Gran } from "@/lib/period";
 import { debtSummary } from "@/lib/queries";
 import { buildReport } from "@/lib/report";
 import { humanDate, ubDateStr, ubTime } from "@/lib/time";
+import { avatarStyle, initials } from "@/lib/avatar";
 import { requireAdmin } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Тайлан" };
 
-const PALETTE = [["#E3EFF6", "#12314A"], ["#FBF1E0", "#6E4A0F"], ["#E2F1EA", "#1E5F45"], ["#ECEAF5", "#3E3A78"], ["#FAECE6", "#86341A"]];
-export const avatarStyle = (id: number) => ({ background: PALETTE[id % PALETTE.length][0], color: PALETTE[id % PALETTE.length][1] });
-export const initials = (name: string) => name.split(" ").map((s) => s.charAt(0)).join("").slice(0, 2).toUpperCase();
 
 export default async function Reports({ searchParams }: { searchParams: Promise<{ g?: string; ref?: string }> }) {
   await requireAdmin();
@@ -28,7 +26,7 @@ export default async function Reports({ searchParams }: { searchParams: Promise<
     <div className="wide-wrap">
       <header className="dhead">
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12.5, fontWeight: 600, color: "var(--ok)" }}><span className="live" />Шууд шинэчлэгдэнэ</div>
+          <div className="livehead"><span className="live" />Шууд шинэчлэгдэнэ</div>
           <h1 style={{ margin: "8px 0 0", fontSize: 30 }}>Тайлан</h1>
           <div className="muted" style={{ fontSize: 14, marginTop: 4 }}>Орлого, гүйлгээ, хэрэглэгчийн өр</div>
         </div>
@@ -37,15 +35,15 @@ export default async function Reports({ searchParams }: { searchParams: Promise<
       <PeriodBar base="/admin/reports" gran={gran} r={r} chartMode />
       <div className="dgrid">
         <section className="panel span-4"><RevenueSummary r={r} hero={46} /></section>
-        <div className="span-8" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 16 }}><Kpis r={r} tall /></div>
+        <div className="span-8 kpi-row"><Kpis r={r} /></div>
         <section className="panel span-12">
           <h3>Орлого хугацаагаар</h3>
           <div style={{ marginTop: 14 }}><ChartWithTable r={r} height={300} /></div>
         </section>
         <section className="panel span-8">
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+          <div className="head">
             <h3>Сүүлийн гүйлгээнүүд <span className="muted" style={{ fontWeight: 500, fontSize: 13, marginLeft: 6 }}>{r.payments.length} гүйлгээ</span></h3>
-            <Link href={`/admin/transactions?g=${gran}&ref=${ref}`} style={{ fontSize: 13, fontWeight: 600 }}>Бүгдийг харах</Link>
+            <Link href={`/admin/transactions?g=${gran}&ref=${ref}`}>Бүгдийг харах</Link>
           </div>
           <div style={{ overflowX: "auto", marginTop: 10 }}>
             <table className="dtable">
@@ -66,9 +64,9 @@ export default async function Reports({ searchParams }: { searchParams: Promise<
           </div>
         </section>
         <section className="panel span-4">
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+          <div className="head">
             <h3>Өртэй хэрэглэгчид</h3>
-            <Link href="/admin/customers?sort=debt" style={{ fontSize: 13, fontWeight: 600 }}>Бүгдийг харах</Link>
+            <Link href="/admin/customers?sort=debt">Бүгдийг харах</Link>
           </div>
           <div className="hero-fig" style={{ fontSize: 30, marginTop: 12, color: "var(--debt)" }}>{fmtMoney(debt.total)}</div>
           <div className="muted" style={{ fontSize: 13, marginTop: 4 }}>{debt.count} хэрэглэгч · нийт авлага</div>

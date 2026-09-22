@@ -34,14 +34,14 @@ export function AdminOrderForm({ settings: s, today, tomorrow }: { settings: Set
       <input type="hidden" name="slot" value={slot} />
 
       <div className="sec">Хэрэглэгч</div>
-      <section className="card mx" style={{ padding: 18, display: "flex", flexDirection: "column", gap: 14 }}>
+      <section className="card mx stack" style={{ padding: 18 }}>
         <div className="field">
           <label htmlFor="phone">Утасны дугаар</label>
-          <input id="phone" name="phone" className="inp" inputMode="numeric" value={phone} onChange={(e) => { setPhone(e.target.value); setFound(null); }} onBlur={onPhoneBlur} placeholder="8 оронтой дугаар" required />
-          {found === true && <div style={{ fontSize: 12.5, color: "var(--ok-ink)", fontWeight: 600 }}>Бүртгэлтэй хэрэглэгч — хаяг нь бөглөгдлөө</div>}
+          <input id="phone" name="phone" className="inp" inputMode="numeric" value={phone} onChange={(e) => { setPhone(e.target.value); setFound(null); }} onBlur={onPhoneBlur} placeholder="8 оронтой дугаар" maxLength={16} autoComplete="off" required />
+          {found === true && <div className="hint-ok">Бүртгэлтэй хэрэглэгч — хаяг нь бөглөгдлөө</div>}
           {found === false && <div className="muted" style={{ fontSize: 12.5 }}>Шинэ хэрэглэгч</div>}
         </div>
-        <div className="field"><label htmlFor="name">Нэр</label><input id="name" name="name" className="inp" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} required /></div>
+        <div className="field"><label htmlFor="name">Нэр</label><input id="name" name="name" className="inp" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} maxLength={80} required /></div>
         <div className="field">
           <label htmlFor="bag">Баг</label>
           <div className="selwrap">
@@ -52,16 +52,16 @@ export function AdminOrderForm({ settings: s, today, tomorrow }: { settings: Set
           </div>
         </div>
         <div className="grid2">
-          <div className="field"><label htmlFor="street">Байр / гудамж</label><input id="street" name="street" className="inp" value={c.street} onChange={(e) => setC({ ...c, street: e.target.value })} required /></div>
-          <div className="field"><label htmlFor="unit">Тоот / хашаа</label><input id="unit" name="unit" className="inp" value={c.unit} onChange={(e) => setC({ ...c, unit: e.target.value })} required /></div>
+          <div className="field"><label htmlFor="street">Байр / гудамж</label><input id="street" name="street" className="inp" value={c.street} onChange={(e) => setC({ ...c, street: e.target.value })} maxLength={120} required /></div>
+          <div className="field"><label htmlFor="unit">Тоот / хашаа</label><input id="unit" name="unit" className="inp" value={c.unit} onChange={(e) => setC({ ...c, unit: e.target.value })} maxLength={60} required /></div>
         </div>
-        <div className="field"><label htmlFor="note">Тайлбар</label><textarea id="note" name="note" className="inp" value={c.note} onChange={(e) => setC({ ...c, note: e.target.value })} /></div>
+        <div className="field"><label htmlFor="note">Тайлбар</label><textarea id="note" name="note" className="inp" value={c.note} onChange={(e) => setC({ ...c, note: e.target.value })} maxLength={300} /></div>
       </section>
 
       <div className="sec">Тоо</div>
-      <section className="card mx" style={{ padding: 18, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div><div style={{ fontSize: 15, fontWeight: 700 }}>{qty} баллон{free ? ` + ${free} бэлэг` : ""}</div><div className="muted" style={{ fontSize: 13, marginTop: 3 }}>Нийт {fmtMoney(qty * s.price + s.deliveryFee)}</div></div>
-        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <section className="card mx" style={{ padding: 18, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+        <div style={{ minWidth: 0 }}><div style={{ fontSize: 15, fontWeight: 700 }}>{qty} баллон{free ? ` + ${free} бэлэг` : ""}</div><div className="muted" style={{ fontSize: 13, marginTop: 3 }}>Нийт {fmtMoney(qty * s.price + s.deliveryFee)}</div></div>
+        <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
           <button type="button" className="step" disabled={qty <= MIN_QTY} onClick={() => setQty(qty - 1)} aria-label="Хасах"><IconMinus /></button>
           <div className="qty-num">{qty}</div>
           <button type="button" className="step" disabled={qty >= MAX_QTY} onClick={() => setQty(qty + 1)} aria-label="Нэмэх"><IconPlus /></button>

@@ -6,12 +6,10 @@ import { LiquidNav } from "@/components/LiquidNav";
 import { MobileMenu } from "@/components/MobileMenu";
 import { Lockup } from "@/components/Lockup";
 import { WaterLink } from "@/components/WaterButton";
-import { fmtMoney } from "@/lib/domain";
+import { fmtMoney, fmtPhone } from "@/lib/domain";
 import { getSettings } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
-
-const fmtPhone = (p: string) => (p.length === 8 ? `${p.slice(0, 4)} ${p.slice(4)}` : p);
 
 export default async function Landing() {
   const s = await getSettings();
@@ -33,16 +31,10 @@ export default async function Landing() {
       <header className="site-top" id="top">
         <div className="wrap">
           <Lockup dark href="#top" />
-          <LiquidNav
-            className="dnav bare"
-            itemClass="navi"
-            ariaLabel="Үндсэн цэс"
-            current="#top"
-            items={navItems}
-          />
+          <LiquidNav className="dnav bare" itemClass="navi" ariaLabel="Үндсэн цэс" current="#top" items={navItems} />
           <div className="top-actions">
-            <a href={`tel:${s.phone1}`} className="phone-link big d-only"><IconPhone size={19} />{phone}</a>
-            <WaterLink href="/app" className="blue d-only" style={{ height: 50, padding: "0 12px 0 24px", fontSize: 15.5, borderRadius: 25 }}>Захиалах<IconRight size={18} /></WaterLink>
+            <a href={`tel:${s.phone1}`} className="phone-link d-only"><IconPhone size={19} />{phone}</a>
+            <WaterLink href="/app" className="blue top-cta d-only">Захиалах<IconRight size={18} /></WaterLink>
             <a href={`tel:${s.phone1}`} className="phone-pill m-only"><IconPhone size={17} />{phone}</a>
             <MobileMenu items={navItems} />
           </div>
@@ -50,10 +42,7 @@ export default async function Landing() {
       </header>
 
       <section className="hero photo">
-        <picture className="hero-bg" aria-hidden="true">
-          <source srcSet="/hero-bg.webp" type="image/webp" />
-          <img src="/hero-bg.jpg" alt="" fetchPriority="high" />
-        </picture>
+        <HeroPicture />
         <div className="hero-shade" />
 
         <div className="wrap hero-grid">
@@ -62,9 +51,7 @@ export default async function Landing() {
             <h1><span className="w">Цэвэр ус,</span><br /><span className="w lt" style={{ animationDelay: ".12s" }}>хаалган дээр тань.</span></h1>
             <p className="hero-sub">Ариутгалтай савласан цэвэр ус<br />Арвайхээр суманд хүргэлттэй.</p>
             <div className="hero-cta">
-              <WaterLink href="/app" className="blue" style={{ height: 66, padding: "0 30px 0 34px", fontSize: 20, borderRadius: 33 }}>
-                <IconCart size={24} />Захиалах<IconRight size={20} />
-              </WaterLink>
+              <WaterLink href="/app" className="blue hero-order"><IconCart size={24} />Захиалах<IconRight size={20} /></WaterLink>
               <span className="vsep" aria-hidden="true" />
               <a href={`tel:${s.phone1}`} className="hero-phone"><IconPhone size={24} />{phone}</a>
             </div>
@@ -99,9 +86,9 @@ export default async function Landing() {
                 <h2>Гэртээ хүнд баллон зөөх шаардлагагүй.</h2>
                 <p className="lede">Захиалснаас хойш тухайн өдрөө хаалган дээр тань ирнэ. Хоосон баллоноо л бэлдээрэй.</p>
                 <ul className="benefits">
-                  <li><i><IconHome size={20} /></i><span><b>Хаалган дээр</b>Байр, хашаа ялгаагүй. Орцны код, давхраа бичээд орхино.</span></li>
-                  <li><i><IconClock size={20} /></i><span><b>Цагаа өөрөө сонгоно</b>09–12, 12–15, 15–17, эсвэл аль болох хурдан.</span></li>
-                  <li><i><IconRefresh size={20} /></i><span><b>Нэг товчоор дахин</b>Хаяг, тоо санагдсан байна. Дараагийн удаа 10 секунд.</span></li>
+                  <li><i><IconHome size={20} /></i><span><b>Хаалган дээр</b><span>Байр, хашаа ялгаагүй. Орцны код, давхраа бичээд орхино.</span></span></li>
+                  <li><i><IconClock size={20} /></i><span><b>Цагаа өөрөө сонгоно</b><span>09–12, 12–15, 15–17, эсвэл аль болох хурдан.</span></span></li>
+                  <li><i><IconRefresh size={20} /></i><span><b>Нэг товчоор дахин</b><span>Хаяг, тоо санагдсан байна. Дараагийн удаа 10 секунд.</span></span></li>
                 </ul>
               </>
             )}
@@ -110,9 +97,9 @@ export default async function Landing() {
                 <h2>Оффис, дэлгүүр, сургуульд тогтмол ус.</h2>
                 <p className="lede">Долоо хоногийн хуваариар хүргэж, сарын эцэст нэг тооцоо хийнэ. Дансаар төлөхөд баримт гарна.</p>
                 <ul className="benefits">
-                  <li><i><IconCalendar size={20} /></i><span><b>Тогтмол хуваарь</b>Даваа, Пүрэв гэх мэт. Утсаар нэг удаа тохироод л болно.</span></li>
-                  <li><i><IconReceipt size={20} /></i><span><b>Сарын нэгдсэн тооцоо</b>Хэдэн баллон, хэдэн төгрөг — нэг хуудсанд. Өр, төлөлт тодорхой.</span></li>
-                  <li><i><IconBank size={20} /></i><span><b>Дансаар, баримттай</b>Нягтлан бодогчид ойлгомжтой. Бэлнээр ч болно.</span></li>
+                  <li><i><IconCalendar size={20} /></i><span><b>Тогтмол хуваарь</b><span>Даваа, Пүрэв гэх мэт. Утсаар нэг удаа тохироод л болно.</span></span></li>
+                  <li><i><IconReceipt size={20} /></i><span><b>Сарын нэгдсэн тооцоо</b><span>Хэдэн баллон, хэдэн төгрөг — нэг хуудсанд. Өр, төлөлт тодорхой.</span></span></li>
+                  <li><i><IconBank size={20} /></i><span><b>Дансаар, баримттай</b><span>Нягтлан бодогчид ойлгомжтой. Бэлнээр ч болно.</span></span></li>
                 </ul>
               </>
             )}
@@ -143,7 +130,7 @@ export default async function Landing() {
       </section>
 
       <section className="section water" id="water">
-        <div className="wrap two-col">
+        <div className="wrap two-col reveal">
           <div>
             <h2>Усны найрлага</h2>
             <p className="lede">Байгалийн эх үүсвэрээс. Шошгон дээрх лабораторийн үзүүлэлт, нэг литрт:</p>
@@ -178,7 +165,7 @@ export default async function Landing() {
       </section>
 
       <section className="section" id="how">
-        <div className="wrap">
+        <div className="wrap reveal">
           <h2>Хэрхэн ажилладаг</h2>
           <p className="lede">Гурван алхам. Ихэнх захиалга тухайн өдрөө хүрдэг.</p>
           <div className="stepcards">
@@ -190,18 +177,34 @@ export default async function Landing() {
       </section>
 
       <section className="section alt" id="price">
-        <div className="wrap">
+        <div className="wrap reveal">
           <h2>Үнэ</h2>
           <p className="lede">Нуугдмал төлбөргүй. Нэг үнэ, бүх багт.</p>
-          <table className="price-table">
-            <tbody>
-              <tr><td>Баллонтой ус ({s.bottleLabel})</td><td>{price} / ширхэг</td></tr>
-              <tr><td>Хүргэлт</td><td>{fee}</td></tr>
-              {s.bonusEnabled && <tr><td>Урамшуулал</td><td>Нэг захиалгад {s.bonusBuy} баллон авбал {s.bonusFree} баллон нэмж бэлэглэнэ.</td></tr>}
-              <tr><td>Төлбөр</td><td>Хүргэлтийн үед бэлнээр, эсвэл {s.bankName} {s.bankAccount}</td></tr>
-              <tr><td>Хамгийн бага захиалга</td><td>1 баллон</td></tr>
-            </tbody>
-          </table>
+          <div className="price-grid">
+            <table className="price-table">
+              <tbody>
+                <tr><td>Баллонтой ус ({s.bottleLabel})</td><td>{price} / ширхэг</td></tr>
+                <tr><td>Хүргэлт</td><td>{fee}</td></tr>
+                {s.bonusEnabled && <tr><td>Урамшуулал</td><td>Нэг захиалгад {s.bonusBuy} баллон авбал {s.bonusFree} баллон нэмж бэлэглэнэ.</td></tr>}
+                <tr><td>Төлбөр</td><td>Хүргэлтийн үед бэлнээр, эсвэл {s.bankName} {s.bankAccount}</td></tr>
+                <tr><td>Хамгийн бага захиалга</td><td>1 баллон</td></tr>
+              </tbody>
+            </table>
+            <div className="price-cta">
+              <div>
+                <div className="k">{s.bottleLabel} баллон</div>
+                <div className="big">{price}{s.price > 0 && <small>/ ширхэг</small>}</div>
+                <p>{s.deliveryFee > 0 ? `Хүргэлт ${fee}.` : "Хүргэлт үнэгүй."} Өнөөдөр 17:00-оос өмнө захиалбал тухайн өдөртөө хүрнэ.</p>
+              </div>
+              <div className="acts">
+                <WaterLink href="/app" className="blue"><IconCart size={20} />Захиалах<IconRight size={18} /></WaterLink>
+                <a href={`tel:${s.phone1}`} className="phone-link"><IconPhone size={19} />{phone}</a>
+              </div>
+              <div className="waves" aria-hidden="true">
+                <svg className="run-slow" viewBox="0 0 800 90" preserveAspectRatio="none" style={{ height: 90 }}><path d="M0 44 Q50 28 100 44 T200 44 T300 44 T400 44 T500 44 T600 44 T700 44 T800 44 V90 H0 Z" fill="#2F7FC1" opacity=".55" /></svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -209,7 +212,7 @@ export default async function Landing() {
         <div className="wrap">
           <div className="cols">
             <div>
-              <Lockup dark href="#top" size={26} className="" />
+              <Lockup dark href="#top" size={26} />
               <p style={{ marginTop: 16, maxWidth: 420 }}>Өвөрхангай аймаг, Арвайхээр сум. Захиалгыг эзэн нь өөрөө хүлээн авч, өөрөө хүргэдэг.</p>
             </div>
             <div>
@@ -226,11 +229,21 @@ export default async function Landing() {
           </div>
           <div className="bottom">
             <span>© {new Date().getFullYear()} Хишиг ус</span>
-            <Link href="/admin" style={{ color: "#8FB0C8" }}>Эзний хэсэг</Link>
+            <Link href="/admin">Эзний хэсэг</Link>
           </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+// The lake photo: a jug-centred crop for phones, the full scene elsewhere; AVIF first, WebP/JPEG fallbacks.
+function HeroPicture() {
+  return (
+    <picture className="hero-bg" aria-hidden="true">
+      <source srcSet="/hero-bg.webp" type="image/webp" />
+      <img src="/hero-bg.jpg" alt="" fetchPriority="high" />
+    </picture>
   );
 }
 

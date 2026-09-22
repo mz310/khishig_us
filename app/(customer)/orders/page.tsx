@@ -8,15 +8,13 @@ import { humanDate, slotLabel, type Slot } from "@/lib/time";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Миний захиалгууд" };
 
-const TAG: Record<Status, string> = { new: "tag new", out: "tag pay-transfer", delivered: "tag pay-cash", cancelled: "tag cancelled" };
-
 export default async function OrdersPage() {
   const user = await requireUser("/orders");
   const orders = await myOrders(user.id, 100);
   return (
     <>
       <header className="pagehead" style={{ paddingBottom: 6 }}>
-        <div><h1>Миний захиалгууд</h1><div className="muted" style={{ fontSize: 13, marginTop: 3 }}>{orders.length} захиалга</div></div>
+        <div><h1>Миний захиалгууд</h1><div className="sub">{orders.length} захиалга</div></div>
       </header>
       {orders.length === 0 ? (
         <section className="card mx" style={{ marginTop: 10, padding: 24, textAlign: "center" }}>
@@ -29,15 +27,15 @@ export default async function OrdersPage() {
           {orders.map((o) => {
             const d = new Date(o.deliveryDate + "T00:00:00Z");
             return (
-              <Link key={o.id} href={`/orders/${o.id}`} className="li" style={{ color: "inherit" }}>
+              <Link key={o.id} href={`/orders/${o.id}`} className="li">
                 <div className="date"><b>{d.getUTCDate()}</b>{d.getUTCMonth() + 1} сар</div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 14.5, fontWeight: 700 }}>{o.qtyFree ? `${o.qtyPaid} + ${o.qtyFree} бэлэг · ${o.qtyPaid + o.qtyFree} баллон` : `${o.qtyPaid} баллон`}</div>
-                  <div className="muted" style={{ fontSize: 12.5, marginTop: 2 }}>#{o.id} · {humanDate(o.deliveryDate)}, {slotLabel(o.slot as Slot)}</div>
+                <div className="main">
+                  <div className="t">{o.qtyFree ? `${o.qtyPaid} + ${o.qtyFree} бэлэг · ${o.qtyPaid + o.qtyFree} баллон` : `${o.qtyPaid} баллон`}</div>
+                  <div className="s">#{o.id} · {humanDate(o.deliveryDate)}, {slotLabel(o.slot as Slot)}</div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 5 }}>
-                  <span style={{ fontSize: 14, fontWeight: 700 }}>{fmtMoney(o.total)}</span>
-                  <span className={TAG[o.status as Status]}>{STATUS_LABEL[o.status as Status]}</span>
+                <div className="end">
+                  <span className="sum">{fmtMoney(o.total)}</span>
+                  <span className={`tag st-${o.status}`}>{STATUS_LABEL[o.status as Status]}</span>
                 </div>
               </Link>
             );

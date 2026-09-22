@@ -38,19 +38,19 @@ export function OrderForm({ settings: s, slots, prefill }: Props) {
   }
 
   return (
-    <form action={action} className="with-bar" style={{ paddingBottom: 130 }}>
+    <form action={action}>
       <input type="hidden" name="qty" value={qty} />
       <input type="hidden" name="date" value={dayOpts.date} />
       <input type="hidden" name="slot" value={slot} />
 
       <div className="sec">Хэдэн баллон?</div>
       <section className="card mx" style={{ padding: 18 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+          <div style={{ minWidth: 0 }}>
             <div style={{ fontSize: 15, fontWeight: 700 }}>{s.bottleLabel} баллонтой ус</div>
             <div className="muted" style={{ fontSize: 13, marginTop: 3 }}>{fmtMoney(s.price)} / ширхэг</div>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
             <button type="button" className="step" aria-label="Хасах" disabled={qty <= MIN_QTY} onClick={() => setQty((q) => Math.max(MIN_QTY, q - 1))}><IconMinus /></button>
             <div className="qty-num" aria-live="polite">{qty}</div>
             <button type="button" className="step" aria-label="Нэмэх" disabled={qty >= MAX_QTY} onClick={() => setQty((q) => Math.min(MAX_QTY, q + 1))}><IconPlus /></button>
@@ -70,18 +70,18 @@ export function OrderForm({ settings: s, slots, prefill }: Props) {
       </section>
 
       <div className="sec">Холбоо барих</div>
-      <section className="card mx" style={{ padding: 18, display: "flex", flexDirection: "column", gap: 14 }}>
-        <div className="field"><label htmlFor="name">Нэр</label><input id="name" name="name" className="inp" defaultValue={prefill.name} autoComplete="name" placeholder="Таны нэр" required /></div>
+      <section className="card mx stack" style={{ padding: 18 }}>
+        <div className="field"><label htmlFor="name">Нэр</label><input id="name" name="name" className="inp" defaultValue={prefill.name} autoComplete="name" placeholder="Таны нэр" maxLength={80} required /></div>
         <div className="field">
           <label htmlFor="phone">Утасны дугаар</label>
-          <input id="phone" name="phone" className={`inp${touched && !phoneOk ? " bad" : ""}`} inputMode="numeric" autoComplete="tel" placeholder="8 оронтой дугаар" value={phone}
+          <input id="phone" name="phone" className={`inp${touched && !phoneOk ? " bad" : ""}`} inputMode="numeric" autoComplete="tel" placeholder="8 оронтой дугаар" maxLength={16} value={phone}
             onChange={(e) => { setPhone(e.target.value); setTouched(true); }} required />
-          {touched && !phoneOk && <div className="err">8 оронтой утасны дугаар оруулна уу</div>}
+          {touched && !phoneOk && <div className="err" role="alert">8 оронтой утасны дугаар оруулна уу</div>}
         </div>
       </section>
 
       <div className="sec">Хүргэх хаяг</div>
-      <section className="card mx" style={{ padding: 18, display: "flex", flexDirection: "column", gap: 14 }}>
+      <section className="card mx stack" style={{ padding: 18 }}>
         <div className="field">
           <label htmlFor="bag">Баг</label>
           <div className="selwrap">
@@ -92,10 +92,10 @@ export function OrderForm({ settings: s, slots, prefill }: Props) {
           </div>
         </div>
         <div className="grid2">
-          <div className="field"><label htmlFor="street">Байр / гудамж</label><input id="street" name="street" className="inp" defaultValue={prefill.street} placeholder="12-р байр" required /></div>
-          <div className="field"><label htmlFor="unit">Тоот / хашаа</label><input id="unit" name="unit" className="inp" defaultValue={prefill.unit} placeholder="34 тоот" required /></div>
+          <div className="field"><label htmlFor="street">Байр / гудамж</label><input id="street" name="street" className="inp" defaultValue={prefill.street} placeholder="12-р байр" maxLength={120} required /></div>
+          <div className="field"><label htmlFor="unit">Тоот / хашаа</label><input id="unit" name="unit" className="inp" defaultValue={prefill.unit} placeholder="34 тоот" maxLength={60} required /></div>
         </div>
-        <div className="field"><label htmlFor="note">Нэмэлт тайлбар</label><textarea id="note" name="note" className="inp" defaultValue={prefill.note} placeholder="Орц, код, ойролцоох тэмдэг…" /></div>
+        <div className="field"><label htmlFor="note">Нэмэлт тайлбар</label><textarea id="note" name="note" className="inp" defaultValue={prefill.note} placeholder="Орц, код, ойролцоох тэмдэг…" maxLength={300} /></div>
       </section>
 
       <div className="sec">Хүргэлтийн цаг</div>
@@ -122,7 +122,7 @@ export function OrderForm({ settings: s, slots, prefill }: Props) {
       <div className="bottombar glass milk">
         <div style={{ minWidth: 0 }}>
           <div className="muted" style={{ fontSize: 12, fontWeight: 600 }}>Нийт</div>
-          <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.02em", marginTop: 2 }}>{fmtMoney(total)}</div>
+          <div className="total" aria-live="polite">{fmtMoney(total)}</div>
           <div className="muted" style={{ fontSize: 11.5, marginTop: 3 }}>{qty} × {fmtMoney(s.price)}{s.deliveryFee ? ` · хүргэлт ${fmtMoney(s.deliveryFee)}` : " · хүргэлт үнэгүй"}</div>
         </div>
         <button type="submit" className="wbtn" disabled={pending || !phoneOk} style={{ height: 56, padding: "0 26px", fontSize: 16, flexShrink: 0 }}>

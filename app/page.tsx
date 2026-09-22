@@ -3,6 +3,7 @@ import { AudienceTabs } from "@/components/AudienceTabs";
 import { Bottle } from "@/components/Bottle";
 import { IconBank, IconCalendar, IconCart, IconClock, IconDrop, IconGift, IconHome, IconPhone, IconPin, IconReceipt, IconRefresh, IconRight, IconTruck } from "@/components/icons";
 import { LiquidNav } from "@/components/LiquidNav";
+import { MobileMenu } from "@/components/MobileMenu";
 import { Lockup } from "@/components/Lockup";
 import { WaterLink } from "@/components/WaterButton";
 import { fmtMoney } from "@/lib/domain";
@@ -19,6 +20,14 @@ export default async function Landing() {
   const phone = fmtPhone(s.phone1);
   const bonus = s.bonusEnabled ? `${s.bonusBuy} авбал ${s.bonusFree} нь бэлэг` : "";
 
+  const navItems = [
+    { href: "#top", label: "Нүүр" },
+    { href: "#who", label: "Бидний тухай" },
+    { href: "#water", label: "Усны тухай" },
+    { href: "#price", label: "Үнэ" },
+    { href: "#contact", label: "Холбоо" },
+  ];
+
   return (
     <div className="site">
       <header className="site-top" id="top">
@@ -29,24 +38,19 @@ export default async function Landing() {
             itemClass="navi"
             ariaLabel="Үндсэн цэс"
             current="#top"
-            items={[
-              { href: "#top", label: "Нүүр" },
-              { href: "#who", label: "Бидний тухай" },
-              { href: "#water", label: "Усны тухай" },
-              { href: "#price", label: "Үнэ" },
-              { href: "#contact", label: "Холбоо" },
-            ]}
+            items={navItems}
           />
-          <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-            <a href={`tel:${s.phone1}`} className="phone-link big"><IconPhone size={19} />{phone}</a>
-            <WaterLink href="/app" className="blue" style={{ height: 50, padding: "0 12px 0 24px", fontSize: 15.5, borderRadius: 25 }}>Захиалах<IconRight size={18} /></WaterLink>
+          <div className="top-actions">
+            <a href={`tel:${s.phone1}`} className="phone-link big d-only"><IconPhone size={19} />{phone}</a>
+            <WaterLink href="/app" className="blue d-only" style={{ height: 50, padding: "0 12px 0 24px", fontSize: 15.5, borderRadius: 25 }}>Захиалах<IconRight size={18} /></WaterLink>
+            <a href={`tel:${s.phone1}`} className="phone-pill m-only"><IconPhone size={17} />{phone}</a>
+            <MobileMenu items={navItems} />
           </div>
         </div>
       </header>
 
       <section className="hero photo">
         <picture className="hero-bg" aria-hidden="true">
-          <source media="(max-width: 760px)" srcSet="/hero-bg-mobile.webp" type="image/webp" />
           <source srcSet="/hero-bg.webp" type="image/webp" />
           <img src="/hero-bg.jpg" alt="" fetchPriority="high" />
         </picture>
@@ -67,7 +71,7 @@ export default async function Landing() {
             <div className="hero-stats glass dark">
               <div className="st"><i><IconDrop size={26} /></i><div><b>{price}</b><small>/ баллон</small></div></div>
               <div className="sep" />
-              <div className="st"><i><IconTruck size={26} /></i><div className="two">{s.deliveryFee > 0 ? <>Хүргэлт<br />{fee}</> : <>Үнэгүй<br />хүргэлт</>}</div></div>
+              <div className="st fee"><i><IconTruck size={26} /></i><div className="two">{s.deliveryFee > 0 ? <>Хүргэлт<br />{fee}</> : <>Үнэгүй<br />хүргэлт</>}</div></div>
               {s.bonusEnabled && (
                 <>
                   <div className="sep" />
@@ -78,6 +82,7 @@ export default async function Landing() {
           </div>
         </div>
 
+        <a href="#who" className="hero-scroll m-only" aria-label="Доош гүйлгэх"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg></a>
         {s.bonusEnabled && (
           <div className="hero-bubble" aria-hidden="true">
             <span className="ico"><IconGift size={30} /></span>

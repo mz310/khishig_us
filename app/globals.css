@@ -684,3 +684,82 @@ html, body { overflow-x: clip; }
   .site-top .lockup .wm { font-size: 18px !important; }
 }
 @media (max-width: 340px) { .site-top .lockup .wm { display: none; } }
+
+/* ---------- landing on phones: header with phone pill + menu, one-screen hero with the jug bottom-right ---------- */
+.m-only { display: none !important; }
+.top-actions { display: flex; align-items: center; gap: 24px; }
+.lockup > span { display: flex; flex-direction: column; justify-content: center; }
+.lockup .wm { line-height: 1; }
+.phone-pill { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px 0 12px; border-radius: 20px; background: linear-gradient(180deg, #3396FF, #1B7BF0); color: #fff; font-weight: 700; font-size: 13.5px; white-space: nowrap; box-shadow: 0 8px 20px rgba(27,123,240,.35); }
+.phone-pill:hover { color: #fff; }
+.mburger { width: 42px; height: 42px; border-radius: 50%; color: #fff; align-items: center; justify-content: center; padding: 0; cursor: pointer; }
+.mmenu-veil { position: fixed; inset: 0; z-index: 25; }
+.mmenu { position: absolute; left: 16px; right: 16px; top: 74px; z-index: 30; border-radius: 22px; padding: 10px; display: flex; flex-direction: column; animation: popin .25s var(--ease-out) both; }
+.mmenu-item { display: flex; align-items: center; justify-content: space-between; height: 50px; padding: 0 14px; border-radius: 14px; color: #fff; font-weight: 600; font-size: 15.5px; }
+.mmenu-item:hover { color: #fff; background: rgba(255,255,255,.1); }
+.hero-scroll { position: absolute; right: 18px; bottom: 18px; z-index: 6; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); color: #fff; align-items: center; justify-content: center; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); animation: float 3s ease-in-out infinite; }
+@media (max-width: 760px) {
+  .m-only { display: inline-flex !important; }
+  .d-only { display: none !important; }
+  .top-actions { gap: 8px; }
+  .site-top .wrap { width: calc(100% - 32px); height: 70px; }
+  .site-top .lockup { gap: 9px; }
+  .site-top .lockup img { height: 36px; }
+  .site-top .lockup .wm { font-size: 19px !important; }
+  .site-top .lockup .tag { display: block; font-size: 8.5px; letter-spacing: .18em; margin-top: 4px; }
+  /* Hero: navy at the top for the copy, the photo (jug bottom-right) filling the lower part. */
+  .hero.photo { background: #0A1E5C; min-height: max(640px, 100svh); }
+  .hero.photo .hero-bg, .hero.photo .hero-bg img { top: auto; bottom: 0; height: min(560px, 74%); }
+  .hero.photo .hero-bg img { object-position: 62% 100%; }
+  .hero.photo .hero-shade { background: linear-gradient(180deg, #0A1E5C 0%, #0A1E5C 24%, rgba(10,30,92,.92) 34%, rgba(10,30,92,.55) 46%, rgba(10,30,92,.12) 60%, rgba(10,30,92,0) 72%), linear-gradient(90deg, rgba(10,30,92,.55) 0%, rgba(10,30,92,0) 55%); }
+  .hero.photo .hero-grid { min-height: 0; padding-top: 70px; }
+  .hero.photo .hero-text { padding: 26px 0 72px; gap: 16px; }
+  .hero.photo h1 { font-size: clamp(32px, 9.2vw, 44px); line-height: 1.02; }
+  .hero.photo h1 .w { display: inline; }
+  .hero-sub { font-size: 15.5px; max-width: 300px; }
+  .hero.photo .hero-cta { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .hero.photo .hero-cta .wbtn { height: 56px; font-size: 17px; padding: 0 26px 0 28px; }
+  .hero-phone { font-size: 19px; }
+  .hero-stats { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 14px; max-width: 64%; border-radius: 20px; }
+  .hero-stats .sep { display: none; }
+  .hero-stats i { width: 44px; height: 44px; }
+  .hero-stats b { font-size: 24px; }
+  .hero-stats .pill { font-size: 14px; padding: 5px 10px; margin-top: 4px; }
+  .hero-bubble { display: none; }
+  .chip-glass { height: 36px; font-size: 13px; }
+}
+@media (max-width: 360px) { .site-top .lockup .tag { display: none; } .hero-stats { max-width: 70%; } }
+@media (max-width: 760px) {
+  /* Header: everything must fit 360px — compact pill, fixed-size menu button, lockup that never wraps. */
+  .site-top .wrap > * { min-width: 0; }
+  .top-actions { flex-shrink: 0; gap: 8px; }
+  .site-top .lockup { flex-shrink: 1; min-width: 0; overflow: hidden; }
+  .site-top .lockup > span { white-space: nowrap; }
+  .site-top .lockup .wm { font-size: 18px !important; }
+  .site-top .lockup .tag { font-size: 7.8px; letter-spacing: .12em; margin-top: 3px; }
+  .phone-pill { height: 38px; padding: 0 12px 0 11px; gap: 6px; font-size: 13px; }
+  .mburger { width: 40px; height: 40px; flex-shrink: 0; }
+  /* Hero: the full lake photo sits in the lower ~70%, jug at the right; copy and stats card on the left. */
+  .hero.photo .hero-bg, .hero.photo .hero-bg img { height: 70%; }
+  .hero.photo .hero-bg img { object-position: 63% 100%; }
+  .hero.photo .hero-shade { background: linear-gradient(180deg, #0A1E5C 0%, #0A1E5C 28%, rgba(10,30,92,.92) 36%, rgba(10,30,92,.45) 46%, rgba(10,30,92,0) 58%), linear-gradient(90deg, rgba(10,30,92,.55) 0%, rgba(10,30,92,0) 60%); }
+  .hero.photo .hero-text { padding: 22px 0 76px; gap: 14px; }
+  .hero-stats { gap: 8px; padding: 10px 12px; max-width: 60%; }
+  .hero-stats i { width: 40px; height: 40px; }
+  .hero-stats b { font-size: 22px; }
+  .hero-stats .two { font-size: 14px; }
+  .hero-scroll { right: 16px; bottom: 16px; }
+}
+@media (max-width: 760px) {
+  .site-top .wrap { gap: 10px; }
+  .site-top .lockup .tag { font-size: clamp(6.5px, 1.9vw, 7.8px); letter-spacing: .08em; }
+  .phone-pill { font-size: 12.5px; padding: 0 11px 0 10px; }
+  .hero.photo .hero-bg, .hero.photo .hero-bg img { height: 78%; }
+  .hero.photo .hero-shade { background: linear-gradient(180deg, #0A1E5C 0%, #0A1E5C 22%, rgba(10,30,92,.92) 30%, rgba(10,30,92,.5) 40%, rgba(10,30,92,.1) 50%, rgba(10,30,92,0) 58%), linear-gradient(90deg, rgba(10,30,92,.55) 0%, rgba(10,30,92,0) 60%); }
+}
+@media (max-width: 340px) { .phone-pill svg { display: none; } }
+@media (max-width: 400px) {
+  .phone-pill svg { display: none; }
+  .phone-pill { padding: 0 12px; }
+  .site-top .lockup .tag { letter-spacing: .06em; }
+}

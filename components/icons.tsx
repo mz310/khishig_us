@@ -27,3 +27,7 @@ export const IconSearch = ({ size = 18 }: P) => <svg {...base(size)} strokeWidth
 export const IconRefresh = ({ size = 20 }: P) => <svg {...base(size)} strokeWidth={2}><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7" /><path d="M20 4v4.7h-4.7" /><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15.3" /><path d="M4 20v-4.7h4.7" /></svg>;
 export const IconLeft = ({ size = 18 }: P) => <svg {...base(size)} strokeWidth={2.2}><path d="M15 5l-7 7 7 7" /></svg>;
 export const IconRight = ({ size = 18 }: P) => <svg {...base(size)} strokeWidth={2.2}><path d="M9 5l7 7-7 7" /></svg>;
+export const IconCart = ({ size = 21 }: P) => <svg {...base(size)}><path d="M3 4.5h2.4l2.1 10.2h10.2l1.8-7H7" /><circle cx="9.5" cy="19" r="1.4" /><circle cx="16.5" cy="19" r="1.4" /></svg>;
+export const IconTruck = ({ size = 21 }: P) => <svg {...base(size)}><path d="M3 6.5h11v9H3zM14 10h4l3 3v2.5h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17" cy="17.5" r="1.8" /></svg>;
+export const IconGift = ({ size = 21 }: P) => <svg {...base(size)}><rect x="4" y="9" width="16" height="11" rx="2" /><path d="M3.5 9h17M12 9v11M12 9c-2.5 0-4.5-1.2-4.5-3a2 2 0 0 1 4-.5c.2.8.5 2 .5 3.5zM12 9c2.5 0 4.5-1.2 4.5-3a2 2 0 0 0-4-.5c-.2.8-.5 2-.5 3.5z" /></svg>;
+export const IconPin = ({ size = 21 }: P) => <svg {...base(size)}><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.4" /></svg>;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AudienceTabs } from "@/components/AudienceTabs";
 import { Bottle } from "@/components/Bottle";
-import { IconBank, IconCalendar, IconClock, IconHome, IconMail, IconPhone, IconReceipt, IconRefresh, IconSwap } from "@/components/icons";
+import { IconBank, IconCalendar, IconCart, IconClock, IconDrop, IconGift, IconHome, IconPhone, IconPin, IconReceipt, IconRefresh, IconRight, IconTruck } from "@/components/icons";
 import { LiquidNav } from "@/components/LiquidNav";
 import { Lockup } from "@/components/Lockup";
 import { WaterLink } from "@/components/WaterButton";
@@ -25,78 +25,65 @@ export default async function Landing() {
         <div className="wrap">
           <Lockup dark href="#top" />
           <LiquidNav
-            className="dnav glass dark"
+            className="dnav bare"
             itemClass="navi"
             ariaLabel="Үндсэн цэс"
             current="#top"
             items={[
               { href: "#top", label: "Нүүр" },
-              { href: "#who", label: "Хэнд" },
+              { href: "#who", label: "Бидний тухай" },
               { href: "#water", label: "Усны тухай" },
               { href: "#price", label: "Үнэ" },
-              { href: "#contact", label: "Холбоо барих" },
+              { href: "#contact", label: "Холбоо" },
             ]}
           />
-          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <a href={`tel:${s.phone1}`} className="phone-link"><IconPhone size={17} />{phone}</a>
-            <WaterLink href="/app" className="light" style={{ height: 46, padding: "0 22px", fontSize: 14.5, borderRadius: 23 }}>Захиалах</WaterLink>
+          <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+            <a href={`tel:${s.phone1}`} className="phone-link big"><IconPhone size={19} />{phone}</a>
+            <WaterLink href="/app" className="blue" style={{ height: 50, padding: "0 12px 0 24px", fontSize: 15.5, borderRadius: 25 }}>Захиалах<IconRight size={18} /></WaterLink>
           </div>
         </div>
       </header>
 
-      <section className="hero">
-        <HeroScene />
-        <svg className="bubbles" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-          <circle className="drift" cx="180" cy="780" r="5" fill="rgba(124,196,236,.5)" />
-          <circle className="drift e2" cx="420" cy="800" r="3" fill="rgba(124,196,236,.45)" />
-          <circle className="drift e3" cx="660" cy="790" r="6" fill="rgba(124,196,236,.35)" />
-          <circle className="drift e4" cx="1240" cy="800" r="4" fill="rgba(124,196,236,.45)" />
-          <circle className="drift e2" cx="1330" cy="780" r="2.5" fill="rgba(124,196,236,.5)" />
-          <circle className="drift e3" cx="760" cy="810" r="3" fill="rgba(124,196,236,.4)" />
-        </svg>
-        <div className="vig" />
+      <section className="hero photo">
+        <picture className="hero-bg" aria-hidden="true">
+          <source media="(max-width: 760px)" srcSet="/hero-bg-mobile.webp" type="image/webp" />
+          <source srcSet="/hero-bg.webp" type="image/webp" />
+          <img src="/hero-bg.jpg" alt="" fetchPriority="high" />
+        </picture>
+        <div className="hero-shade" />
 
         <div className="wrap hero-grid">
           <div className="hero-text">
-            <span className="chip-glass glass dark"><IconClock />Арвайхээр сум, өдөр бүр 09:00–17:00</span>
-            <h1><span className="w">Цэвэр ус,</span><br /><span className="w" style={{ animationDelay: ".1s" }}>хаалган дээр</span> <span className="w" style={{ animationDelay: ".2s" }}>тань.</span></h1>
+            <span className="chip-glass glass dark"><IconPin size={17} />Арвайхээр сум</span>
+            <h1><span className="w">Цэвэр ус,</span><br /><span className="w lt" style={{ animationDelay: ".12s" }}>хаалган дээр тань.</span></h1>
+            <p className="hero-sub">Ариутгалтай савласан цэвэр ус<br />Арвайхээр суманд хүргэлттэй.</p>
             <div className="hero-cta">
-              <WaterLink href="/app" className="light" style={{ height: 56, padding: "0 26px", fontSize: 16, borderRadius: 28 }}>
-                <IconMail />Gmail-ээр нэвтэрч захиалах
+              <WaterLink href="/app" className="blue" style={{ height: 66, padding: "0 30px 0 34px", fontSize: 20, borderRadius: 33 }}>
+                <IconCart size={24} />Захиалах<IconRight size={20} />
               </WaterLink>
-              <a href={`tel:${s.phone1}`} className="gbtn" style={{ height: 56, padding: "0 24px", fontSize: 16, borderRadius: 28 }}><IconPhone />{phone}</a>
+              <span className="vsep" aria-hidden="true" />
+              <a href={`tel:${s.phone1}`} className="hero-phone"><IconPhone size={24} />{phone}</a>
             </div>
-            <div className="hero-price glass dark">
-              <div><div className="k">Нэг баллон</div><div className="v">{price}</div></div>
+            <div className="hero-stats glass dark">
+              <div className="st"><i><IconDrop size={26} /></i><div><b>{price}</b><small>/ баллон</small></div></div>
               <div className="sep" />
-              <div><div className="k">Хүргэлт</div><div className="v">{fee}</div></div>
-              {s.bonusEnabled && (<><div className="sep" /><div><div className="k">{s.bonusBuy} авбал</div><div className="v" style={{ color: "#8FE07A" }}>{s.bonusFree} бэлэг</div></div></>)}
-            </div>
-          </div>
-
-          <div className="hero-product">
-            <div className="jug-wrap">
-              <Bottle className="jug" kind="hero" phone={phone} />
-              <Bottle className="jug-reflect" kind="plain" phone={phone} />
-            </div>
-            {s.bonusEnabled && (
-              <div className="fbadge glass dark float" style={{ left: -10, top: 200 }}>
-                <span className="ico" style={{ background: "var(--leaf-2)", color: "#fff", fontSize: 15 }}>+{s.bonusFree}</span>
-                <span><b>{bonus}</b><small>Нэг захиалга дотор</small></span>
-              </div>
-            )}
-            <div className="fbadge glass dark float f2" style={{ right: -10, top: 420 }}>
-              <span className="ico" style={{ background: "rgba(255,255,255,.16)", color: "#fff" }}><IconSwap size={22} /></span>
-              <span><b>Хоосноо өгөөд</b><small>дүүрэнийг нь аваарай</small></span>
+              <div className="st"><i><IconTruck size={26} /></i><div className="two">{s.deliveryFee > 0 ? <>Хүргэлт<br />{fee}</> : <>Үнэгүй<br />хүргэлт</>}</div></div>
+              {s.bonusEnabled && (
+                <>
+                  <div className="sep" />
+                  <div className="st"><i className="leaf"><IconGift size={26} /></i><div><small style={{ marginTop: 0 }}>{s.bonusBuy} авбал</small><span className="pill">+{s.bonusFree} бэлэг</span></div></div>
+                </>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="hero-waves">
-          <svg className="run-slow" viewBox="0 0 1600 150" preserveAspectRatio="none" style={{ height: 150 }} aria-hidden="true"><path d="M0 60 Q100 30 200 60 T400 60 T600 60 T800 60 T1000 60 T1200 60 T1400 60 T1600 60 V150 H0 Z" fill="#2F7FC1" opacity=".55" /></svg>
-          <svg className="run-mid" viewBox="0 0 1600 150" preserveAspectRatio="none" style={{ height: 112 }} aria-hidden="true"><path d="M0 64 Q100 40 200 64 T400 64 T600 64 T800 64 T1000 64 T1200 64 T1400 64 T1600 64 V150 H0 Z" fill="#4A9FDB" opacity=".75" /></svg>
-          <svg className="run-slow" viewBox="0 0 1600 150" preserveAspectRatio="none" style={{ height: 64, bottom: -2, animationDirection: "reverse" }} aria-hidden="true"><path d="M0 70 Q100 44 200 70 T400 70 T600 70 T800 70 T1000 70 T1200 70 T1400 70 T1600 70 V150 H0 Z" fill="#F4F5FA" /></svg>
-        </div>
+        {s.bonusEnabled && (
+          <div className="hero-bubble" aria-hidden="true">
+            <span className="ico"><IconGift size={30} /></span>
+            <span>{s.bonusBuy} авбал<b>+{s.bonusFree} бэлэг</b></span>
+          </div>
+        )}
       </section>
 
       <section className="section alt" id="who">
@@ -239,35 +226,6 @@ export default async function Landing() {
         </div>
       </footer>
     </div>
-  );
-}
-
-function HeroScene() {
-  return (
-    <svg className="scene" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      <defs>
-        <linearGradient id="hs-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2B2A5C" /><stop offset=".55" stopColor="#232B66" /><stop offset="1" stopColor="#1D3A78" /></linearGradient>
-        <linearGradient id="hs-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2E6BB0" /><stop offset=".5" stopColor="#22508F" /><stop offset="1" stopColor="#16376B" /></linearGradient>
-        <radialGradient id="hs-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stopColor="#8CC6F2" stopOpacity=".55" /><stop offset="1" stopColor="#8CC6F2" stopOpacity="0" /></radialGradient>
-        <linearGradient id="hs-beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#FFFFFF" stopOpacity=".12" /><stop offset="1" stopColor="#FFFFFF" stopOpacity="0" /></linearGradient>
-        <filter id="hs-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18" /></filter>
-      </defs>
-      <rect width="1440" height="800" fill="url(#hs-sky)" />
-      <g filter="url(#hs-soft)">
-        <path d="M260 -40 L470 -40 L860 620 L560 620 Z" fill="url(#hs-beam)" />
-        <path d="M560 -40 L640 -40 L1040 620 L900 620 Z" fill="url(#hs-beam)" opacity=".7" />
-      </g>
-      <ellipse cx="1030" cy="540" rx="420" ry="150" fill="url(#hs-glow)" />
-      <path d="M0 560 L120 480 L220 515 L360 410 L470 470 L600 372 L700 430 L820 390 L940 462 L1060 412 L1180 480 L1300 444 L1440 512 V600 H0 Z" fill="#343C86" opacity=".85" />
-      <path d="M0 580 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552 V620 H0 Z" fill="#1E2358" />
-      <path d="M0 580 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552" fill="none" stroke="rgba(255,255,255,.14)" strokeWidth="2" strokeLinejoin="round" />
-      <rect y="540" width="1440" height="260" fill="url(#hs-water)" />
-      <path d="M0 540 L160 498 L240 538 L380 440 L440 486 L560 408 L640 456 L760 420 L880 494 L1000 448 L1140 514 L1250 478 L1440 552 V540 Z" fill="#1E2358" opacity=".35" transform="translate(0 1080) scale(1 -1)" />
-      <g stroke="rgba(255,255,255,.09)" strokeWidth="2" fill="none" strokeLinecap="round">
-        <path d="M120 600 Q220 592 320 600 T520 600" /><path d="M700 640 Q820 632 940 640 T1180 640" /><path d="M60 700 Q160 692 260 700 T460 700" />
-        <path d="M980 700 Q1080 692 1180 700 T1380 700" /><path d="M420 760 Q540 752 660 760 T900 760" /><path d="M1100 590 Q1180 584 1260 590" />
-      </g>
-    </svg>
   );
 }
 

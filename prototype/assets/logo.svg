@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" width="300" height="120" role="img" aria-label="Хишиг байгалийн цэвэр ус">
+  <!-- lower right ridge -->
+  <path d="M232 70 L256 46 L294 94" fill="none" stroke="#2B2A5C" stroke-width="9" stroke-linejoin="miter" stroke-linecap="round"/>
+  <!-- main ridge -->
+  <path d="M14 76 L60 40 L74 56 L136 8 L150 48 L160 34 L196 74 L222 46 L268 96" fill="none" stroke="#2B2A5C" stroke-width="10" stroke-linejoin="miter" stroke-linecap="round"/>
+  <!-- leaves -->
+  <path fill="#3E8E2A" d="M118 86 C104 76 102 58 114 44 C126 54 128 74 118 86 Z"/>
+  <path fill="#3E8E2A" d="M124 88 C124 72 138 58 158 58 C156 78 144 90 124 88 Z"/>
+  <path d="M117 84 C116 72 116 60 114 48" fill="none" stroke="#DCEED4" stroke-width="1.4"/>
+  <path d="M126 86 C132 76 142 66 156 60" fill="none" stroke="#DCEED4" stroke-width="1.4"/>
+  <!-- waves -->
+  <path d="M6 96 C60 80 110 84 150 94 C190 104 230 102 270 88" fill="none" stroke="#3E8E2A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M30 108 C86 94 132 98 172 108 C212 118 254 114 294 100" fill="none" stroke="#2B2A5C" stroke-width="6" stroke-linecap="round"/>
+</svg>

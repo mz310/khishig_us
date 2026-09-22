@@ -308,6 +308,46 @@ textarea.inp { height: 74px; padding: 12px 14px; resize: none; line-height: 1.4;
 .amount-inp { height: 54px; font-size: 22px; font-weight: 600; }
 .chip-debt { height: 34px; padding: 0 12px; border-radius: 8px; border: 0; background: var(--debt-bg); color: var(--debt-ink); font-weight: 500; font-size: 12.5px; }
 
+/* ---------- brand lockup ---------- */
+.lockup { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+.lockup img { height: 34px; width: auto; display: block; }
+.lockup .wm { font-family: var(--serif); font-weight: 700; font-size: 22px; letter-spacing: .1em; line-height: 1; color: var(--brand); }
+.lockup .tag { display: block; font-size: 9.5px; font-weight: 600; letter-spacing: .26em; color: var(--leaf); margin-top: 5px; }
+.lockup.on-dark .wm { color: #fff; }
+.lockup.on-dark .tag { color: #9BD98A; }
+:root { --brand: #2B2A5C; --leaf: #3E8E2A; }
+
+/* ---------- water hero ---------- */
+.hero-water { position: relative; overflow: hidden; background: #0E3A5A; color: #fff; }
+.hero-water .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; animation: fade 1.2s ease both; }
+.hero-water .shade { position: absolute; inset: 0; background:
+  linear-gradient(90deg, rgba(9,34,54,.92) 0%, rgba(9,34,54,.8) 36%, rgba(9,34,54,.28) 66%, rgba(9,34,54,.1) 100%),
+  linear-gradient(180deg, rgba(9,34,54,.45) 0%, rgba(9,34,54,0) 30%, rgba(9,34,54,0) 70%, rgba(9,34,54,.55) 100%); }
+.hero-water .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px; min-height: 640px; }
+.hero-water .hero-text { padding: 64px 0 56px; }
+.hero-product { position: relative; display: flex; align-items: flex-end; justify-content: center; min-height: 420px; }
+.hero-product img { display: block; width: min(560px, 100%); height: auto; margin-bottom: -40px; filter: drop-shadow(0 40px 50px rgba(3,20,36,.55)); animation: wordin 1s var(--ease-out) .2s both; }
+.hero-product .hero-price { left: auto; right: 0; bottom: 48px; }
+.hero-product .ring { position: absolute; left: 50%; bottom: 40px; width: 420px; height: 90px; margin-left: -210px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,255,255,.35), rgba(255,255,255,0) 70%); filter: blur(6px); pointer-events: none; }
+.hero-water h1 { text-shadow: 0 2px 20px rgba(3,20,36,.35); }
+.minerals { width: 100%; max-width: 560px; border-collapse: collapse; font-size: 15px; margin-top: 24px; }
+.minerals td { padding: 11px 0; border-bottom: 1px solid var(--line); }
+.minerals td:first-child { color: var(--ink-2); }
+.minerals td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+.badges { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 26px; }
+.badges span { display: inline-flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--ink-2); }
+.badges i { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--brand); color: var(--brand); display: inline-flex; align-items: center; justify-content: center; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+@media (max-width: 960px) {
+  .hero-water .wrap { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .hero-water .hero-text { padding: 44px 0 16px; }
+  .hero-product { min-height: 360px; }
+  .hero-product img { width: min(380px, 80%); margin-bottom: -30px; }
+  .hero-product .hero-price { right: 0; bottom: 20px; }
+  .hero-product .ring { width: 300px; margin-left: -150px; bottom: 20px; }
+  .two-col { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
+
 /* ---------- web (desktop landing) ---------- */
 .site { background: var(--paper); color: var(--ink); }
 .wrap { width: min(1200px, 100% - 48px); margin: 0 auto; }
@@ -373,6 +413,8 @@ textarea.inp { height: 74px; padding: 12px 14px; resize: none; line-height: 1.4;
   .site-top .wrap { height: 64px; }
   .site-top .brand .wordmark { font-size: 19px; }
   .site-top .phone-link { display: none; }
+  .site-top .wbtn { white-space: nowrap; height: 40px !important; padding: 0 14px !important; font-size: 14px !important; }
+  .lockup .tag { display: none; }
   .hero-price { left: 16px; bottom: 16px; padding: 12px 16px; gap: 18px; }
   .hero-price .v { font-size: 20px; }
 }

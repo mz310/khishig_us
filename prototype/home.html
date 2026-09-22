@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F2F5F7">
+<meta name="theme-color" content="#F4F5FA">
 <title>Хишиг ус · Нүүр</title>
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,13 +11,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  .phero-water { margin: 0 16px; border-radius: 24px; overflow: hidden; position: relative; background: #0B4F82; color: #fff; height: 340px; box-shadow: var(--shadow-lg); }
-  .phero-water .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .phero-water .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,50,88,.2), rgba(6,50,88,.25) 45%, rgba(6,50,88,.82)); }
-  .phero-water .bottle { position: absolute; right: -6px; top: 14px; width: 205px; filter: drop-shadow(0 18px 24px rgba(3,20,36,.5)); }
-  .phero-water .body { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-  .phero-water .pill { position: absolute; left: 14px; top: 14px; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 6px; border-radius: 17px; font-size: 12.5px; font-weight: 700; }
-  .phero-water .pill i { width: 24px; height: 24px; border-radius: 50%; background: var(--saffron); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 11px; font-weight: 800; }
+  .phero { margin: 0 16px; border-radius: 26px; overflow: hidden; position: relative; color: #fff; height: 330px; box-shadow: var(--shadow-lg); background: radial-gradient(120% 90% at 80% 10%, #3B3A80 0%, #26265A 50%, #1C1C45 100%); }
+  .phero .ridge { position: absolute; left: 0; right: 0; bottom: 60px; width: 100%; height: 200px; pointer-events: none; }
+  .phero .jug { position: absolute; right: 14px; top: 22px; width: 150px; aspect-ratio: 260 / 420; filter: drop-shadow(0 18px 26px rgba(0,0,30,.5)); animation: bob 6.5s ease-in-out infinite; }
+  .phero .hcopy { position: absolute; left: 20px; top: 20px; width: 55%; display: flex; flex-direction: column; gap: 12px; z-index: 3; }
+  .phero .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; overflow: hidden; pointer-events: none; }
+  .phero .waves svg { position: absolute; left: 0; bottom: 0; width: 200%; }
+  .phero .pill { position: absolute; left: 20px; bottom: 20px; z-index: 3; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 6px; border-radius: 18px; font-size: 13px; font-weight: 700; }
+  .phero .pill i { width: 26px; height: 26px; border-radius: 50%; background: var(--leaf-2); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 11px; font-weight: 800; }
 </style>
 </head>
 <body>
@@ -28,52 +29,56 @@
       <img src="assets/logo.svg" alt="">
       <span><span class="wm" style="font-size:19px">ХИШИГ</span><span class="tag">БАЙГАЛИЙН ЦЭВЭР УС</span></span>
     </a>
-    <button aria-label="Профайл" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:600;font-size:14px">Б</button>
+    <button aria-label="Профайл" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);color:var(--brand);font-weight:800;font-size:14px">Б</button>
   </header>
 
   <section style="padding:16px 20px 14px">
     <div class="muted" style="font-size:14px">Сайн байна уу, Батбаяр</div>
-    <h1 style="margin:4px 0 0;font-size:24px;line-height:1.2">Ус захиалах уу?</h1>
+    <h1 style="margin:4px 0 0;font-size:25px;line-height:1.15">Ус захиалах уу?</h1>
   </section>
 
-  <section class="phero-water" aria-label="Хишиг байгалийн цэвэр ус">
-    <img class="bg" src="assets/img/water2.jpg" alt="">
-    <div class="shade"></div>
-    <img class="bottle" src="assets/img/bottle-sm.webp" alt="">
-    <span class="pill glass dark"><i>+1</i>3 авбал 1 нь бэлэг</span>
-    <div class="body">
+  <section class="phero" aria-label="Хишиг байгалийн цэвэр ус">
+    <svg class="ridge" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 190 L60 130 L90 150 L160 70 L200 115 L260 50 L300 100 L350 75 L400 150 V200 H0 Z" fill="rgba(255,255,255,.06)"/></svg>
+    <div class="hcopy">
+      <span class="chip-glass" style="height:32px;font-size:12px;padding:0 12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28)">18.9 л баллон</span>
       <div>
-        <div style="font-size:12.5px;color:#CFE6F7;font-weight:600">Нэг баллон</div>
-        <div style="font-size:34px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-top:2px" data-price></div>
-        <div style="font-size:13px;color:#CFE6F7;margin-top:6px">Хүргэлт <span data-fee></span></div>
+        <div style="font-size:34px;font-weight:800;letter-spacing:-0.03em;line-height:1" data-price></div>
+        <div style="font-size:12.5px;color:#C9CBEA;margin-top:6px">нэг баллон, хүргэлт <span data-fee></span></div>
       </div>
+      <div style="font-size:13px;line-height:1.5;color:#C9CBEA">Арвайхээр сум дотор хаалган дээр тань хүргэнэ</div>
     </div>
+    <div class="jug" data-bottle="hero"></div>
+    <div class="waves">
+      <svg class="run-slow" viewBox="0 0 800 90" preserveAspectRatio="none" style="height:84px" aria-hidden="true"><path d="M0 40 Q50 22 100 40 T200 40 T300 40 T400 40 T500 40 T600 40 T700 40 T800 40 V90 H0 Z" fill="#2F7FC1" opacity=".6"/></svg>
+      <svg class="run-mid" viewBox="0 0 800 90" preserveAspectRatio="none" style="height:60px" aria-hidden="true"><path d="M0 44 Q50 30 100 44 T200 44 T300 44 T400 44 T500 44 T600 44 T700 44 T800 44 V90 H0 Z" fill="#4A9FDB" opacity=".8"/></svg>
+    </div>
+    <span class="pill glass dark"><i>+1</i>3 авбал 1 нь бэлэг</span>
   </section>
 
-  <section class="card mx" style="margin-top:12px;padding:16px;display:flex;gap:14px;align-items:center">
+  <section class="card mx" style="margin-top:14px;padding:16px;display:flex;gap:14px;align-items:center">
     <div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0">
       <div style="font-size:13px;color:var(--muted)">Сүүлийн захиалга</div>
-      <div style="font-size:15.5px;font-weight:600">3 + 1 бэлэг, 4 баллон</div>
+      <div style="font-size:15.5px;font-weight:700">3 + 1 бэлэг, 4 баллон</div>
       <div class="muted" style="font-size:13px">5-р баг, 12-р байр, 34 тоот</div>
-      <div class="muted" style="font-size:13px">Нийт <b style="color:var(--ink);font-weight:600" id="reorderTotal"></b></div>
+      <div class="muted" style="font-size:13px">Нийт <b style="color:var(--ink);font-weight:700" id="reorderTotal"></b></div>
     </div>
     <a href="order.html?qty=3" class="wbtn" style="height:44px;padding:0 16px;font-size:14px;flex-shrink:0">Дахин захиалах</a>
   </section>
 
-  <a href="order.html" class="wbtn mx" style="display:flex;margin-top:10px;height:52px;font-size:15.5px">Шинэ захиалга өгөх</a>
+  <a href="order.html" class="wbtn mx" style="display:flex;margin-top:10px;height:54px;font-size:15.5px">Шинэ захиалга өгөх</a>
 
   <div style="padding:26px 20px 8px;display:flex;align-items:baseline;justify-content:space-between">
-    <h2 style="margin:0;font-size:16px">Хэрхэн ажилладаг</h2>
+    <h2 style="margin:0;font-size:16.5px">Хэрхэн ажилладаг</h2>
     <span class="muted" style="font-size:13px">09:00–17:00</span>
   </div>
   <section class="card mx" style="padding:2px 16px">
-    <div class="step-row"><div class="stepnum">1</div><div><div style="font-size:15px;font-weight:600">Захиалгаа өгнө</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Тоо, хаяг, хүргүүлэх цагаа сонгоно</div></div></div>
-    <div class="step-row"><div class="stepnum">2</div><div><div style="font-size:15px;font-weight:600">Хоосон баллоноо бэлдэнэ</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Хуучин баллоныг тань аваад дүүрэнээр солино</div></div></div>
-    <div class="step-row"><div class="stepnum">3</div><div><div style="font-size:15px;font-weight:600">Хүргэлтээр төлнө</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Бэлнээр эсвэл дансаар</div></div></div>
+    <div class="step-row"><div class="stepnum">1</div><div><div style="font-size:15px;font-weight:700">Захиалгаа өгнө</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Тоо, хаяг, хүргүүлэх цагаа сонгоно</div></div></div>
+    <div class="step-row"><div class="stepnum">2</div><div><div style="font-size:15px;font-weight:700">Хоосон баллоноо бэлдэнэ</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Хуучин баллоныг тань аваад дүүрэнээр солино</div></div></div>
+    <div class="step-row"><div class="stepnum">3</div><div><div style="font-size:15px;font-weight:700">Хүргэлтээр төлнө</div><div class="muted" style="font-size:13px;margin-top:2px;line-height:1.45">Бэлнээр эсвэл дансаар</div></div></div>
   </section>
 
-  <section class="mx" style="margin-top:12px;padding:16px;border-radius:14px;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px">
-    <div style="font-size:14px;line-height:1.5;color:#CFE2EE">Асуух зүйл байвал шууд залгаарай. Захиалгыг эзэн нь өөрөө хүргэдэг.</div>
+  <section class="mx" style="margin-top:12px;padding:16px;border-radius:20px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div style="font-size:14px;line-height:1.5;color:#C9CBEA">Асуух зүйл байвал шууд залгаарай. Захиалгыг эзэн нь өөрөө хүргэдэг.</div>
     <a href="tel:88027971" class="gbtn" style="height:44px;padding:0 14px;font-size:14.5px;flex-shrink:0">8802 7971</a>
   </section>
 </main>

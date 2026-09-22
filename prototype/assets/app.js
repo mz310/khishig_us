@@ -26,7 +26,8 @@
   };
   const wave = K.wave;
 
-  const BOTTLE = 'M86 38H114V58C114 72 170 80 170 120V268Q170 292 146 292H54Q30 292 30 268V120C30 80 86 72 86 58Z';
+  // 18.9 l jug silhouette (viewBox 0 0 260 420)
+  const JUG = 'M108 48H152V68C152 74 230 76 230 120V350Q230 386 194 386H66Q30 386 30 350V120C30 76 108 74 108 68Z';
 
   document.body.insertAdjacentHTML('afterbegin',
     '<svg width="0" height="0" style="position:absolute;width:0;height:0" aria-hidden="true" focusable="false"><defs>' +
@@ -40,7 +41,10 @@
         '<feGaussianBlur in="noise" stdDeviation="1.5" result="soft"/>' +
         '<feDisplacementMap in="SourceGraphic" in2="soft" scale="26" xChannelSelector="R" yChannelSelector="G"/>' +
       '</filter>' +
-      '<clipPath id="bc"><path d="' + BOTTLE + '"/></clipPath>' +
+      '<clipPath id="jc"><path d="' + JUG + '"/></clipPath>' +
+      '<clipPath id="lc"><rect x="40" y="196" width="180" height="138" rx="10"/></clipPath>' +
+      '<linearGradient id="jg" x1="0" x2="1"><stop offset="0" stop-color="#CFE7FA" stop-opacity=".55"/><stop offset=".45" stop-color="#FFFFFF" stop-opacity=".2"/><stop offset="1" stop-color="#9FD0F2" stop-opacity=".55"/></linearGradient>' +
+      '<radialGradient id="glow" cx=".5" cy="1" r=".9"><stop offset="0" stop-color="#8FD37A" stop-opacity=".95"/><stop offset="1" stop-color="#8FD37A" stop-opacity="0"/></radialGradient>' +
     '</defs></svg>');
 
   // Real refraction only where it is supported and cheap enough (desktop Chromium).
@@ -48,40 +52,49 @@
     document.documentElement.classList.add('refract');
   }
 
+  // The label as printed on the real bottle: logo, wordmark, splash band, contact bar.
+  function label() {
+    return '<g clip-path="url(#lc)">' +
+      '<rect x="40" y="196" width="180" height="138" fill="#FFFFFF"/>' +
+      '<ellipse cx="130" cy="336" rx="130" ry="58" fill="url(#glow)"/>' +
+      '<g transform="translate(40 0)"><path d="' + wave(286, 8, 60, 180, 334) + '" fill="#5FB3DE" opacity=".8"/><path d="' + wave(293, 6, 60, 180, 334) + '" fill="#2F7FC1" opacity=".85"/></g>' +
+      '<rect x="40" y="308" width="180" height="26" fill="#2B2A5C"/>' +
+      '<path transform="translate(86 315) scale(.5)" d="M6.6 3.5h2.8l1.5 4.3-2 1.4a11 11 0 0 0 5.9 5.9l1.4-2 4.3 1.5v2.8a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<text x="136" y="325" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:700;font-size:11px;fill:#fff;letter-spacing:.6px">8802 7971</text>' +
+      '<image href="assets/logo.svg" x="99" y="202" width="62" height="24"/>' +
+      '<text x="130" y="250" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:800;font-size:24px;fill:#2B2A5C;letter-spacing:2.5px">ХИШИГ</text>' +
+      '<text x="130" y="263" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:700;font-size:7.5px;fill:#3E8E2A;letter-spacing:1.7px">БАЙГАЛИЙН ЦЭВЭР УС</text>' +
+    '</g>';
+  }
+
   function bottle(kind) {
-    if (kind === 'fill') {
-      return '<svg viewBox="0 0 200 300" style="width:100%;height:100%;overflow:visible" aria-hidden="true">' +
-        '<g clip-path="url(#bc)"><rect width="200" height="300" fill="#EAF4F9"/>' +
-          '<g class="fillup">' +
-            '<g class="run-mid"><path d="' + wave(116, 8, 50, 400, 300) + '" fill="#BFE0F2"/></g>' +
-            '<g class="run"><path d="' + wave(124, 7, 50, 400, 300) + '" fill="#2A75A6"/></g>' +
-          '</g></g>' +
-        '<path d="' + BOTTLE + '" fill="none" stroke="#12314A" stroke-width="3"/>' +
-        '<rect x="82" y="28" width="36" height="10" rx="3" fill="#12314A"/>' +
-      '</svg>';
-    }
-    return '<svg viewBox="0 0 200 300" style="width:100%;height:100%;overflow:visible" aria-hidden="true">' +
-      '<ellipse cx="100" cy="297" rx="70" ry="7" fill="rgba(0,0,0,.25)"/>' +
-      '<g clip-path="url(#bc)">' +
-        '<rect width="200" height="300" fill="rgba(255,255,255,.08)"/>' +
-        '<g class="run-mid"><path d="' + wave(120, 8, 50, 400, 300) + '" fill="#5FB3DE"/></g>' +
-        '<g class="run"><path d="' + wave(128, 7, 50, 400, 300) + '" fill="#3E9BD0"/></g>' +
-        '<circle class="bub" cx="64" cy="276" r="4" fill="rgba(255,255,255,.7)"/>' +
-        '<circle class="bub b2" cx="120" cy="282" r="3" fill="rgba(255,255,255,.6)"/>' +
-        '<circle class="bub b3" cx="148" cy="270" r="5" fill="rgba(255,255,255,.5)"/>' +
-        '<circle class="bub b4" cx="92" cy="286" r="2.5" fill="rgba(255,255,255,.7)"/>' +
-        '<rect x="42" y="150" width="7" height="110" rx="3.5" fill="rgba(255,255,255,.35)"/>' +
+    const fill = kind === 'fill';
+    return '<svg viewBox="0 0 260 420" style="width:100%;height:100%;overflow:visible" aria-hidden="true">' +
+      (fill ? '' : '<ellipse cx="130" cy="408" rx="92" ry="8" fill="rgba(0,0,0,.28)"/>') +
+      '<path d="M160 60C198 58 206 92 186 118" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="8" stroke-linecap="round"/>' +
+      '<g clip-path="url(#jc)">' +
+        '<rect width="260" height="420" fill="url(#jg)"/>' +
+        (fill ? '<g class="fillup">' : '<g>') +
+          '<g class="run-mid"><path d="' + wave(152, 9, 65, 520, 420) + '" fill="#5FB3DE" opacity=".95"/></g>' +
+          '<g class="run"><path d="' + wave(160, 7, 65, 520, 420) + '" fill="#2F7FC1" opacity=".95"/></g>' +
+        '</g>' +
+        (fill ? '' :
+          '<circle class="bub" cx="74" cy="380" r="4" fill="rgba(255,255,255,.7)"/>' +
+          '<circle class="bub b2" cx="150" cy="386" r="3" fill="rgba(255,255,255,.6)"/>' +
+          '<circle class="bub b3" cx="196" cy="376" r="5" fill="rgba(255,255,255,.5)"/>' +
+          '<circle class="bub b4" cx="112" cy="390" r="2.5" fill="rgba(255,255,255,.7)"/>') +
+        '<path d="M30 352H230V350Q230 386 194 386H66Q30 386 30 350Z" fill="#2A6FAE" opacity=".9"/>' +
       '</g>' +
-      '<path d="' + BOTTLE + '" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.6"/>' +
-      '<path d="M32 150 Q100 160 168 150" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.6"/>' +
-      '<path d="M32 246 Q100 256 168 246" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.6"/>' +
-      '<rect x="48" y="170" width="104" height="54" rx="10" fill="rgba(255,255,255,.94)"/>' +
-      '<text x="100" y="196" text-anchor="middle" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:15px;fill:#12314A">ХИШИГ</text>' +
-      '<text x="100" y="213" text-anchor="middle" style="font-family:Onest,sans-serif;font-weight:600;font-size:10px;fill:#1B5E8A;letter-spacing:1px">ЦЭВЭР УС · 5Л</text>' +
-      '<path d="M120 42 C158 40 166 70 148 96" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="7" stroke-linecap="round"/>' +
-      '<rect x="80" y="32" width="40" height="8" rx="3" fill="#2A75A6"/>' +
-      '<rect x="84" y="10" width="32" height="24" rx="5" fill="#2A75A6"/>' +
-      '<path d="M90 14V30M96 14V30M102 14V30M108 14V30" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>' +
+      '<path d="M32 140Q130 152 228 140" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>' +
+      '<path d="M32 344Q130 356 228 344" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>' +
+      label() +
+      '<path d="M54 100C46 160 46 270 56 340" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M206 96C214 130 214 180 208 200" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="' + JUG + '" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2.4"/>' +
+      '<rect x="103" y="44" width="54" height="10" rx="4" fill="#2A6FAE"/>' +
+      '<rect x="100" y="16" width="60" height="36" rx="9" fill="#2F7FC1"/>' +
+      '<rect x="96" y="12" width="68" height="12" rx="6" fill="#2A6FAE"/>' +
+      '<path d="M110 26V48M122 26V48M134 26V48M146 26V48" stroke="rgba(255,255,255,.3)" stroke-width="2"/>' +
     '</svg>';
   }
 

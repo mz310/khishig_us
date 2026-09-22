@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B4F82">
+<meta name="theme-color" content="#22224F">
 <title>Хишиг ус — Арвайхээрт байгалийн цэвэр ус хүргэнэ</title>
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
     <nav class="dnav glass dark" data-liquid aria-label="Үндсэн цэс">
       <div class="goo"><div class="blob trail"></div><div class="blob lead"></div></div>
       <a href="#top" class="navi cur" data-nav>Нүүр</a>
-      <a href="#who" class="navi" data-nav>Үйлчилгээ</a>
+      <a href="#who" class="navi" data-nav>Хэнд</a>
       <a href="#water" class="navi" data-nav>Усны тухай</a>
       <a href="#price" class="navi" data-nav>Үнэ</a>
       <a href="#contact" class="navi" data-nav>Холбоо барих</a>
@@ -40,10 +40,21 @@
   </div>
 </header>
 
-<section class="hero-water">
-  <img class="bg" src="assets/img/water2.jpg" alt="">
-  <div class="shade"></div>
-  <div class="wrap">
+<section class="hero">
+  <svg class="ridge" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400 Z" fill="rgba(255,255,255,.05)"/>
+    <path d="M0 400 L140 300 L200 340 L330 210 L400 280 L560 120 L640 200 L720 150 L860 290 L960 220 L1120 330 L1230 260 L1440 400" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="3" stroke-linejoin="round"/>
+  </svg>
+  <svg class="bubbles" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <circle class="drift" cx="180" cy="780" r="5" fill="rgba(124,196,236,.5)"/>
+    <circle class="drift e2" cx="420" cy="800" r="3" fill="rgba(124,196,236,.45)"/>
+    <circle class="drift e3" cx="660" cy="790" r="6" fill="rgba(124,196,236,.35)"/>
+    <circle class="drift e4" cx="1240" cy="800" r="4" fill="rgba(124,196,236,.45)"/>
+    <circle class="drift e2" cx="1330" cy="780" r="2.5" fill="rgba(124,196,236,.5)"/>
+    <circle class="drift e3" cx="760" cy="810" r="3" fill="rgba(124,196,236,.4)"/>
+  </svg>
+
+  <div class="wrap hero-grid">
     <div class="hero-text">
       <span class="chip-glass glass dark">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
@@ -60,50 +71,75 @@
           8802 7971
         </a>
       </div>
-      <ul class="facts">
-        <li><span>Хүргэлт</span>сумын бүх баг</li>
-        <li><span>Баллон</span>хоосныг нь аваад дүүрэнээр солино</li>
-        <li><span>Төлбөр</span>хүргэлтээр, бэлэн эсвэл данс</li>
-      </ul>
+      <div class="hero-price glass dark">
+        <div><div class="k">Нэг баллон</div><div class="v" data-price></div></div>
+        <div class="sep"></div>
+        <div><div class="k">Хүргэлт</div><div class="v" data-fee></div></div>
+        <div class="sep"></div>
+        <div><div class="k">3 авбал</div><div class="v" style="color:#8FE07A">1 бэлэг</div></div>
+      </div>
     </div>
+
     <div class="hero-product">
-      <div class="ring"></div>
-      <img class="bottle" src="assets/img/bottle.webp" alt="Хишиг байгалийн цэвэр усны баллон">
-      <div class="fbadge glass dark float" style="left:-40px;top:150px">
-        <span class="ico" style="background:var(--saffron);color:#fff;font-size:15px">+1</span>
+      <div class="jug bob" data-bottle="hero"></div>
+      <div class="fbadge glass dark float" style="left:-30px;top:120px">
+        <span class="ico" style="background:var(--leaf-2);color:#fff;font-size:15px">+1</span>
         <span><b>3 авбал 1 нь бэлэг</b><small>Нэг захиалга дотор</small></span>
       </div>
-      <div class="fbadge glass dark float f2" style="right:-20px;top:40px">
+      <div class="fbadge glass dark float f2" style="right:-30px;top:300px">
         <span class="ico" style="background:rgba(255,255,255,.16);color:#fff"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h13l-3.5-3.5M20 15H7l3.5 3.5"/></svg></span>
         <span><b>Хоосноо өгөөд</b><small>дүүрэнийг нь аваарай</small></span>
       </div>
-      <div class="hero-price glass dark">
-        <div><div class="k">Нэг баллон</div><div class="v" data-price></div></div>
-        <div><div class="k">Хүргэлт</div><div class="v" data-fee></div></div>
-      </div>
     </div>
+  </div>
+
+  <div class="hero-waves">
+    <svg class="run-slow" viewBox="0 0 1600 150" preserveAspectRatio="none" style="height:150px" aria-hidden="true"><path d="M0 60 Q100 30 200 60 T400 60 T600 60 T800 60 T1000 60 T1200 60 T1400 60 T1600 60 V150 H0 Z" fill="#2F7FC1" opacity=".55"/></svg>
+    <svg class="run-mid" viewBox="0 0 1600 150" preserveAspectRatio="none" style="height:112px" aria-hidden="true"><path d="M0 64 Q100 40 200 64 T400 64 T600 64 T800 64 T1000 64 T1200 64 T1400 64 T1600 64 V150 H0 Z" fill="#4A9FDB" opacity=".75"/></svg>
+    <svg class="run-slow" viewBox="0 0 1600 150" preserveAspectRatio="none" style="height:64px;bottom:-2px;animation-direction:reverse" aria-hidden="true"><path d="M0 70 Q100 44 200 70 T400 70 T600 70 T800 70 T1000 70 T1200 70 T1400 70 T1600 70 V150 H0 Z" fill="#F4F5FA"/></svg>
   </div>
 </section>
 
-<section class="section" id="who">
-  <div class="wrap">
-    <h2>Гэр бүл, байгууллагын аль алинд</h2>
-    <p class="lede">Нэг баллон ч бай, долоо хоног бүрийн тогтмол захиалга ч бай — ижил үнэ, ижил үйлчилгээ.</p>
-    <div class="aud">
-      <figure>
-        <img src="https://images.unsplash.com/photo-1621177555464-1982d3e00311?w=1200&q=75&auto=format&fit=crop" alt="Гэрийн ширээн дээрх усны сав, аяга" loading="lazy">
-        <figcaption>
-          <h3>Гэр бүлд</h3>
-          <p>Хүнд баллон зөөх шаардлагагүй. Захиалснаас хойш тухайн өдрөө хаалган дээр тань ирнэ. Хоосон баллоноо л бэлдээрэй.</p>
-        </figcaption>
-      </figure>
-      <figure>
-        <img src="https://images.unsplash.com/photo-1542462895432-4e29179f6e46?w=1200&q=75&auto=format&fit=crop" alt="Оффисын ширээн дээрх ус, аяганууд" loading="lazy">
-        <figcaption>
-          <h3>Байгууллагад</h3>
-          <p>Албан газар, дэлгүүр, сургууль. Тогтмол цагт хүргэж, сарын эцэст нэгдсэн тооцоо хийж болно. Дансаар төлөхөд баримт гарна.</p>
-        </figcaption>
-      </figure>
+<section class="section alt" id="who">
+  <div class="wrap aud2">
+    <div class="aud-text">
+      <div class="segbox white" id="audSeg" style="width:300px">
+        <div class="pill"></div>
+        <button class="seg on" data-aud="home">Гэр бүлд</button>
+        <button class="seg" data-aud="org">Байгууллагад</button>
+      </div>
+      <div class="aud-copy" data-aud-panel="home">
+        <h2>Гэртээ хүнд баллон зөөх шаардлагагүй.</h2>
+        <p class="lede">Захиалснаас хойш тухайн өдрөө хаалган дээр тань ирнэ. Хоосон баллоноо л бэлдээрэй.</p>
+        <ul class="benefits">
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></i><span><b>Хаалган дээр</b>Байр, хашаа ялгаагүй. Орцны код, давхраа бичээд орхино.</span></li>
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></i><span><b>Цагаа өөрөө сонгоно</b>09–12, 12–15, 15–17, эсвэл аль болох хурдан.</span></li>
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7"/><path d="M20 4v4.7h-4.7"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15.3"/><path d="M4 20v-4.7h4.7"/></svg></i><span><b>Нэг товчоор дахин</b>Хаяг, тоо санагдсан байна. Дараагийн удаа 10 секунд.</span></li>
+        </ul>
+      </div>
+      <div class="aud-copy" data-aud-panel="org" hidden>
+        <h2>Оффис, дэлгүүр, сургуульд тогтмол ус.</h2>
+        <p class="lede">Долоо хоногийн хуваариар хүргэж, сарын эцэст нэг тооцоо хийнэ. Дансаар төлөхөд баримт гарна.</p>
+        <ul class="benefits">
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3"/></svg></i><span><b>Тогтмол хуваарь</b>Даваа, Пүрэв гэх мэт. Захиалга өөрөө үүснэ, залгах шаардлагагүй.</span></li>
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg></i><span><b>Сарын нэгдсэн тооцоо</b>Хэдэн баллон, хэдэн төгрөг — нэг хуудсанд. Өр, төлөлт тодорхой.</span></li>
+          <li><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5 12 4.5l8.5 5"/><path d="M5.5 10v7M10 10v7M14 10v7M18.5 10v7M3.5 19.5h17"/></svg></i><span><b>Дансаар, баримттай</b>Нягтлан бодогчид ойлгомжтой. Бэлнээр ч болно.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="aud-panel">
+      <svg class="ridge" viewBox="0 0 600 260" preserveAspectRatio="none" aria-hidden="true"><path d="M0 250 L90 170 L130 200 L230 90 L290 150 L380 60 L440 130 L520 90 L600 200 V260 H0 Z" fill="rgba(255,255,255,.06)"/></svg>
+      <div class="jug-sm" data-bottle="hero"></div>
+      <div class="facts-col" data-aud-panel="home">
+        <div class="fact glass dark"><b>1–2</b><span>баллон долоо хоногт, дундаж айл</span></div>
+        <div class="fact glass dark"><b>Өнөөдрөө</b><span>17:00-оос өмнөх захиалга</span></div>
+        <div class="fact glass dark"><b>3 + 1</b><span>гурав авбал нэг нь бэлэг</span></div>
+      </div>
+      <div class="facts-col" data-aud-panel="org" hidden>
+        <div class="fact glass dark"><b>Хуваарь</b><span>долоо хоног бүр, тогтсон өдөр</span></div>
+        <div class="fact glass dark"><b>Нэг тооцоо</b><span>сарын эцэст, бүх захиалга нэг дор</span></div>
+        <div class="fact glass dark"><b>Баримт</b><span>дансны гүйлгээ бүрт</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -207,11 +243,22 @@
     </div>
     <div class="bottom">
       <span>© 2026 Хишиг ус</span>
-      <span>Баллоны зураг: эзний бодит зураг. Бусад зураг түр жишээ.</span>
+      <span>Зургууд түр жишээ</span>
     </div>
   </div>
 </footer>
 
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  const seg = document.getElementById('audSeg');
+  const place = KHISHIG.seg(seg);
+  seg.querySelectorAll('.seg').forEach((b) => b.addEventListener('click', () => {
+    seg.querySelectorAll('.seg').forEach((x) => x.classList.toggle('on', x === b));
+    place();
+    document.querySelectorAll('[data-aud-panel]').forEach((p) => { p.hidden = p.dataset.audPanel !== b.dataset.aud; });
+  }));
+})();
+</script>
 </body>
 </html>
